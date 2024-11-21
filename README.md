@@ -1,3 +1,9 @@
+# 目录说明
+
+1. 本电商系统前后端分离，主要和你分享的是goframe开发的最佳实践，所以项目主目录以goframe建议的目录结构进行设计。
+2. 系统的web前端目录为：frontend_web
+3. 系统的管理后台前端目录为：frontend_manage
+
 # 接口文档
 
 gf run main.go 启动项目后访问：
