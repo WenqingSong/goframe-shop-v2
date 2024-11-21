@@ -1,37 +1,95 @@
-# goframe-shop
+# 接口文档
 
-#### 介绍
-基于goframe最新版搭建的前后端分离的主流电商系统
+gf run main.go 启动项目后访问：
 
-#### 软件架构
-软件架构说明
+http://127.0.0.1:8000/swagger/
 
+# 说明
 
-#### 安装教程
+main分支使用目前goframe最新版V2.2开发实现
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+如果你需要1.1X版本的项目，可以查看我另外的一个项目地址：
+https://github.com/wangzhongyang007/goframe-shop
 
-#### 使用说明
+# 运行流程
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+## 1. 下载项目
 
-#### 参与贡献
+git clone https://github.com/wangzhongyang007/goframe-shop-v2
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+## 2. 配置数据库
 
+把hack/shop.sql导入你的数据库中
 
-#### 特技
+## 3. 修改配置文件
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+修改hack/config.yaml文件中的数据库密码
+
+修改manifest/config/config.yaml中的数据库密码
+
+redis的密码可以不改，gtoken已经使用gcache模式，如果你需要使用redis，请配置配置文件中的redis
+
+七牛云的密码可以不改，不影响项目启动，如果你需要图片上传功能，请修改配置文件中qiniu相关的参数
+
+## 4. 启动项目
+
+在项目根目录下执行：
+
+go run main.go
+
+如果你需要自动编译，可以执行：
+
+gf run main.go
+
+# 项目启动失败可能的原因
+
+1. Go或者GoFrame安装的版本不一致
+2. 配置文件问题，密码不正确等等
+
+# 出现问题可以联系我
+
+## 我的知识星球
+
+https://wx.zsxq.com/dweb2/index/group/15528828844882
+
+## 微信
+
+wangzhongyang1993
+
+## 我的博客
+
+https://juejin.cn/user/2189882892232029/posts
+
+## 我的公众号
+
+程序员升级打怪之旅
+
+# 交叉编译
+
+## for Linux
+
+```
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build
+```
+
+## for windows
+
+```
+CGO_ENABLE=0 GOOS=windows GOARCH=amd64 go build
+```
+
+# 部署流程
+
+1. 本地提交git
+2. 远程服务器已经安装Go环境
+3. 执行部署脚本：
+
+```
+setup.sh
+```
+
+# 热更新启动项目
+
+```
+gf run main.go
+```
