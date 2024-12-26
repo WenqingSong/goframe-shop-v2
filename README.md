@@ -4,12 +4,6 @@
 2. 系统的web前端目录为：frontend_web
 3. 系统的管理后台前端目录为：frontend_manage
 
-# 接口文档
-
-gf run main.go 启动项目后访问：
-
-http://127.0.0.1:8000/swagger/
-
 # 说明
 
 main分支使用目前goframe最新版V2.2开发实现
@@ -29,13 +23,13 @@ git clone https://github.com/wangzhongyang007/goframe-shop-v2
 
 ## 3. 修改配置文件
 
-修改hack/config.yaml文件中的数据库密码
+1. 在hack目录下复制example_config.yaml为config.yaml，并且修改hack/config.yaml文件中的数据库密码
 
-修改manifest/config/config.yaml中的数据库密码
+2. 在manifest目录下复制example_config.yaml为config.yaml，并且修改manifest/config/config.yaml中的数据库密码
 
-redis的密码可以不改，gtoken已经使用gcache模式，如果你需要使用redis，请配置配置文件中的redis
+3. redis的密码可以不改，gtoken已经使用gcache模式，如果你需要使用redis，请修改配置文件中的redis的账号密码
 
-七牛云的密码可以不改，不影响项目启动，如果你需要图片上传功能，请修改配置文件中qiniu相关的参数
+4. 七牛云的密码可以不改，不影响项目启动，如果你需要图片上传功能，请修改配置文件中qiniu相关的参数
 
 ## 4. 启动项目
 
@@ -46,6 +40,12 @@ go run main.go
 如果你需要自动编译，可以执行：
 
 gf run main.go
+
+# 接口文档
+
+gf run main.go 启动项目后访问：
+
+http://127.0.0.1:8000/swagger/
 
 # 项目启动失败可能的原因
 

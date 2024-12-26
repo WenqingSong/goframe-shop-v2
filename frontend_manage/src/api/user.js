@@ -2,7 +2,8 @@ import request from '@/utils/request'
 
 export function login(data) {
   return request({
-    url: '/backend/admin/login',
+    // url: '/backend/admin/login',
+    url: '/backend/login',
     method: 'post',
     data
   })
