@@ -24,7 +24,7 @@ export const addCart = form =>
  */
 export const getCartList = queryObj =>
     request({
-        method: 'GET',
+        method: 'POST',
         url: '/frontend/cart/list/'.concat('?', query(queryObj)),
     });
 

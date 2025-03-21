@@ -12,7 +12,7 @@
                     <div class="img_box">
                         <img
                             style="height: 100%; width: 100%"
-                            :src="item.pic_url"
+                            :src="item.picUrl"
                             :alt="item.goods_name" />
                     </div>
                     <div class="goods-desc">

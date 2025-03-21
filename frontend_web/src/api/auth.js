@@ -8,7 +8,7 @@ import request from '@/utils/request';
 export const login = ({ name, password }) =>
     request({
         method: 'POST',
-        url: '/frontend/user/login',
+        url: '/frontend/login',
         data: (() => {
             const auth = new FormData();
             auth.append('name', name);

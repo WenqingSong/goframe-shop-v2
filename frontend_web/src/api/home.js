@@ -28,7 +28,7 @@ export const getProductListByCategoryId = queryObj =>
 export const getCarouselChartData = queryObj =>
     request({
         method: 'GET',
-        url: '/frontend/rotation/list'.concat('?', query(queryObj)),
+        url: '/backend/frontend/rotation/list'.concat('?', query(queryObj)),
     });
 
 /**
@@ -38,5 +38,5 @@ export const getCarouselChartData = queryObj =>
 export const getClassification = parent_id =>
     request({
         method: 'GET',
-        url: '/frontend/category/list'.concat('?', query({ parent_id })),
+        url: '/backend/category/list'.concat('?', query({ parent_id })),
     });
