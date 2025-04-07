@@ -9,7 +9,7 @@
       label-position="left"
     >
       <div class="title-container">
-        <h3 class="title">农产品商城后台管理系统</h3>
+        <h3 class="title">商城管理系统</h3>
       </div>
 
       <el-form-item prop="username">
@@ -116,8 +116,8 @@ export default {
     };
     return {
       loginForm: {
-        name: "jialechen",
-        password: "123",
+        name: "wangzhongyang",
+        password: "111111",
       },
       loginRules: {
         username: [
