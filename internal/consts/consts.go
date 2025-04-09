@@ -24,6 +24,7 @@ const (
 	CtxUserStatus = "CtxUserStatus"
 	//for 登录相关
 	TokenType          = "Bearer"
+	CacheModeLocal     = 1
 	CacheModeRedis     = 2
 	BackendServerName  = "开源电商系统"
 	MultiLogin         = true

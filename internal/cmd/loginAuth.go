@@ -20,7 +20,7 @@ import (
 // 管理后台相关
 func StartBackendGToken() (gfAdminToken *gtoken.GfToken, err error) {
 	gfAdminToken = &gtoken.GfToken{
-		CacheMode:        consts.CacheModeRedis,
+		CacheMode:        consts.CacheModeLocal,
 		ServerName:       consts.BackendServerName,
 		LoginPath:        "/login",
 		LoginBeforeFunc:  loginFunc,
@@ -38,7 +38,7 @@ func StartBackendGToken() (gfAdminToken *gtoken.GfToken, err error) {
 // 前台登录gtoken相关
 func StartFrontendGToken() (gfFrontendToken *gtoken.GfToken, err error) {
 	gfFrontendToken = &gtoken.GfToken{
-		CacheMode:       consts.CacheModeRedis,
+		CacheMode:       consts.CacheModeLocal,
 		ServerName:      consts.BackendServerName,
 		LoginPath:       "/login",
 		LoginBeforeFunc: loginFuncFrontend,
