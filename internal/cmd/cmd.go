@@ -41,6 +41,7 @@ var (
 				group.Bind(
 					controller.Admin.Create, // 管理员
 					controller.Login,        // 登录
+					controller.Data,         // 数据大屏相关
 				)
 				//需要登录的路由组绑定
 				group.Group("/", func(group *ghttp.RouterGroup) {
@@ -49,7 +50,6 @@ var (
 						panic(err)
 					}
 					group.Bind(
-						controller.Data,         // 数据大屏相关
 						controller.Role,         // 角色
 						controller.Permission,   // 权限
 						controller.Admin.List,   // 管理员
