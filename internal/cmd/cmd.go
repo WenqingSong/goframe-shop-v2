@@ -67,9 +67,10 @@ var (
 						controller.GoodsOptions, //商品规格管理
 						controller.Address,      //城市地址管理
 						//这么写是为了避免前后端重复注册相同的路由和方法
-						controller.Order.List,   //订单列表
-						controller.Order.Detail, //订单详情
-						backend.Article,         //文章管理&CMS
+						controller.Order.List,     //订单列表
+						controller.Order.Detail,   //订单详情
+						backend.Article,           //文章管理&CMS
+						controller.Consignee.List, //地址列表
 					)
 				})
 			})
