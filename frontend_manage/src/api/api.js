@@ -92,7 +92,7 @@ export function comDelete(data) {
 //商品分类
 export function classList(data) {
   return request({
-    url: "/backend/category/level/list".concat('?', query(data)),
+    url: "/backend/category/list".concat('?', query(data)),
     method: "get",
   });
 }
@@ -149,14 +149,14 @@ export function couponUpdate(data) {
 //评价列表
 export function evaluateList(data) {
   return request({
-    url: "/backend/comment/list".concat('?', query(data)),
+    url: "/frontend/comment/list".concat('?', query(data)),
     method: "get",
   });
 }
 //删除评价
 export function evaluateDelete(data) {
   return request({
-    url: "/backend/comment/delete",
+    url: "/frontend/delete/comment",
     method: "delete",
     data,
   });
@@ -170,10 +170,10 @@ export function orderList(data) {
   });
 }
 
-//会员管理
+//管理员列表
 export function memberList(data) {
   return request({
-    url: "/backend/user/list".concat('?', query(data)),
+    url: "/backend/admin/list".concat('?', query(data)),
     method: "get",
   });
 }
@@ -231,7 +231,7 @@ export function recommendAdd(data) {
 //新增种草
 export function levelList(data) {
   return request({
-    url: "/backend/category/level/list".concat('?', query(data)),
+    url: "/backend/category/list".concat('?', query(data)),
     method: "get",
   });
 }

@@ -19,7 +19,7 @@ export function getInfo(token) {
 
 export function logout(data) {
   return request({
-    url: '/backend/admin/logout',
+    url: '/backend/user/logout',
     method: 'post',
     data
   })

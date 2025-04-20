@@ -18,7 +18,7 @@ type GoodsGetListCommonRes struct {
 }
 
 type GoodsDetailReq struct {
-	g.Meta `path:"/goods/detail" method:"post" tags:"前台商品" summary:"商品详情"`
+	g.Meta `path:"/goods/detail" method:"get" tags:"前台商品" summary:"商品详情"`
 	Id     uint `json:"id"`
 }
 

@@ -24,6 +24,6 @@ export const getCategory = parent_id => {
 export const getGoodsOptions = queryObj => {
     return request({
         method: 'GET',
-        url: '/frontend/goods_options/list/'.concat('?', query(queryObj)),
+        url: '/backend/goods/options/list/'.concat('?', query(queryObj)),
     });
 }
