@@ -3,7 +3,7 @@ package backend
 import "github.com/gogf/gf/v2/frame/g"
 
 type DataHeadReq struct {
-	g.Meta `path:"/data/head/" method:"get" tags:"data" summary:"数据大屏的头部卡片"`
+	g.Meta `path:"/dashboard/head/" method:"get" tags:"data" summary:"数据大屏的头部卡片"`
 }
 
 type DataHeadRes struct {
@@ -13,7 +13,7 @@ type DataHeadRes struct {
 }
 
 type DataEChartsReq struct {
-	g.Meta `path:"/data/echarts/" method:"get" tags:"data" summary:"数据大屏的echarts"`
+	g.Meta `path:"/dashboard/echarts/" method:"post" tags:"data" summary:"数据大屏的echarts"`
 }
 
 type DataEChartsRes struct {
