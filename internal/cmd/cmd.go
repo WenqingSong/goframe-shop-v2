@@ -21,7 +21,7 @@ var (
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 			s := g.Server()
 			//订单超时未评价默认好评
-			//err = UserOrderDefaultComments(ctx)
+			err = UserOrderDefaultComments(ctx)
 			//if err != nil {
 			//	panic(err)
 			//}
@@ -67,9 +67,10 @@ var (
 						controller.GoodsOptions, //商品规格管理
 						controller.Address,      //城市地址管理
 						//这么写是为了避免前后端重复注册相同的路由和方法
-						controller.Order.List,   //订单列表
-						controller.Order.Detail, //订单详情
-						backend.Article,         //文章管理&CMS
+						controller.Order.List,     //订单列表
+						controller.Order.Detail,   //订单详情
+						backend.Article,           //文章管理&CMS
+						controller.SeckillBackend, //秒杀后台管理
 					)
 				})
 			})
@@ -109,10 +110,25 @@ var (
 						controller.OrderGoodsComments,  //订单评价
 						frontend.Article,               //文章 @author自愚自乐
 						frontend.Refund,                //售后 @author自愚自乐
+						controller.SeckillFrontend,     //秒杀前台
 					)
 				})
 			})
-			s.SetPort(8199) //设置端口
+
+			// 添加公开的秒杀路由（不需要登录）
+			s.Group("/seckill", func(group *ghttp.RouterGroup) {
+				group.Middleware(
+					service.Middleware().CORS,
+					service.Middleware().Ctx,
+					service.Middleware().ResponseHandler,
+				)
+				group.Bind(
+					controller.SeckillFrontend.List,   // 秒杀商品列表
+					controller.SeckillFrontend.Detail, // 秒杀商品详情
+				)
+			})
+
+			s.SetPort(8000) //设置端口
 			s.Run()
 			return nil
 		},

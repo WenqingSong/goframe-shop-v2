@@ -24,7 +24,6 @@ const (
 	CtxUserStatus = "CtxUserStatus"
 	//for 登录相关
 	TokenType          = "Bearer"
-	CacheModeLocal     = 1
 	CacheModeRedis     = 2
 	BackendServerName  = "开源电商系统"
 	MultiLogin         = true
@@ -57,4 +56,42 @@ const (
 	RefundStatusWait   = 1
 	RefundStatusAgree  = 2
 	RefundStatusRejuct = 3
+
+	// 秒杀系统相关常量
+	SeckillDefaultStock = 1000  // 默认秒杀商品库存
+	SeckillMaxStock     = 10000 // 最大秒杀商品库存
+	SeckillSlotCount    = 16384 // Redis集群槽位数量
+
+	// 秒杀令牌桶限流器配置
+	SeckillTokenBucketSize = 5000 // 令牌桶容量，原值过小，调大以提高并发处理能力
+	SeckillTokenRate       = 1000 // 令牌产生速率（每秒），提高速率以支持更高QPS
+
+	// 秒杀漏桶限流器配置
+	SeckillLeakyBucketSize = 10000 // 漏桶容量，原值过小，调大以容纳更多请求
+	SeckillLeakyBucketRate = 2000  // 漏桶处理速率（每秒），提高以支持更高吞吐量
+
+	// Kafka主题
+	KafkaTopicSeckill         = "seckill_order"          // 秒杀订单主题
+	KafkaTopicSeckillComplete = "seckill_order_complete" // 秒杀订单完成主题
+	SeckillKafkaTopic         = "seckill_order"          // 秒杀订单主题（兼容现有代码）
+
+	// Redis键前缀
+	SeckillGoodsPrefix       = "seckill:goods:"       // 秒杀商品信息前缀
+	SeckillStockPrefix       = "seckill:stock:"       // 秒杀库存前缀
+	SeckillUserBoughtPrefix  = "seckill:user:bought:" // 用户购买记录前缀
+	SeckillSuccessPrefix     = "seckill:success:"     // 秒杀成功计数前缀
+	SeckillLockPrefix        = "seckill:lock:"        // 秒杀锁前缀
+	SeckillOrderSentPrefix   = "seckill:order:sent:"  // 秒杀订单已发送标记前缀
+	SeckillTokenBucketPrefix = "seckill:token:"       // 令牌桶前缀
+	SeckillLeakyBucketPrefix = "seckill:leaky:"       // 漏桶前缀
+	SeckillResultPrefix      = "seckill:result:"      // 秒杀结果前缀
+	SeckillQueuePrefix       = "seckill:queue:"       // 秒杀队列前缀
+
+	// 秒杀脚本相关
+	SeckillScriptMaxRetries = 3  // Lua脚本最大重试次数
+	SeckillScriptRetryDelay = 50 // Lua脚本重试延迟(毫秒)
+
+	// 秒杀统计和队列
+	SeckillMetricsPrefix   = "seckill:metrics:" // 秒杀统计指标前缀
+	SeckillQueueExpireTime = 3600               // 秒杀队列过期时间(秒)
 )

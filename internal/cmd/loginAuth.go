@@ -20,7 +20,7 @@ import (
 // 管理后台相关
 func StartBackendGToken() (gfAdminToken *gtoken.GfToken, err error) {
 	gfAdminToken = &gtoken.GfToken{
-		CacheMode:        consts.CacheModeLocal,
+		CacheMode:        consts.CacheModeRedis,
 		ServerName:       consts.BackendServerName,
 		LoginPath:        "/login",
 		LoginBeforeFunc:  loginFunc,
@@ -31,6 +31,7 @@ func StartBackendGToken() (gfAdminToken *gtoken.GfToken, err error) {
 		AuthAfterFunc:    authAfterFunc,
 		MultiLogin:       consts.MultiLogin,
 	}
+	//todo 去掉全局校验，只用cmd中的路由组校验
 	err = gfAdminToken.Start()
 	return
 }
@@ -38,7 +39,7 @@ func StartBackendGToken() (gfAdminToken *gtoken.GfToken, err error) {
 // 前台登录gtoken相关
 func StartFrontendGToken() (gfFrontendToken *gtoken.GfToken, err error) {
 	gfFrontendToken = &gtoken.GfToken{
-		CacheMode:       consts.CacheModeLocal,
+		CacheMode:       consts.CacheModeRedis,
 		ServerName:      consts.BackendServerName,
 		LoginPath:       "/login",
 		LoginBeforeFunc: loginFuncFrontend,
