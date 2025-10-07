@@ -1,16 +1,17 @@
-package rotation
+package admin
 
 import (
 	"context"
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/encoding/ghtml"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/util/grand"
 	"goframe-shop-v2/internal/dao"
 	"goframe-shop-v2/internal/model"
 	"goframe-shop-v2/internal/model/entity"
 	"goframe-shop-v2/internal/service"
 	"goframe-shop-v2/utility"
+
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/encoding/ghtml"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/util/grand"
 )
 
 type sAdmin struct{}
@@ -59,7 +60,7 @@ func (s *sAdmin) GetUserByUserNamePassword(ctx context.Context, in model.UserLog
 
 // Delete 删除
 func (s *sAdmin) Delete(ctx context.Context, id uint) error {
-	return dao.AdminInfo.Transaction(ctx, func(ctx context.Context, tx *gdb.TX) error {
+	return dao.AdminInfo.Transaction(ctx, func(ctx context.Context, tx gdb.TX) error {
 		// 删除内容
 		_, err := dao.AdminInfo.Ctx(ctx).Where(g.Map{
 			dao.AdminInfo.Columns().Id: id,

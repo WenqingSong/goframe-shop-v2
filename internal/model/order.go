@@ -70,3 +70,27 @@ type OrderAddGoodsInfo struct {
 type OrderAddOutput struct {
 	Id uint `json:"id"`
 }
+
+// SeckillOrderInput 秒杀订单输入
+type SeckillOrderInput struct {
+	UserId         uint    `json:"userId"`         // 用户ID
+	GoodsId        uint    `json:"goodsId"`        // 商品ID
+	GoodsOptionsId uint    `json:"goodsOptionsId"` // 商品规格ID
+	Count          uint    `json:"count"`          // 购买数量
+	Price          float64 `json:"price"`          // 价格
+	OrderNo        string  `json:"orderNo"`        // 订单号
+}
+
+// OrderCreateInput 订单创建输入
+type OrderCreateInput struct {
+	UserId         uint    `json:"userId"`         // 用户ID
+	GoodsId        uint    `json:"goodsId"`        // 商品ID
+	GoodsOptionsId uint    `json:"goodsOptionsId"` // 商品选项ID
+	Count          uint    `json:"count"`          // 购买数量
+	Price          float64 `json:"price"`          // 总价
+	Status         int     `json:"status"`         // 订单状态
+	OrderNo        string  `json:"orderNo"`        // 订单号
+	Address        string  `json:"address"`        // 收货地址
+	Phone          string  `json:"phone"`          // 手机号码
+	Remark         string  `json:"remark"`         // 备注
+}

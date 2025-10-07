@@ -29,6 +29,7 @@ import (
 	_ "goframe-shop-v2/internal/logic/refund"
 	_ "goframe-shop-v2/internal/logic/role"
 	_ "goframe-shop-v2/internal/logic/rotation"
+	_ "goframe-shop-v2/internal/logic/seckill"
 	_ "goframe-shop-v2/internal/logic/session"
 	_ "goframe-shop-v2/internal/logic/stock"
 	_ "goframe-shop-v2/internal/logic/user"

@@ -2,13 +2,14 @@ package stock
 
 import (
 	"context"
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/frame/g"
 	"goframe-shop-v2/internal/dao"
 	"goframe-shop-v2/internal/model"
 	"goframe-shop-v2/internal/model/entity"
 	"goframe-shop-v2/internal/service"
+
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/frame/g"
 )
 
 //1. 库存问题 抽取方法 定义3个方法，分别由以下3种技术实现： mysql 、redis 、lua脚本 @wolf兄
@@ -36,7 +37,7 @@ func (s *sStock) DecrementWithSql(ctx context.Context, in model.DecStockInput) (
 	if goodsOpt.Stock <= 0 {
 		return gerror.New("商品库存不足")
 	}
-	err = g.DB().Transaction(ctx, func(ctx context.Context, tx *gdb.TX) error {
+	err = g.DB().Transaction(ctx, func(ctx context.Context, tx gdb.TX) error {
 		//库存大于0 商品减少库存
 		_, err2 := dao.GoodsInfo.Ctx(ctx).WherePri(in.GoodsId).WhereGT(dao.GoodsInfo.Columns().Stock, 0).
 			Decrement(dao.GoodsInfo.Columns().Stock, in.Number)

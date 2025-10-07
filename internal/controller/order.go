@@ -2,11 +2,12 @@ package controller
 
 import (
 	"context"
-	"github.com/gogf/gf/v2/util/gconv"
 	"goframe-shop-v2/api/backend"
 	"goframe-shop-v2/api/frontend"
 	"goframe-shop-v2/internal/model"
 	"goframe-shop-v2/internal/service"
+
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Order 订单管理
@@ -15,7 +16,7 @@ var Order = cOrder{}
 type cOrder struct{}
 
 // 下单
-func (c *cOrder) Add(ctx context.Context, req *frontend.AddOrderReq) (res *frontend.AddOrderRes, err error) {
+func (c *cOrder) Add(ctx context.Context, req *frontend.OrderAddReq) (res *frontend.OrderAddRes, err error) {
 	orderAddInput := model.OrderAddInput{}
 	//注意：这里要用scan 而不是struct
 	if err = gconv.Scan(req, &orderAddInput); err != nil {
@@ -27,7 +28,7 @@ func (c *cOrder) Add(ctx context.Context, req *frontend.AddOrderReq) (res *front
 		return nil, err
 	}
 
-	return &frontend.AddOrderRes{
+	return &frontend.OrderAddRes{
 		Id: addRes.Id,
 	}, err
 }
@@ -44,7 +45,7 @@ func (c *cOrder) List(ctx context.Context, req *backend.OrderListReq) (res *back
 	}
 
 	return &backend.OrderListRes{
-		backend.CommonPaginationRes{
+		CommonPaginationRes: backend.CommonPaginationRes{
 			List:  orderListOutput.List,
 			Total: orderListOutput.Total,
 			Page:  orderListOutput.Page,

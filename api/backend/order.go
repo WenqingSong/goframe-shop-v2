@@ -65,3 +65,76 @@ type OrderGoodsInfoBase struct {
 	CreatedAt   *gtime.Time `json:"createdAt"   description:""`
 	UpdatedAt   *gtime.Time `json:"updatedAt"   description:""`
 }
+
+// 添加缺失的结构体定义
+type OrderAddReq struct {
+	g.Meta    `path:"/order/add" method:"post" tags:"订单管理" summary:"创建订单"`
+	GoodsList []OrderGoodsInfo `json:"goods_list" dc:"商品列表"`
+}
+
+type OrderAddRes struct {
+	Id uint `json:"id" dc:"订单ID"`
+}
+
+type OrderUpdateStatusReq struct {
+	g.Meta `path:"/order/update/status" method:"post" tags:"订单管理" summary:"更新订单状态"`
+	Id     uint `json:"id" v:"required" dc:"订单ID"`
+	Status int  `json:"status" v:"required" dc:"订单状态"`
+}
+
+type OrderUpdateStatusRes struct {
+	Id uint `json:"id" dc:"订单ID"`
+}
+
+type OrderDeleteReq struct {
+	g.Meta `path:"/order/delete" method:"delete" tags:"订单管理" summary:"删除订单"`
+	Id     uint `json:"id" v:"required" dc:"订单ID"`
+}
+
+type OrderDeleteRes struct {
+	Id uint `json:"id" dc:"订单ID"`
+}
+
+type OrderRefundReq struct {
+	g.Meta `path:"/order/refund" method:"post" tags:"订单管理" summary:"订单退款"`
+	Id     uint   `json:"id" v:"required" dc:"订单ID"`
+	Reason string `json:"reason" dc:"退款原因"`
+}
+
+type OrderRefundRes struct {
+	Id uint `json:"id" dc:"订单ID"`
+}
+
+type OrderGoodsInfo struct {
+	GoodsId        int    `json:"goods_id" dc:"商品ID"`
+	GoodsOptionsId int    `json:"goods_options_id" dc:"商品选项ID"`
+	Count          int    `json:"count" dc:"商品数量"`
+	Price          int    `json:"price" dc:"价格"`
+	CouponPrice    int    `json:"coupon_price" dc:"优惠券金额"`
+	ActualPrice    int    `json:"actual_price" dc:"实际支付金额"`
+	Remark         string `json:"remark" dc:"备注"`
+}
+
+type OrderInfo struct {
+	OrderBase
+	Number         string      `json:"number" dc:"订单编号"`
+	UserId         int         `json:"user_id" dc:"用户ID"`
+	PayType        int         `json:"pay_type" dc:"支付方式"`
+	PayAt          *gtime.Time `json:"pay_at" dc:"支付时间"`
+	ShipAt         *gtime.Time `json:"ship_at" dc:"发货时间"`
+	FinishAt       *gtime.Time `json:"finish_at" dc:"完成时间"`
+	Status         int         `json:"status" dc:"订单状态"`
+	ConsigneeName  string      `json:"consignee_name" dc:"收货人姓名"`
+	ConsigneePhone string      `json:"consignee_phone" dc:"收货人手机号"`
+	Address        string      `json:"address" dc:"地址"`
+}
+
+type OrderBase struct {
+	Id          int         `json:"id" dc:"订单ID"`
+	Price       int         `json:"price" dc:"订单金额"`
+	CouponPrice int         `json:"coupon_price" dc:"优惠券金额"`
+	ActualPrice int         `json:"actual_price" dc:"实际支付金额"`
+	Remark      string      `json:"remark" dc:"备注"`
+	CreatedAt   *gtime.Time `json:"created_at" dc:"创建时间"`
+	UpdatedAt   *gtime.Time `json:"updated_at" dc:"更新时间"`
+}
