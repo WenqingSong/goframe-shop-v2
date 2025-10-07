@@ -92,7 +92,7 @@ func initDatabaseConfig(ctx context.Context) {
 		g.Log().Warning(ctx, "数据库连接配置有误，当前配置:", dbConfig)
 
 		// 推荐正确配置
-		correctLink := "mysql:root:123456@tcp(127.0.0.1:3306)/gf_shop"
+		correctLink := "mysql:root:111111@tcp(127.0.0.1:3306)/shop"
 		g.Log().Warning(ctx, "请在manifest/config/config.yaml中修改数据库配置为:")
 		g.Log().Warning(ctx, "database:\n  default:\n    link: \""+correctLink+"\"")
 
