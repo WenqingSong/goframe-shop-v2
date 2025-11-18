@@ -25,11 +25,6 @@ var (
 			//if err != nil {
 			//	panic(err)
 			//}
-			// 启动管理后台gtoken
-			gfAdminToken, err := StartBackendGToken()
-			if err != nil {
-				return err
-			}
 			//管理后台路由组
 			s.Group("/backend", func(group *ghttp.RouterGroup) {
 				group.Middleware(
@@ -43,12 +38,11 @@ var (
 					controller.Login,        // 登录
 					controller.Data,         // 数据大屏相关
 				)
-				//需要登录的路由组绑定
+				//需要登录的路由组绑定（JWT 中间件）
 				group.Group("/", func(group *ghttp.RouterGroup) {
-					err := gfAdminToken.Middleware(ctx, group)
-					if err != nil {
-						panic(err)
-					}
+					group.Middleware(
+						service.Middleware().Auth,
+					)
 					group.Bind(
 						controller.Role,         // 角色
 						controller.Permission,   // 权限
@@ -76,11 +70,10 @@ var (
 				})
 			})
 			//---------------------华丽的分割线-------------------
-			// 启动前台项目gtoken
-			frontendToken, err := StartFrontendGToken()
-			if err != nil {
-				return err
-			}
+			//---------------------华丽的分割线-------------------
+			// 前台项目使用 JWT
+			//前台项目路由组
+			//前台项目路由组
 			//前台项目路由组
 			s.Group("/frontend", func(group *ghttp.RouterGroup) {
 				group.Middleware(
@@ -92,13 +85,14 @@ var (
 				group.Bind(
 					controller.User.Register, //用户注册
 					controller.Goods,         //商品
+					controller.User.Login,    //用户登录
 				)
 				//需要登录鉴权的路由组
 				group.Group("/", func(group *ghttp.RouterGroup) {
-					err := frontendToken.Middleware(ctx, group)
-					if err != nil {
-						return
-					}
+					// 前台需要登录鉴权的接口，挂载带 Next 的 UserAuth JWT 中间件
+					group.Middleware(
+						service.Middleware().UserAuth,
+					)
 					//需要登录鉴权的接口放到这里
 					group.Bind(
 						controller.User.Info,           //当前登录用户的信息

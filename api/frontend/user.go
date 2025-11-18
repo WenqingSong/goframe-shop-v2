@@ -1,6 +1,8 @@
 package frontend
 
 import (
+	"time"
+
 	"github.com/gogf/gf/v2/frame/g"
 )
 
@@ -20,12 +22,16 @@ type RegisterRes struct {
 	Id uint `json:"id"`
 }
 
-// for gtoken
+// for jwt
+type LoginReq struct {
+	g.Meta   `path:"/login" method:"post" tags:"前台用户" summary:"前台用户登录"`
+	Name     string `json:"name"         description:"用户名" v:"required#用户名必填"`
+	Password string `json:"password"     description:"密码" v:"required#密码必填"`
+}
+
 type LoginRes struct {
-	Type     string `json:"type"`
-	Token    string `json:"token"`
-	ExpireIn int    `json:"expire_in"`
-	UserInfoBase
+	Token  string    `json:"token"`
+	Expire time.Time `json:"expire"`
 }
 
 type UserInfoReq struct {

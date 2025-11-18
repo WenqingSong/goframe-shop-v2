@@ -2,11 +2,14 @@ package controller
 
 import (
 	"context"
-	"github.com/gogf/gf/v2/util/gconv"
 	"goframe-shop-v2/api/frontend"
-	"goframe-shop-v2/internal/consts"
+	"goframe-shop-v2/internal/dao"
 	"goframe-shop-v2/internal/model"
+	"goframe-shop-v2/internal/model/entity"
 	"goframe-shop-v2/internal/service"
+
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 var User = cUser{}
@@ -26,14 +29,31 @@ func (c *cUser) Register(ctx context.Context, req *frontend.RegisterReq) (res *f
 	return &frontend.RegisterRes{Id: out.Id}, nil
 }
 
+// 前台用户登录（JWT）
+func (c *cUser) Login(ctx context.Context, req *frontend.LoginReq) (res *frontend.LoginRes, err error) {
+	res = &frontend.LoginRes{}
+	res.Token, res.Expire = service.UserAuth().LoginHandler(ctx)
+	return
+}
+
 func (c *cUser) Info(ctx context.Context, req *frontend.UserInfoReq) (res *frontend.UserInfoRes, err error) {
 	res = &frontend.UserInfoRes{}
-	res.Id = gconv.Uint(ctx.Value(consts.CtxUserId))
-	res.Name = gconv.String(ctx.Value(consts.CtxUserName))
-	res.Avatar = gconv.String(ctx.Value(consts.CtxUserAvatar))
-	res.Sex = gconv.Uint8(ctx.Value(consts.CtxUserSex))
-	res.Sign = gconv.String(ctx.Value(consts.CtxUserSign))
-	res.Status = gconv.Uint8(ctx.Value(consts.CtxUserStatus))
+	// 从 JWT 中获取当前用户 ID
+	g.Log().Info(ctx, "Info 当前用户ID:", service.UserAuth().GetIdentity(ctx))
+	userId := gconv.Uint(service.UserAuth().GetIdentity(ctx))
+	if userId == 0 {
+		return res, nil
+	}
+	var user entity.UserInfo
+	if err = dao.UserInfo.Ctx(ctx).WherePri(userId).Scan(&user); err != nil {
+		return nil, err
+	}
+	res.Id = uint(user.Id)
+	res.Name = user.Name
+	res.Avatar = user.Avatar
+	res.Sex = uint8(user.Sex)
+	res.Sign = user.Sign
+	res.Status = uint8(user.Status)
 	return res, nil
 }
 

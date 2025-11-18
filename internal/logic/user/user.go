@@ -3,14 +3,15 @@ package user
 import (
 	"context"
 	"errors"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/grand"
 	"goframe-shop-v2/internal/consts"
 	"goframe-shop-v2/internal/dao"
 	"goframe-shop-v2/internal/model"
 	"goframe-shop-v2/internal/model/do"
 	"goframe-shop-v2/internal/service"
 	"goframe-shop-v2/utility"
+
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/grand"
 )
 
 type sUser struct{}
@@ -25,6 +26,15 @@ func New() *sUser {
 
 // 注册
 func (s *sUser) Register(ctx context.Context, in model.RegisterInput) (out model.RegisterOutput, err error) {
+	// 校验用户名是否已经存在
+	count, err := dao.UserInfo.Ctx(ctx).Where(dao.UserInfo.Columns().Name, in.Name).Count()
+	if err != nil {
+		return out, err
+	}
+	if count > 0 {
+		return out, errors.New("用户名已存在")
+	}
+
 	//处理加密盐和密码的逻辑
 	UserSalt := grand.S(10)
 	in.Password = utility.EncryptPassword(in.Password, UserSalt)
@@ -41,7 +51,7 @@ func (s *sUser) Register(ctx context.Context, in model.RegisterInput) (out model
 func (*sUser) UpdatePassword(ctx context.Context, in model.UpdatePasswordInput) (out model.UpdatePasswordOutput, err error) {
 	//	验证密保问题
 	userInfo := do.UserInfo{}
-	userId := gconv.Uint(ctx.Value(consts.CtxUserId))
+	userId := gconv.Uint(service.UserAuth().GetIdentity(ctx))
 	err = dao.UserInfo.Ctx(ctx).WherePri(userId).Scan(&userInfo)
 	if err != nil {
 		return model.UpdatePasswordOutput{}, err

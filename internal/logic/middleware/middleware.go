@@ -1,15 +1,16 @@
 package middleware
 
 import (
+	"goframe-shop-v2/internal/model"
+	"goframe-shop-v2/internal/service"
+	"goframe-shop-v2/utility/response"
+
 	"github.com/goflyfox/gtoken/gtoken"
 	"github.com/gogf/gf/v2/errors/gcode"
 	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/util/gconv"
-	"goframe-shop-v2/internal/model"
-	"goframe-shop-v2/internal/service"
-	"goframe-shop-v2/utility/response"
 )
 
 type sMiddleware struct {
@@ -62,6 +63,7 @@ func (s *sMiddleware) ResponseHandler(r *ghttp.Request) {
 		res             = r.GetHandlerResponse()
 		code gcode.Code = gcode.CodeOK
 	)
+	g.Log().Info(r.Context(), "ResponseHandler res =", res, "err =", err) // 调试
 	if err != nil {
 		code = gerror.Code(err)
 		if code == gcode.CodeNil {
@@ -117,6 +119,15 @@ func (s *sMiddleware) CORS(r *ghttp.Request) {
 
 func (s *sMiddleware) Auth(r *ghttp.Request) {
 	service.Auth().MiddlewareFunc()(r)
+	r.Middleware.Next()
+}
+
+// UserAuth ensures the frontend JWT middleware runs and then continues the handler chain.
+func (s *sMiddleware) UserAuth(r *ghttp.Request) {
+	service.UserAuth().MiddlewareFunc()(r)
+	if r.IsExited() {
+		return
+	}
 	r.Middleware.Next()
 }
 
