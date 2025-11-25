@@ -23,13 +23,17 @@ var (
 
 			// 2. 初始化Redis库存
 			for _, item := range goods {
-				stockKey := fmt.Sprintf("seckill:stock:%d:%d", item["goods_id"], item["goods_options_id"])
-				_, err = g.Redis().Do(ctx, "SET", stockKey, item["seckill_stock"])
+				goodsId := item["goods_id"].Int()
+				goodsOptionsId := item["goods_options_id"].Int()
+				seckillStock := item["seckill_stock"].Int()
+				
+				stockKey := fmt.Sprintf("seckill:stock:%d:%d", goodsId, goodsOptionsId)
+				_, err = g.Redis().Do(ctx, "SET", stockKey, seckillStock)
 				if err != nil {
 					return err
 				}
 				g.Log().Info(ctx, fmt.Sprintf("初始化商品 %d:%d 库存: %d",
-					item["goods_id"], item["goods_options_id"], item["seckill_stock"]))
+					goodsId, goodsOptionsId, seckillStock))
 			}
 
 			// 3. 创建Kafka主题
