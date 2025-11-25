@@ -34,9 +34,21 @@ export default defineConfig(({ command, mode }) => {
                     target: env.VITE_REQUEST_URL,
                     changeOrigin: true,
                     rewrite: path => path.replace(/^\/api/, ''),
-                    logLevel: 'debug', // 启用详细日志
-                    secure: false, //忽略安全证书
+                    logLevel: 'debug',
+                    secure: false,
                 },
+                '/frontend': {
+                    target: env.VITE_REQUEST_URL,
+                    changeOrigin: true,
+                    logLevel: 'debug',
+                    secure: false,
+                },
+                '/backend': {
+                    target: env.VITE_REQUEST_URL,
+                    changeOrigin: true,
+                    logLevel: 'debug',
+                    secure: false,
+                }
             },
         },
     };

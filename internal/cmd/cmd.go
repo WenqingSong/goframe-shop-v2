@@ -37,6 +37,8 @@ var (
 					controller.Admin.Create, // 管理员
 					controller.Login,        // 登录
 					controller.Data,         // 数据大屏相关
+					controller.Rotation,     // 轮播图 - 移到不需要登录的组
+					controller.Category,     // 商品分类 - 移到不需要登录的组
 				)
 				//需要登录的路由组绑定（JWT 中间件）
 				group.Group("/", func(group *ghttp.RouterGroup) {
@@ -50,11 +52,9 @@ var (
 						controller.Admin.Update, // 管理员
 						controller.Admin.Delete, // 管理员
 						controller.Admin.Info,   // 查询当前管理员信息
-						controller.Rotation,     // 轮播图
 						controller.Position,     // 手工位
 						controller.File,         //从0到1实现文件入库
 						controller.Upload,       //实现可跨项目使用的文件上云工具类
-						controller.Category,     //商品分类管理
 						controller.Coupon,       //商品优惠券管理
 						controller.UserCoupon,   //商品优惠券管理
 						controller.Goods,        //商品管理
@@ -123,7 +123,7 @@ var (
 			//	)
 			//})
 
-			s.SetPort(8000) //设置端口
+			s.SetPort(8199) //设置端口
 			s.Run()
 			return nil
 		},
