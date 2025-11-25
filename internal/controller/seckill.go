@@ -44,7 +44,7 @@ func (c *cSeckillFrontend) Do(ctx context.Context, req *frontend.SeckillReq) (re
 		if err == nil {
 			c.recordSuccess(startTime)
 		} else {
-			c.recordFailure(startTime)
+			c.recordFailure()
 		}
 	}()
 
@@ -199,7 +199,7 @@ func (c *cSeckillFrontend) recordSuccess(startTime time.Time) {
 }
 
 // 记录失败请求
-func (c *cSeckillFrontend) recordFailure(startTime time.Time) {
+func (c *cSeckillFrontend) recordFailure() {
 	c.statsLock.Lock()
 	defer c.statsLock.Unlock()
 
