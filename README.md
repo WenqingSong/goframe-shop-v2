@@ -27,9 +27,7 @@ git clone https://github.com/wangzhongyang007/goframe-shop-v2
 
 2. 在manifest目录下复制example_config.yaml为config.yaml，并且修改manifest/config/config.yaml中的数据库密码
 
-3. redis的密码可以不改，gtoken已经使用gcache模式，如果你需要使用redis，请修改配置文件中的redis的账号密码
-
-4. 七牛云的密码可以不改，不影响项目启动，如果你需要图片上传功能，请修改配置文件中qiniu相关的参数
+3. 七牛云的密码可以不改，不影响项目启动，如果你需要图片上传功能，请修改配置文件中qiniu相关的参数
 
 ## 4. 启动项目
 

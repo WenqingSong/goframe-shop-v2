@@ -27,7 +27,7 @@ func UserOrderDefaultComments(ctx context.Context) (err error) {
 					Host:  "127.0.0.1",
 					Port:  "3306",
 					User:  "root",
-					Pass:  "123456",
+					Pass:  "111111",
 					Name:  "shop",
 					Debug: true,
 				},
