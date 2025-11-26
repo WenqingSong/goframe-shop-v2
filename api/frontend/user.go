@@ -7,7 +7,7 @@ import (
 )
 
 type RegisterReq struct {
-	g.Meta       `path:"/register" method:"post" tags:"前台用户" summary:"用户注册"`
+	g.Meta       `path:"/user/register" method:"post" tags:"前台用户" summary:"用户注册"`
 	Name         string `json:"name"         description:"用户名" v:"required#用户名必填"`
 	Password     string `json:"password"     description:"密码" v:"password"`
 	Avatar       string `json:"avatar"       description:"头像"`
@@ -62,4 +62,13 @@ type UpdatePasswordReq struct {
 
 type UpdatePasswordRes struct {
 	Id uint `json:"id"`
+}
+
+// 登出
+type LogoutReq struct {
+	g.Meta `path:"/user/logout" method:"post" tags:"前台用户" summary:"用户登出"`
+}
+
+type LogoutRes struct {
+	Message string `json:"message"`
 }

@@ -69,3 +69,11 @@ func (*cUser) UpdatePassword(ctx context.Context, req *frontend.UpdatePasswordRe
 	}
 	return &frontend.UpdatePasswordRes{Id: out.Id}, nil
 }
+
+// 前台用户登出
+func (c *cUser) Logout(ctx context.Context, req *frontend.LogoutReq) (res *frontend.LogoutRes, err error) {
+	// 简单返回登出成功消息，依赖客户端删除token
+	return &frontend.LogoutRes{
+		Message: "登出成功",
+	}, nil
+}

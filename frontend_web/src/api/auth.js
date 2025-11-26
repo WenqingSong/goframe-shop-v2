@@ -53,17 +53,11 @@ export const resetPwd = (password, secret_answer) =>
 
 /**
  * @description 注销登录
- * @param {string} token
  */
-export const logout = token =>
+export const logout = () =>
     request({
         method: 'POST',
         url: '/frontend/user/logout',
-        data: (() => {
-            const formData = new FormData();
-            formData.set('token', token);
-            return formData;
-        })(),
     });
 
 /**

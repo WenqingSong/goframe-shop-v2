@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"goframe-shop-v2/internal/consts"
 	"goframe-shop-v2/internal/model"
 	"goframe-shop-v2/internal/service"
 	"goframe-shop-v2/utility/response"
@@ -124,10 +125,17 @@ func (s *sMiddleware) Auth(r *ghttp.Request) {
 
 // UserAuth ensures the frontend JWT middleware runs and then continues the handler chain.
 func (s *sMiddleware) UserAuth(r *ghttp.Request) {
+	// 先运行JWT中间件进行基础验证
 	service.UserAuth().MiddlewareFunc()(r)
 	if r.IsExited() {
 		return
 	}
+
+	// 从JWT中获取用户ID并存储到上下文中
+	userID := service.UserAuth().GetIdentity(r.Context())
+	g.Log().Info(r.Context(), "UserAuth 当前用户ID:", userID)
+	r.SetCtxVar(consts.CtxUserId, userID)
+
 	r.Middleware.Next()
 }
 

@@ -1,24 +1,32 @@
 <script setup>
 import { useCartStore } from '@/stores/cart';
 import { deleteCart, editCart } from '@/api/cart';
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { getToken } from '@/utils/auth';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
 const goGoods = (id) => {
-    router.push({
-        path: `/goods/${id}`,
-    });
+    if (id) {
+        router.push({
+            path: `/goods/${id}`,
+        });
+    }
 }
 
 const cartStore = useCartStore();
-console.table(cartStore.data);
 const isLogin = ref(false);
 if (getToken()) {
     isLogin.value = true;
 }
+
+// 初始化加载购物车数据
+onMounted(async () => {
+    if (isLogin.value) {
+        await cartStore.changeCart();
+    }
+});
 
 const selectedAll = computed({
     get: () => cartStore.data?.every?.(it => it.checked),
@@ -36,12 +44,13 @@ const changeSelected = () => {
 const totalPrice = computed(() =>
     cartStore?.data
         ?.filter(it => it.checked)
-        .reduce((pre, cur) => pre + cur.goods_options_info?.price * cur.count, 0)
+        .reduce((pre, cur) => pre + (cur.goods_options_info?.price || 0) * cur.count, 0)
 );
 
 const deleteGoods = async id => {
     console.log(id);
-    const res = await deleteCart(id);
+    // deleteCart API 需要传递数组，所以将单个id包装成数组
+    const res = await deleteCart([id]);
     console.log(res);
     if (res.code === 0) {
         cartStore.changeCart();
@@ -94,13 +103,13 @@ const onSubmit = () => {
                 <van-swipe-cell class="goods_item" v-for="it in cartStore.data">
                     <van-checkbox class="selected" v-model="it.checked" @select="changeSelected" />
                     <div class="goods_box">
-                        <van-card class="goods_card" @click-thumb="goGoods(it.goods_options_info.goods_id)" :key="it.id"
-                            :num="it.count" :price="((it.goods_options_info.price / 100.0) * it.count).toFixed(2)"
-                            :desc="it.goods_options_info.goods_info.detail_info" :title="it.goods_options_info.name"
-                            :thumb="it.goods_options_info.pic_url">
+                        <van-card class="goods_card" @click-thumb="goGoods(it.goods_options_info?.goods_id || 0)" :key="it.id"
+                            :num="it.count" :price="(((it.goods_options_info?.price || 0) / 100.0) * it.count).toFixed(2)"
+                            :desc="it.goods_options_info?.goods_info?.detail_info || ''" :title="it.goods_options_info?.name || '未知商品'"
+                            :thumb="it.goods_options_info?.pic_url || ''">
                             <template #tags>
                                 <van-tag plain type="primary">{{
-                                    it.goods_options_info.goods_info.tags
+                                    it.goods_options_info?.goods_info?.tags || ''
                                     }}</van-tag>
                             </template>
                             <template #footer>

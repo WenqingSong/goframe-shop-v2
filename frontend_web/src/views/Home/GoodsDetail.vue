@@ -43,7 +43,7 @@
 import { useRoute, useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue';
 import { showSuccessToast } from 'vant';
-import { getGoodsDetail, getGoodsOptions } from '@/api/goods';
+import { getGoodsDetail } from '@/api/goods';
 import { addCart, editCart } from '@/api/cart';
 import { useCartStore } from '@/stores/cart';
 import { addCollection, deleteCollectionByType } from '@/api/collection';
@@ -53,9 +53,8 @@ const router = useRouter();
 
 const cartStore = useCartStore();
 const showSkuDialog = ref(false);
-const selectedValues = ref([]);
-
-let goodsOptions = [];
+const selectedValues = ref([0]); // 默认选择第一个规格
+const goodsOptions = ref([]); // 使用ref以便在模板中响应式更新
 
 // 商品id
 const goodsId = route.params.goodsId;
@@ -67,7 +66,8 @@ onMounted(async () => {
     const res = await getGoodsDetail(goodsId);
     goodsDetail.value = res.data;
     isStar.value = goodsDetail.value.is_collect;
-    await getOptions();
+    // 直接从商品详情中获取选项信息
+    formatGoodsOptions();
 });
 
 const isStar = ref(false);
@@ -76,28 +76,33 @@ const isStar = ref(false);
 const onCancel = () => {
     showSkuDialog.value = false;
 };
-const getOptions = async () => {
-    let params = {
-        goods_id: goodsId,
-    };
-    const res = await getGoodsOptions(params);
-    if (res.code === 0) {
-        goodsOptions = [];
-        if (res.data.list !== null) {
-            for (const item of res.data.list) {
-                goodsOptions.push({
-                    text: item.name,
-                    value: item.id,
-                    goods_options_info: item,
-                });
-            }
+const formatGoodsOptions = () => {
+    goodsOptions.value = [];
+    if (goodsDetail.value?.Options && goodsDetail.value.Options.length > 0) {
+        for (const item of goodsDetail.value.Options) {
+            goodsOptions.value.push({
+                text: item.name,
+                value: item.id,
+                goods_options_info: item,
+            });
+        }
+        // 如果有商品规格，确保selectedValues有默认值
+        if (goodsOptions.value.length > 0) {
+            selectedValues.value = [0]; // 默认选择第一个规格
         }
     }
 };
 
 const openDiaglog = async () => {
-    await getOptions();
-    showSkuDialog.value = true;
+    // 直接使用已有的商品选项信息，无需重新获取
+    formatGoodsOptions();
+    
+    // 如果没有商品规格选项，直接添加到购物车
+    if (goodsOptions.value.length === 0) {
+        await addToCartWithoutOptions();
+    } else {
+        showSkuDialog.value = true;
+    }
 };
 
 /**goodsDetail
@@ -119,53 +124,115 @@ const toggleStar = async goodsInfo => {
 };
 
 /**
- * 添加到购物车事件
+ * 添加到购物车事件（带规格）
  */
 const addToCart = async () => {
-    const id = selectedValues.value[0];
+    // 获取选择的商品规格索引
+    const selectedIndex = selectedValues.value[0];
+    // 检查是否选择了商品规格
+    if (selectedIndex === undefined || goodsOptions.value.length === 0) {
+        showSuccessToast({
+            message: '请选择商品规格！',
+            duration: 1500,
+        });
+        return;
+    }
+    // 获取选择的商品规格ID
+    const selectedOption = goodsOptions.value[selectedIndex];
+    const id = selectedOption.value;
+    
+    await addCartCommon(id, selectedOption);
+    showSkuDialog.value = false;
+};
+
+/**
+ * 添加到购物车事件（无规格）
+ */
+const addToCartWithoutOptions = async () => {
+    // 当没有商品规格时，使用默认值
+    await addCartCommon(null, null);
+};
+
+/**
+ * 添加到购物车通用逻辑
+ */
+const addCartCommon = async (id, selectedOption) => {
+    // 检查购物车中是否已存在该商品
     const hasGoods = cartStore.data?.find(it => it.goods_options_id === id);
     let res;
-    if (hasGoods !== undefined) {
-        res = await editCart({
-            goods_options_id: id,
-            count: hasGoods.count + 1,
-            id: hasGoods.id,
-        });
-        console.log(res);
-    } else {
-        res = await addCart({ goods_options_id: id, count: 1 });
-        console.log(res);
-    }
-    if (res?.code === 0) {
+    
+    try {
+        if (hasGoods !== undefined) {
+            // 如果已存在，更新数量
+            res = await editCart({
+                goods_options_id: id,
+                count: hasGoods.count + 1,
+                id: hasGoods.id,
+            });
+        } else {
+            // 如果不存在，添加到购物车
+            // 当没有规格时，goods_options_id传0或null
+            res = await addCart({ goods_options_id: id || 0, count: 1 });
+        }
+        
+        if (res?.code === 0) {
+            showSuccessToast({
+                message: '添加购物车成功！',
+                duration: 1500,
+            });
+        } else {
+            showSuccessToast({
+                message: res?.message || '添加购物车失败！',
+                duration: 1500,
+            });
+        }
+    } catch (error) {
+        console.error('添加购物车失败:', error);
         showSuccessToast({
-            message: '添加购物车成功！',
+            message: '系统繁忙，请稍后重试！',
             duration: 1500,
         });
     }
-    showSkuDialog.value = false;
+    
     cartStore.changeCart();
 };
 
 const toBuy = () => {
+    // 获取选择的商品规格索引
+    const selectedIndex = selectedValues.value[0] || 0;
+    
+    let selectedOption = null;
+    let price = goodsDetail.value.price;
+    
+    // 检查是否有商品规格
+    if (goodsOptions.value.length > 0) {
+        selectedOption = goodsOptions.value[selectedIndex];
+        price = selectedOption.goods_options_info.price;
+    }
+    
     const orderInfo = {
         goods: [
             {
                 count: 1,
                 goods_id: goodsDetail.value.id,
                 goods_info: goodsDetail.value,
-                goods_options_info: goodsOptions[0].goods_options_info
+                goods_options_info: selectedOption?.goods_options_info || goodsDetail.value
             },
         ],
-        price: goodsOptions[0].goods_options_info.price,
+        price: price,
     };
-    console.log(goodsDetail.value, goodsOptions);
     
-
-    const encodedOrderInfo = btoa(encodeURI(JSON.stringify(orderInfo)));
+    const encodedOrderInfo = btoa(
+        encodeURI(
+            JSON.stringify(orderInfo)
+        )
+    );
 
     router.push({
         name: 'addressList',
-        query: { orderInfo: encodedOrderInfo },
+        query: {
+            orderInfo: encodedOrderInfo,
+        },
     });
 };
 </script>

@@ -23,7 +23,11 @@ const request = axios.create({
 //添加请求拦截器
 request.interceptors.request.use(
     config => {
-        config.headers['Authorization'] = 'Bearer '.concat(getToken());
+        const token = getToken();
+        console.log('Request Token:', token);
+        if (token) {
+            config.headers['Authorization'] = 'Bearer ' + token;
+        }
         return config;
     },
     error => {

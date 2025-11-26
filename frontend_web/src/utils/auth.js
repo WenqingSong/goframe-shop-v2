@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 /**
  * token key
  */
-const TokenKey = 'userToken';
+const TokenKey = 'jwt_frontend';
 
 /**
  * @description 获取本地token

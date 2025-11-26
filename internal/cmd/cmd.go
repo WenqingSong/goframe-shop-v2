@@ -37,8 +37,8 @@ var (
 					controller.Admin.Create, // 管理员
 					controller.Login,        // 登录
 					controller.Data,         // 数据大屏相关
-					controller.Rotation,     // 轮播图 - 移到不需要登录的组
-					controller.Category,     // 商品分类 - 移到不需要登录的组
+					controller.Rotation,     // 轮播图
+					controller.Category,     // 商品分类
 				)
 				//需要登录的路由组绑定（JWT 中间件）
 				group.Group("/", func(group *ghttp.RouterGroup) {
@@ -97,6 +97,7 @@ var (
 					group.Bind(
 						controller.User.Info,           //当前登录用户的信息
 						controller.User.UpdatePassword, //当前用户修改密码
+						controller.User.Logout,         //用户登出
 						controller.Collection,          //收藏
 						controller.Praise,              //收藏
 						controller.Comment,             //评论

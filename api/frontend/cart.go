@@ -3,7 +3,7 @@ package frontend
 import "github.com/gogf/gf/v2/frame/g"
 
 type AddCartReq struct {
-	g.Meta         `path:"/add/cart" in:"post" method:"post" tags:"前台购物车" summary:"添加购物车"`
+	g.Meta         `path:"/cart/add" in:"post" method:"post" tags:"前台购物车" summary:"添加购物车"`
 	GoodsOptionsId uint `json:"goods_options_id" v:"required#商品详情id必填" dc:"对象id"`
 	Count          int  `json:"count" v:"required#添加购物车商品数量必填" dc:"添加商品数量"`
 }

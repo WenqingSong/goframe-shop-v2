@@ -3,19 +3,13 @@ import { query } from '@/utils/query';
 
 /**
  * @description 添加到购物车
- * @param {{goods_id:string,count:string}} form
+ * @param {{goods_options_id:string,count:string}} form
  */
 export const addCart = form =>
     request({
         method: 'POST',
-        url: '/frontend/cart/add/',
-        data: (() => {
-            const formData = new FormData();
-            Object.keys(form).forEach(key => {
-                formData.set(key, form[key]);
-            });
-            return formData;
-        })(),
+        url: '/frontend/cart/add',
+        data: form,
     });
 
 /**
@@ -25,7 +19,8 @@ export const addCart = form =>
 export const getCartList = queryObj =>
     request({
         method: 'POST',
-        url: '/frontend/cart/list/'.concat('?', query(queryObj)),
+        url: '/frontend/cart/list',
+        data: queryObj,
     });
 
 /**
@@ -35,14 +30,8 @@ export const getCartList = queryObj =>
 export const editCart = form =>
     request({
         method: 'POST',
-        url: '/frontend/cart/update/',
-        data: (() => {
-            const formData = new FormData();
-            Object.keys(form).forEach(key => {
-                formData.set(key, form[key]);
-            });
-            return formData;
-        })(),
+        url: '/frontend/cart/update',
+        data: form,
     });
 
 /**
@@ -51,8 +40,8 @@ export const editCart = form =>
  */
 export const deleteCart = ids =>
     request({
-        method: 'DELETE',
-        url: '/frontend/cart/delete/',
+        method: 'POST',
+        url: '/frontend/delete/cart',
         data: {
             ids: ids,
         },

@@ -31,7 +31,7 @@ const toUserInfo = () => {
 };
 
 const logOut = async _ => {
-    const res = await logout(getToken());
+    const res = await logout();
     console.log(res);
     if (res.code === 0) {
         removeToken();

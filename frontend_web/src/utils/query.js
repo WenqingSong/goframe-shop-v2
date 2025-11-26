@@ -8,9 +8,8 @@ export const query = queryObj =>
     .map(key =>
       key.concat(
         '=',
-        typeof queryObj[key] === 'string'
-          ? queryObj[key]
-          : JSON.stringify(queryObj[key])
+        // 对于基本类型直接转换为字符串，不需要JSON.stringify
+        String(queryObj[key])
       )
     )
     .join('&');
