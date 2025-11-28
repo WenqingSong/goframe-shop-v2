@@ -55,6 +55,9 @@ type ArticleDetailInput struct {
 
 type ArticleDetailOutput struct {
 	entity.ArticleInfo
+	Collection int  `json:"collection" description:"收藏数"`
+	IsPraise  bool `json:"is_praise" description:"当前用户是否已点赞"`
+	IsCollect bool `json:"is_collect" description:"当前用户是否已收藏"`
 }
 
 type ArticleDeleteInput struct {

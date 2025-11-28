@@ -62,15 +62,21 @@ const goodsId = route.params.goodsId;
 // 商品详情
 const goodsDetail = ref({});
 
-onMounted(async () => {
-    const res = await getGoodsDetail(goodsId);
-    goodsDetail.value = res.data;
-    isStar.value = goodsDetail.value.is_collect;
-    // 直接从商品详情中获取选项信息
-    formatGoodsOptions();
-});
-
 const isStar = ref(false);
+
+onMounted(async () => {
+    try {
+        const res = await getGoodsDetail(goodsId);
+        console.log('初始加载商品详情:', res.data);
+        goodsDetail.value = res.data;
+        isStar.value = goodsDetail.value.is_collect;
+        console.log('初始收藏状态:', isStar.value, '后端返回的is_collect:', goodsDetail.value.is_collect);
+        // 直接从商品详情中获取选项信息
+        formatGoodsOptions();
+    } catch (error) {
+        console.error('获取商品详情失败:', error);
+    }
+});
 
 // onCancel 事件: 关闭SKU弹窗
 const onCancel = () => {
@@ -78,8 +84,8 @@ const onCancel = () => {
 };
 const formatGoodsOptions = () => {
     goodsOptions.value = [];
-    if (goodsDetail.value?.Options && goodsDetail.value.Options.length > 0) {
-        for (const item of goodsDetail.value.Options) {
+    if (goodsDetail.value && goodsDetail.value.options && goodsDetail.value.options.length > 0) {
+        for (const item of goodsDetail.value.options) {
             goodsOptions.value.push({
                 text: item.name,
                 value: item.id,
@@ -94,14 +100,27 @@ const formatGoodsOptions = () => {
 };
 
 const openDiaglog = async () => {
-    // 直接使用已有的商品选项信息，无需重新获取
-    formatGoodsOptions();
-    
-    // 如果没有商品规格选项，直接添加到购物车
-    if (goodsOptions.value.length === 0) {
-        await addToCartWithoutOptions();
+    // 直接在openDiaglog中处理商品规格数据
+    goodsOptions.value = [];
+    if (goodsDetail.value && goodsDetail.value.options && goodsDetail.value.options.length > 0) {
+        for (const item of goodsDetail.value.options) {
+            goodsOptions.value.push({
+                text: item.name,
+                value: item.id,
+                goods_options_info: item,
+            });
+        }
+        
+        // 如果有商品规格选项，显示规格选择弹窗
+        if (goodsOptions.value.length > 0) {
+            showSkuDialog.value = true;
+        } else {
+            // 如果没有商品规格选项，直接添加到购物车
+            await addToCartWithoutOptions();
+        }
     } else {
-        showSkuDialog.value = true;
+        // 如果没有商品规格选项，直接添加到购物车
+        await addToCartWithoutOptions();
     }
 };
 
@@ -109,36 +128,91 @@ const openDiaglog = async () => {
  * 收藏事件
  */
 const toggleStar = async goodsInfo => {
-    console.table(goodsInfo);
-    if (isStar.value) {
-        const res = await deleteCollectionByType({
-            type: 1,
-            object_id: goodsInfo.id,
+    try {
+        console.log('开始收藏操作，当前状态:', isStar.value);
+        console.table(goodsInfo);
+        
+        let res;
+        if (isStar.value) {
+            console.log('执行取消收藏操作，参数:', { type: 1, object_id: goodsInfo.id });
+            res = await deleteCollectionByType({
+                type: 1,
+                object_id: goodsInfo.id,
+            });
+            console.log('取消收藏响应:', res);
+            if (res.code === 0) {
+                showSuccessToast({
+                    message: '已取消收藏',
+                    duration: 1500,
+                });
+            } else {
+                showSuccessToast({
+                    message: res.msg || '操作失败，请稍后重试',
+                    duration: 1500,
+                });
+                return;
+            }
+        } else {
+            console.log('执行添加收藏操作，参数:', { type: 1, object_id: goodsInfo.id });
+            res = await addCollection({ type: 1, object_id: goodsInfo.id });
+            console.log('添加收藏响应:', res);
+            if (res.code === 0) {
+                showSuccessToast({
+                    message: '收藏成功',
+                    duration: 1500,
+                });
+            } else {
+                showSuccessToast({
+                    message: res.msg || '操作失败，请稍后重试',
+                    duration: 1500,
+                });
+                return;
+            }
+        }
+        
+        console.log('重新获取商品详情，商品ID:', goodsId);
+        const detailRes = await getGoodsDetail(goodsId);
+        console.log('收藏操作后重新获取商品详情:', detailRes.data);
+        goodsDetail.value = detailRes.data;
+        isStar.value = goodsDetail.value.is_collect;
+        console.log('更新后的收藏状态:', isStar.value, '后端返回的is_collect:', goodsDetail.value.is_collect);
+    } catch (error) {
+        console.error('收藏操作失败:', error);
+        showSuccessToast({
+            message: '操作失败，请稍后重试',
+            duration: 1500,
         });
-    } else {
-        const res = await addCollection({ type: 1, object_id: goodsInfo.id });
     }
-    const res = await getGoodsDetail(goodsId);
-    goodsDetail.value = res.data;
-    isStar.value = goodsDetail.value.is_collect;
 };
 
 /**
  * 添加到购物车事件（带规格）
  */
 const addToCart = async () => {
-    // 获取选择的商品规格索引
-    const selectedIndex = selectedValues.value[0];
-    // 检查是否选择了商品规格
-    if (selectedIndex === undefined || goodsOptions.value.length === 0) {
+    // 获取选中的值
+    const selectedValue = selectedValues.value[0];
+    
+    // 检查是否有商品规格且已选择
+    if (goodsOptions.value.length > 0 && !selectedValue) {
         showSuccessToast({
             message: '请选择商品规格！',
             duration: 1500,
         });
         return;
     }
-    // 获取选择的商品规格ID
-    const selectedOption = goodsOptions.value[selectedIndex];
+    
+    // 从选项数组中查找选中的选项对象
+    const selectedOption = goodsOptions.value.find(option => option.value === selectedValue);
+    
+    if (!selectedOption) {
+        showSuccessToast({
+            message: '请选择有效的商品规格！',
+            duration: 1500,
+        });
+        return;
+    }
+    
+    // 直接从选中的选项对象中获取id
     const id = selectedOption.value;
     
     await addCartCommon(id, selectedOption);
@@ -149,31 +223,19 @@ const addToCart = async () => {
  * 添加到购物车事件（无规格）
  */
 const addToCartWithoutOptions = async () => {
-    // 当没有商品规格时，使用默认值
-    await addCartCommon(null, null);
-};
+    // 当没有商品规格时，使用默认值0
+    await addCartCommon(0, null);
+}
 
 /**
  * 添加到购物车通用逻辑
  */
 const addCartCommon = async (id, selectedOption) => {
-    // 检查购物车中是否已存在该商品
-    const hasGoods = cartStore.data?.find(it => it.goods_options_id === id);
     let res;
     
     try {
-        if (hasGoods !== undefined) {
-            // 如果已存在，更新数量
-            res = await editCart({
-                goods_options_id: id,
-                count: hasGoods.count + 1,
-                id: hasGoods.id,
-            });
-        } else {
-            // 如果不存在，添加到购物车
-            // 当没有规格时，goods_options_id传0或null
-            res = await addCart({ goods_options_id: id || 0, count: 1 });
-        }
+        // 调用addCart API，让后端处理数量更新或新增
+        res = await addCart({ goods_options_id: id, count: 1 });
         
         if (res?.code === 0) {
             showSuccessToast({
@@ -194,20 +256,23 @@ const addCartCommon = async (id, selectedOption) => {
         });
     }
     
-    cartStore.changeCart();
+    // 更新购物车数据
+    await cartStore.changeCart();
 };
 
 const toBuy = () => {
-    // 获取选择的商品规格索引
-    const selectedIndex = selectedValues.value[0] || 0;
+    // 获取选择的商品规格值
+    const selectedValue = selectedValues.value[0];
     
     let selectedOption = null;
     let price = goodsDetail.value.price;
     
     // 检查是否有商品规格
-    if (goodsOptions.value.length > 0) {
-        selectedOption = goodsOptions.value[selectedIndex];
-        price = selectedOption.goods_options_info.price;
+    if (goodsOptions.value.length > 0 && selectedValue) {
+        selectedOption = goodsOptions.value.find(option => option.value === selectedValue);
+        if (selectedOption) {
+            price = selectedOption.goods_options_info.price;
+        }
     }
     
     const orderInfo = {

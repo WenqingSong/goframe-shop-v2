@@ -15,6 +15,10 @@ type (
 		AddPraise(ctx context.Context, in model.AddPraiseInput) (res *model.AddPraiseOutput, err error)
 		DeletePraise(ctx context.Context, in model.DeletePraiseInput) (res *model.DeletePraiseOutput, err error)
 		GetList(ctx context.Context, in model.PraiseListInput) (out *model.PraiseListOutput, err error)
+		// 获取点赞数量
+		PraiseCount(ctx context.Context, objectId uint, collectionType uint8) (count int, err error)
+		// 判断当前用户是否点赞
+		CheckIsPraise(ctx context.Context, in model.CheckIsCollectInput) (bool, error)
 	}
 )
 

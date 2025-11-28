@@ -2,10 +2,12 @@ package controller
 
 import (
 	"context"
-	"github.com/gogf/gf/v2/util/gconv"
 	"goframe-shop-v2/api/frontend"
+	"goframe-shop-v2/internal/consts"
 	"goframe-shop-v2/internal/model"
 	"goframe-shop-v2/internal/service"
+
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // 承上启下
@@ -20,6 +22,8 @@ func (a *cCollection) Add(ctx context.Context, req *frontend.AddCollectionReq) (
 	if err != nil {
 		return nil, err
 	}
+	// 获取当前用户ID
+	data.UserId = gconv.Uint(ctx.Value(consts.CtxUserId))
 	out, err := service.Collection().AddCollection(ctx, data)
 	if err != nil {
 		return nil, err
@@ -33,6 +37,8 @@ func (a *cCollection) Delete(ctx context.Context, req *frontend.DeleteCollection
 	if err != nil {
 		return nil, err
 	}
+	// 获取当前用户ID
+	data.UserId = gconv.Uint(ctx.Value(consts.CtxUserId))
 	collection, err := service.Collection().DeleteCollection(ctx, data)
 	if err != nil {
 		return nil, err
@@ -50,8 +56,10 @@ func (a *cCollection) List(ctx context.Context, req *frontend.ListCollectionReq)
 		return nil, err
 	}
 
-	return &frontend.ListCollectionRes{List: getListRes.List,
+	return &frontend.ListCollectionRes{
+		List:  getListRes.List,
 		Page:  getListRes.Page,
 		Size:  getListRes.Size,
-		Total: getListRes.Total}, nil
+		Total: getListRes.Total,
+	}, nil
 }

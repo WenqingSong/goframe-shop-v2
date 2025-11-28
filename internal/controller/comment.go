@@ -42,9 +42,10 @@ func (a *cComment) Delete(ctx context.Context, req *frontend.DeleteCommentReq) (
 
 func (a *cComment) List(ctx context.Context, req *frontend.ListCommentReq) (res *frontend.ListCommentRes, err error) {
 	getListRes, err := service.Comment().GetList(ctx, model.CommentListInput{
-		Page: req.Page,
-		Size: req.Size,
-		Type: req.Type,
+		Page:     req.Page,
+		Size:     req.Size,
+		Type:     req.Type,
+		ObjectId: req.ObjectId,
 	})
 	if err != nil {
 		return nil, err

@@ -36,26 +36,60 @@ const changeData = async () => {
     info.value = res.data;
   }
   console.table(info.value);
+  console.log('文章ID:', info.value.id);
 };
 
 const changecomData = async () => {
   if (!articleId) return;
 
-  const response = await listComments({ type: 2, object_id: objectid.value, size: 20, page: 1 });
-  const commentList = response.data.list || [];
-
-  cominfo.value = commentList;
-
-  cominfo.value = cominfo.value.map(comment => {
-    if (comment.parent_id !== 0) {
-      const parentComment = cominfo.value.find(c => c.id === comment.parent_id);
-      if (parentComment) {
-        comment.replyTo = parentComment.user_name;
-      }
+  console.log('获取评论列表，文章ID:', info.value.id || objectid.value);
+  try {
+    const response = await listComments({ type: 2, object_id: info.value.id || objectid.value, size: 20, page: 1 });
+    console.log('评论列表响应:', response);
+    
+    if (response.code === 0) {
+      const commentList = response.data.list || [];
+      console.log('评论数量:', commentList.length);
+      console.log('评论数据样本:', commentList[0]);
+      
+      // 构建评论树结构
+      const commentTree = [];
+      const commentMap = new Map();
+      
+      // 首先将所有评论按Id存入map（注意：后端返回的是大写Id）
+      commentList.forEach(comment => {
+        comment.replies = [];
+        commentMap.set(comment.Id, comment);
+      });
+      
+      // 然后构建评论树，ParentId=0或者不存在的是主评论，否则是回复评论
+      // 注意：处理可能的类型问题，将ParentId转换为数字进行比较
+      commentList.forEach(comment => {
+        // 确保ParentId是数字类型
+        const parentId = Number(comment.ParentId);
+        if (parentId === 0) {
+          // 主评论直接添加到树中
+          commentTree.push(comment);
+        } else {
+          // 回复评论添加到对应主评论的replies数组中
+          const parentComment = commentMap.get(parentId);
+          if (parentComment) {
+            parentComment.replies.push(comment);
+          } else {
+            // 如果找不到父评论，将其作为主评论处理
+            commentTree.push(comment);
+          }
+        }
+      });
+      
+      cominfo.value = commentTree;
+      console.table(cominfo.value);
+    } else {
+      console.error('获取评论列表失败，响应码:', response.code, '消息:', response.message);
     }
-    return comment;
-  });
-  console.table(cominfo.value);
+  } catch (error) {
+    console.error('获取评论列表异常:', error);
+  }
 };
 
 // 发布一条自己的评论（而不是回复其他人的评论）
@@ -74,39 +108,61 @@ onMounted(async () => {
 
 const isThumbs = ref(false);
 const giveTheThumbsUp = async () => {
-  if (isThumbs.value) {
-    const res = await deleteCattleByType({ type: 2, object_id: info.value.id });
-    console.log(res);
-    console.log('😓');
-  } else {
-    const res = await addCattle({ type: 2, object_id: info.value.id });
-    console.log(res);
-    console.log('👍');
+  try {
+    if (isThumbs.value) {
+      const res = await deleteCattleByType({ type: 2, object_id: info.value.id });
+      console.log(res);
+      console.log('😓');
+    } else {
+      const res = await addCattle({ type: 2, object_id: info.value.id });
+      console.log(res);
+      console.log('👍');
+    }
+    const newDetail = await getArticleInfo(articleId);
+    console.log(newDetail);
+    info.value.praise = newDetail.data.praise;
+    isThumbs.value = info.value.is_praise = newDetail.data.is_praise;
+  } catch (error) {
+    console.error('点赞操作失败:', error);
+    showToast('操作失败，请稍后重试');
   }
-  const newDetail = await getArticleInfo(articleId);
-  console.log(newDetail);
-  info.value.praise = newDetail.data.praise;
-  isThumbs.value = info.value.is_praise = newDetail.data.is_praise;
 };
 
 const isCollection = ref(false);
 const collection = async () => {
-  if (isCollection.value) {
-    const res = await deleteCollectionByType({
-      type: 2,
-      object_id: info.value.id,
-    });
-    console.log(res);
-    console.log('💔');
-  } else {
-    const res = await addCollection({ type: 2, object_id: info.value.id });
-    console.log(res);
-    console.log('💖');
+  try {
+    if (isCollection.value) {
+      const res = await deleteCollectionByType({
+        type: 2,
+        object_id: info.value.id,
+      });
+      console.log(res);
+      console.log('💔');
+      if (res.code === 0) {
+        showToast('已取消收藏');
+      } else {
+        showToast(res.msg || '操作失败，请稍后重试');
+        return;
+      }
+    } else {
+      const res = await addCollection({ type: 2, object_id: info.value.id });
+      console.log(res);
+      console.log('💖');
+      if (res.code === 0) {
+        showToast('收藏成功');
+      } else {
+        showToast(res.msg || '操作失败，请稍后重试');
+        return;
+      }
+    }
+    const newDetail = await getArticleInfo(articleId);
+    console.log(newDetail);
+    info.value.collection = newDetail.data.collection;
+    isCollection.value = info.value.is_collect = newDetail.data.is_collect;
+  } catch (error) {
+    console.error('收藏操作失败:', error);
+    showToast('操作失败，请稍后重试');
   }
-  const newDetail = await getArticleInfo(articleId);
-  console.log(newDetail);
-  info.value.collection = newDetail.data.collection;
-  isCollection.value = info.value.is_collect = newDetail.data.is_collect;
 };
 
 const show = ref(false);
@@ -118,27 +174,43 @@ const isHasComment = computed(() =>
 
 const addComment = async () => {
   if (!comment.value.length) return;
-  console.log(comment.value);
-  const res = await addCommentApi({
+  console.log('添加评论，参数:', {
     type: 2,
     object_id: info.value.id,
     content: comment.value,
-    parent_id: replyParentId.value, // 使用 replyParentId
+    parent_id: replyParentId.value,
   });
-  console.log(res);
-  show.value = false;
-  comment.value = '';
-  replyParentId.value = 0; // 重置回复状态
-  replyToUser.value = '';  // 重置回复用户名
-  changeData();
-  changecomData();
+  
+  try {
+    const res = await addCommentApi({
+      type: 2,
+      object_id: info.value.id,
+      content: comment.value,
+      parent_id: replyParentId.value, // 使用 replyParentId
+    });
+    console.log('添加评论响应:', res);
+    
+    if (res.code === 0) {
+      show.value = false;
+      comment.value = '';
+      replyParentId.value = 0; // 重置回复状态
+      replyToUser.value = '';  // 重置回复用户名
+      changeData();
+      changecomData();
+    } else {
+      console.error('添加评论失败，响应码:', res.code, '消息:', res.msg);
+    }
+  } catch (error) {
+    console.error('添加评论异常:', error);
+  }
 };
 
 // 设置回复的函数
 const setReply = (id, user) => {
   replyParentId.value = id;
-  replyToUser.value = "匿名用户";
+  replyToUser.value = user || '匿名用户';
   show.value = true;
+  console.log('设置回复: parentId=', id, 'replyToUser=', replyToUser.value);
 };
 
 </script>
@@ -162,17 +234,41 @@ const setReply = (id, user) => {
     <div class="comment">
       <p>评论:</p>
       <div v-if="cominfo.length > 0">
-        <div class="content_item" v-for="it in cominfo" :key="it.id" @click="setReply(it.id, it.user_name)">
+        <!-- 主评论 -->
+        <div class="content_item" v-for="mainComment in cominfo" :key="mainComment.Id">
           <div class="user_pic">
             <img src="https://img.aigexing.com/uploads/7/1253/1120051754/9302649767/23368895.jpg" />
           </div>
           <div class="item_left">
             <div class="user_name">
-              <span v-if="it.parent_id === 0"> 匿名用户 </span>
-              <span v-else>匿名用户 回复 匿名用户</span>
-              <span class="createdTime">{{ it.created_at }}</span>
+              <span>{{ mainComment.user?.name || '匿名用户' }}</span>
+              <span class="createdTime">{{ mainComment.CreatedAt }}</span>
             </div>
-            <div class="user_content">{{ it.content }}</div>
+            <div class="user_content">{{ mainComment.Content }}</div>
+            <!-- 回复按钮 -->
+            <div class="reply_btn" @click.stop="setReply(mainComment.Id, mainComment.user?.name)">
+              回复
+            </div>
+          </div>
+          
+          <!-- 回复评论 -->
+          <div class="replies" v-if="mainComment.replies.length > 0">
+            <div class="reply_item" v-for="reply in mainComment.replies" :key="reply.Id">
+              <div class="user_pic reply_pic">
+                <img src="https://img.aigexing.com/uploads/7/1253/1120051754/9302649767/23368895.jpg" />
+              </div>
+              <div class="item_left reply_left">
+                <div class="user_name">
+                  <span>{{ reply.user?.name || '匿名用户' }}</span>
+                  <span class="createdTime">{{ reply.CreatedAt }}</span>
+                </div>
+                <div class="user_content reply_content">{{ reply.Content }}</div>
+                <!-- 回复按钮 -->
+                <div class="reply_btn" @click.stop="setReply(reply.Id, reply.user?.name)">
+                  回复
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -315,7 +411,44 @@ const setReply = (id, user) => {
         .user_content {
           word-wrap: break-word;
           word-break: break-all;
+          margin-bottom: 5px;
         }
+        
+        .reply_btn {
+          color: #3498db;
+          font-size: 12px;
+          cursor: pointer;
+          margin-top: 5px;
+        }
+      }
+      
+      /* 回复评论样式 */
+      .replies {
+        margin-left: 52px;
+        margin-top: 10px;
+      }
+      
+      .reply_item {
+        display: flex;
+        margin-bottom: 10px;
+      }
+      
+      .reply_pic {
+        width: 36px;
+        height: 36px;
+        
+        img {
+          width: 36px;
+          height: 36px;
+        }
+      }
+      
+      .reply_left {
+        margin-left: 8px;
+      }
+      
+      .reply_content {
+        font-size: 13px;
       }
     }
   }

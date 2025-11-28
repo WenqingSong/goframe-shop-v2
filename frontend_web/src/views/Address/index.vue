@@ -39,7 +39,7 @@ const finished = ref(false);
 
 const onLoad = async () => {
   // 数据全部加载完成
-  const res = await getAddressList({ page: page++, size: limit });
+  const res = await getAddressList({ page: page++, limit: limit });
   console.log(res);
   console.table(res.data.list);
   if (res.code === 0) {
@@ -54,12 +54,8 @@ const onLoad = async () => {
           id: it.id,
           name: it.name,
           tel: it.phone,
-          address: it.province.concat(
-            it.city,
-            it.town,
-            it.street !== 'null' ? it.street : '',
-            it.detail
-          ),
+          address: (it.province || '') + (it.city || '') + (it.town || '') + 
+                  ((it.street && it.street !== 'null') ? it.street : '') + (it.detail || ''),
           isDefault: it.is_default ? true : false,
         })) || [])
       );
@@ -97,6 +93,22 @@ const selectAddress = form => {
     });
   }
 };
+
+// 返回上一页或指定页面
+const goBack = () => {
+  // 如果有orderInfo，说明是从订单页面跳转过来的，需要返回到创建订单页面
+  if (orderInfo.value) {
+    router.replace({
+      name: 'createOrder',
+      query: {
+        orderInfo: route.query.orderInfo,
+      },
+    });
+  } else {
+    // 否则返回到用户中心页面
+    router.push('/user');
+  }
+};
 onMounted(() => {
   onLoad();
 });
@@ -109,7 +121,7 @@ onMounted(() => {
       placeholder
       fixed
       left-arrow
-      @click-left="$router.back()"
+      @click-left="goBack"
     />
     <van-list
       v-model:loading="loading"

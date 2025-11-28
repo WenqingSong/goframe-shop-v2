@@ -9,6 +9,7 @@ import (
 
 	"github.com/gogf/gf/v2/container/gmap"
 	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 type sArticle struct{}
@@ -67,6 +68,15 @@ func (s *sArticle) Update(ctx context.Context, in model.ArticleUpdateInput) erro
 func (s *sArticle) GetList(ctx context.Context, in model.ArticleGetListInput) (out *model.ArticleGetListOutput, err error) {
 	//1.获得*gdb.Model对象，方面后续调用
 	m := dao.ArticleInfo.Ctx(ctx)
+
+	// 如果指定了用户ID，则只查询该用户的文章
+	if in.UserId > 0 {
+		m = m.Where(dao.ArticleInfo.Columns().UserId, in.UserId)
+		if in.IsAdmin != 0 {
+			m = m.Where(dao.ArticleInfo.Columns().IsAdmin, in.IsAdmin)
+		}
+	}
+
 	//2. 实例化响应结构体
 	out = &model.ArticleGetListOutput{
 		Page: in.Page,
@@ -91,5 +101,37 @@ func (s *sArticle) GetList(ctx context.Context, in model.ArticleGetListInput) (o
 // 详情
 func (s *sArticle) Detail(ctx context.Context, in model.ArticleDetailInput) (out *model.ArticleDetailOutput, err error) {
 	err = dao.ArticleInfo.Ctx(ctx).WithAll().WherePri(in.Id).Scan(&out)
+	if err != nil || out == nil {
+		return nil, err
+	}
+
+	// 获取点赞数和收藏数
+	praiseCount, _ := service.Praise().PraiseCount(ctx, uint(out.Id), consts.CollectionTypeArticle)
+	collectionCount, _ := service.Collection().CollectionCount(ctx, uint(out.Id), consts.CollectionTypeArticle)
+
+	out.Praise = praiseCount
+	out.Collection = collectionCount
+
+	// 获取当前用户ID
+	userId := ctx.Value(consts.CtxUserId)
+	if userId != nil {
+		// 检查当前用户是否已点赞
+		isPraise, _ := service.Praise().CheckIsPraise(ctx, model.CheckIsCollectInput{
+			UserId:   gconv.Uint(userId),
+			ObjectId: uint(out.Id),
+			Type:     consts.CollectionTypeArticle,
+		})
+
+		// 检查当前用户是否已收藏
+		isCollect, _ := service.Collection().CheckIsCollect(ctx, model.CheckIsCollectInput{
+			UserId:   gconv.Uint(userId),
+			ObjectId: uint(out.Id),
+			Type:     consts.CollectionTypeArticle,
+		})
+
+		out.IsPraise = isPraise
+		out.IsCollect = isCollect
+	}
+
 	return
 }

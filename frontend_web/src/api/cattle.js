@@ -7,15 +7,21 @@ import request from '@/utils/request';
  */
 export const getCattleByType = queryObj =>
   request({
-    method: 'GET',
-    url: '/frontend/praise/list/',
-    params: queryObj,
+    method: 'POST',
+    url: '/frontend/praise/list',
+    data: (() => {
+      const formData = new FormData();
+      Object.keys(queryObj).forEach(key => {
+        formData.set(key, queryObj[key]);
+      });
+      return formData;
+    })(),
   });
 
 export const addCattle = ({ type, object_id }) =>
   request({
     method: 'POST',
-    url: '/frontend/praise/add/',
+    url: '/frontend/add/praise',
     data: (() => {
       const data = new FormData();
       data.set('type', type);
@@ -26,8 +32,8 @@ export const addCattle = ({ type, object_id }) =>
 
 export const deleteCattleById = id =>
   request({
-    method: 'DELETE',
-    url: '/frontend/praise/delete/',
+    method: 'POST',
+    url: '/frontend/delete/praise',
     data: (() => {
       const data = new FormData();
       data.set('id', id);
@@ -40,8 +46,8 @@ export const deleteCattleById = id =>
  */
 export const deleteCattleByType = ({ type, object_id }) =>
   request({
-    method: 'DELETE',
-    url: '/frontend/praise/deleteByType/',
+    method: 'POST',
+    url: '/frontend/delete/praise',
     data: (() => {
       const data = new FormData();
       data.set('type', type);

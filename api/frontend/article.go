@@ -63,6 +63,9 @@ type ArticleDetailRes struct {
 	PicUrl    string `json:"picUrl"    description:"封面图"`
 	IsAdmin   int    `json:"isAdmin"   description:"1后台管理员发布 2前台用户发布"`
 	Praise    int    `json:"praise"    description:"点赞数"`
+	Collection int   `json:"collection" description:"收藏数"`
+	IsPraise  bool   `json:"is_praise"  description:"当前用户是否已点赞"`
+	IsCollect bool   `json:"is_collect" description:"当前用户是否已收藏"`
 	Detail    string `json:"detail"    description:"文章详情"`
 	CreatedAt string `json:"createdAt" description:""`
 	UpdatedAt string `json:"updatedAt" description:""`

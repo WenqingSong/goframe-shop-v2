@@ -18,6 +18,11 @@ func UserAuth() *jwt.GfJWTMiddleware {
 	return userAuthService.jwt
 }
 
+// GetUserAuthService 获取完整的用户认证服务
+func GetUserAuthService() *sUserAuth {
+	return userAuthService
+}
+
 type sUserAuth struct {
 	// 自定义 JWT 认证
 	jwt *jwt.GfJWTMiddleware

@@ -17,6 +17,7 @@ type (
 		Update(ctx context.Context, in model.GoodsUpdateInput) error
 		GetList(ctx context.Context, in model.GoodsGetListInput) (out *model.GoodsGetListOutput, err error)
 		Detail(ctx context.Context, in model.GoodsDetailInput) (out model.GoodsDetailOutput, err error)
+		GetLevelList(ctx context.Context, in model.GoodsGetLevelListInput) (out *model.GoodsGetLevelListOutput, err error)
 	}
 )
 

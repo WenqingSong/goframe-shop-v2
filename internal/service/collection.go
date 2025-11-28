@@ -18,7 +18,10 @@ type (
 		// 列表
 		// GetList 查询内容列表
 		GetList(ctx context.Context, in model.CollectionListInput) (out *model.CollectionListOutput, err error)
-		GeqtList(ctx context.Context, in model.CollectionListInput) (out *model.CollectionListOutput, err error)
+		// 获取收藏数量
+		CollectionCount(ctx context.Context, objectId uint, collectionType uint8) (count int, err error)
+		// 判断当前用户是否收藏
+		CheckIsCollect(ctx context.Context, in model.CheckIsCollectInput) (bool, error)
 	}
 )
 

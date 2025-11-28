@@ -20,6 +20,11 @@ const addressList = ref({
   addressDetail: '',
   isDefault: false,
 });
+
+// 返回上一页或指定页面
+const goBack = () => {
+  router.replace({path:'/address-list',query:{orderInfo:route.query.orderInfo}});
+};
 if (route.query.addressInfo) {
   isEdit.value = true;
   const addressData = JSON.parse(
@@ -50,7 +55,7 @@ const onSave = async info => {
       province: info.province,
       city: info.city,
       town: info.county,
-      street: null,
+      street: '',
       detail: info.addressDetail,
     });
     console.log(res);
@@ -69,7 +74,7 @@ const onSave = async info => {
       province: info.province,
       city: info.city,
       town: info.county,
-      street: null,
+      street: '',
       detail: info.addressDetail,
     });
     console.log(res);
@@ -105,7 +110,7 @@ const onDelete = async info => {
       placeholder
       fixed
       left-arrow
-      @click-left="$router.replace({path:'/address-list',query:{orderInfo:route.query.orderInfo}})"
+      @click-left="goBack"
     />
     <van-address-edit
       :address-info="addressList"

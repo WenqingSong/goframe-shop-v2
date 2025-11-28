@@ -28,35 +28,59 @@ const list = ref([]);
 const loading = ref(false);
 const finished = ref(false);
 
-// 获取点赞列表并筛选对应文章
+// 获取收藏列表并筛选对应文章
 const fetchLikedCollectionArticles = async () => {
     const articles = [];
     try {
-        // 使用传入的 apiFn 和 params 来获取点赞列表
+        // 使用传入的 apiFn 和 params 来获取收藏列表
         const res = await props.apiFn(props.params);
-        if (res?.code !== 0 || res.data.list === null || res.data.list === undefined || res.data.list.length === 0) return articles;
+        console.log('收藏列表响应:', res);
+        
+        if (res?.code !== 0) {
+            console.error('获取收藏列表失败:', res?.msg || '未知错误');
+            return articles;
+        }
+        
+        if (!res.data || res.data.list === null || res.data.list === undefined || res.data.list.length === 0) {
+            console.log('收藏列表为空');
+            return articles;
+        }
 
         // 类型是商品，需要进行显示格式的转换
         if (props.params.type === 1) {
             for (const item of res.data.list) {
-                articles.push({
-                    id: item.object_id,
-                    title: item.goods_info.name,
-                    desc: (item.goods_info.price / 100).toFixed(2),
-                    pic_url: item.goods_info.pic_url,
-                    detail: item.goods_info.detail_info,
-                    created_at: item.goods_info.created_at
-                });
+                if (item.goods) {  // 确保 goods 对象存在
+                    articles.push({
+                        id: item.object_id,
+                        title: item.goods.name,
+                        desc: (item.goods.price / 100).toFixed(2),
+                        pic_url: item.goods.pic_url,
+                        detail: item.goods.detail_info,
+                        created_at: item.goods.created_at
+                    });
+                } else {
+                    console.warn('商品数据不完整:', item);
+                }
             }
         } else {
             for (const item of res.data.list) {
-                articles.push(item.article_info);
+                if (item.article) {  // 确保 article 对象存在
+                    articles.push({
+                        id: item.object_id,
+                        title: item.article.title,
+                        desc: item.article.desc,
+                        pic_url: item.article.pic_url,
+                        created_at: item.article.created_at
+                    });
+                } else {
+                    console.warn('文章数据不完整:', item);
+                }
             }
         }
 
         return articles;
     } catch (error) {
-        console.error("Error fetching liked articles:", error);
+        console.error("Error fetching collection articles:", error);
         return articles;
     }
 };

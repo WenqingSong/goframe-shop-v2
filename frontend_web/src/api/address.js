@@ -7,8 +7,9 @@ import request from '@/utils/request';
  */
 export const getAddressList = queryObj =>
   request({
-    method: 'GET',
-    url: '/frontend/consignee/list/'.concat('?', query(queryObj)),
+    method: 'POST',
+    url: '/frontend/consignee/list',
+    data: queryObj,
   });
 
 /**
@@ -51,11 +52,7 @@ export const updateAddress = info =>
  */
 export const deleteAddress = id =>
   request({
-    method: 'DELETE',
-    url: '/frontend/consignee/delete/',
-    data: (() => {
-      const formData = new FormData();
-      formData.set('id', id);
-      return formData;
-    })(),
+    method: 'POST',
+    url: '/frontend/consignee/delete',
+    data: { id },
   });

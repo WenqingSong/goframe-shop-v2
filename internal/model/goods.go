@@ -62,8 +62,28 @@ type GoodsDetailInput struct {
 
 type GoodsDetailOutput struct {
 	do.GoodsInfo
-	Options  []*do.GoodsOptionsInfo `orm:"with:goods_id=id"` //规格 sku
-	Comments []*CommentBase         `orm:"with:object_id=id, where:type=1"`
+	IsCollect bool                   `json:"is_collect"`
+	Options   []*do.GoodsOptionsInfo `orm:"with:goods_id=id"` //规格 sku
+	Comments  []*CommentBase         `orm:"with:object_id=id, where:type=1"`
+}
+
+// GoodsGetLevelListInput 根据分类级别获取商品列表
+type GoodsGetLevelListInput struct {
+	Page    int // 分页号码
+	Size    int // 分页数量，最大50
+	LevelId int // 分类级别ID
+}
+
+// GoodsGetLevelListOutput 查询分类商品列表结果
+type GoodsGetLevelListOutput struct {
+	List  []GoodsGetLevelListOutputItem `json:"list" description:"列表"`
+	Page  int                           `json:"page" description:"分页码"`
+	Size  int                           `json:"size" description:"分页数量"`
+	Total int                           `json:"total" description:"数据总数"`
+}
+
+type GoodsGetLevelListOutputItem struct {
+	entity.GoodsInfo
 }
 
 type BaseGoodsColumns struct {

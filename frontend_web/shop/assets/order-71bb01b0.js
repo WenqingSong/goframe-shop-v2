@@ -1,0 +1,1 @@
+import{aP as e,aQ as t}from"./index-786b1c77.js";const a=r=>e({method:"GET",url:"/frontend/order/list/".concat("?",t(r))}),d=r=>e({method:"POST",url:"/frontend/add/order/",data:JSON.stringify(r)});export{d as c,a as g};

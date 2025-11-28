@@ -8,7 +8,7 @@ import { query } from '@/utils/query';
 export const addCollection = info =>
   request({
     method: 'POST',
-    url: '/frontend/collection/add/',
+    url: '/frontend/add/collection',
     data: (() => {
       const formData = new FormData();
       Object.keys(info).forEach(key => {
@@ -24,8 +24,8 @@ export const addCollection = info =>
  */
 export const deleteCollectionById = id =>
   request({
-    method: 'DELETE',
-    url: '/frontend/collection/delete/',
+    method: 'POST',
+    url: '/frontend/delete/collection',
     data: (() => {
       const formData = new FormData();
       formData.set('id', id);
@@ -39,8 +39,8 @@ export const deleteCollectionById = id =>
  */
 export const deleteCollectionByType = info =>
   request({
-    method: 'DELETE',
-    url: '/frontend/collection/deleteByType/',
+    method: 'POST',
+    url: '/frontend/delete/collection',
     data: (() => {
       const formData = new FormData();
       Object.keys(info).forEach(key => {
@@ -52,11 +52,17 @@ export const deleteCollectionByType = info =>
 
 /**
  * @description 获取收藏
- * @param {{type:string,page:string,limit:string}} queryObj
+ * @param {{type:string,page:string,size:string}} queryObj
  */
 export const getCollectionList = queryObj =>
   request({
-    method: 'GET',
-    url: '/frontend/collection/list/',
-    params: queryObj,
+    method: 'POST',
+    url: '/frontend/collection/list',
+    data: (() => {
+      const formData = new FormData();
+      Object.keys(queryObj).forEach(key => {
+        formData.set(key, queryObj[key]);
+      });
+      return formData;
+    })(),
   });

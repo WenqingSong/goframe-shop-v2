@@ -27,17 +27,18 @@ type DeleteCommentOutput struct {
 
 // CommentListInput 获取内容列表
 type CommentListInput struct {
-	Page int // 分页号码
-	Size int // 分页数量，最大50
-	Type uint8
+	Page     int   // 分页号码
+	Size     int   // 分页数量，最大50
+	Type     uint8
+	ObjectId uint   // 对象id
 }
 
 // CommentListOutput 查询列表结果
 type CommentListOutput struct {
-	List  []CommentListOutputItem `json:"list" description:"列表"`
-	Page  int                     `json:"page" description:"分页码"`
-	Size  int                     `json:"size" description:"分页数量"`
-	Total int                     `json:"total" description:"数据总数"`
+	List  []CommentBase `json:"list" description:"列表"`
+	Page  int         `json:"page" description:"分页码"`
+	Size  int         `json:"size" description:"分页数量"`
+	Total int         `json:"total" description:"数据总数"`
 }
 
 type CommentListOutputItem struct {
@@ -55,5 +56,6 @@ type CommentListOutputItem struct {
 
 type CommentBase struct {
 	do.CommentInfo
-	User UserInfoBase `json:"user" orm:"with:id=user_id"`
+	User    UserInfoBase `json:"user" orm:"with:id=user_id"`
+	ReplyTo string       `json:"replyTo,omitempty"`
 }

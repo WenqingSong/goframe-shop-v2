@@ -4,19 +4,24 @@ import {query} from "@/utils/query";
 export const getComments = object_id =>
   request({
     method: 'POST',
-    url: '/frontend/comment/detail/'.concat('?', query({ object_id })),
+    url: '/frontend/comment/detail',
+    data: (() => {
+      const data = new FormData();
+      data.append('object_id', object_id);
+      return data;
+    })(),
   });
 
-export const listComments = queyObj =>
+export const listComments = queryObj =>
     request({
         method: 'GET',
-        url: '/frontend/comment/list/'.concat('?', query(queyObj)),
+        url: '/frontend/comment/list?' + query(queryObj),
     });
 
 export const addCommentApi = info =>
   request({
     method: 'POST',
-    url: '/frontend/comment/add/',
+    url: '/frontend/add/comment',
     data: (() => {
       const data = new FormData();
       Object.keys(info).forEach(key => {

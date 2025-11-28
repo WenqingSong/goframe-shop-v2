@@ -1,7 +1,6 @@
 package model
 
 import (
-	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gtime"
 )
 
@@ -46,14 +45,13 @@ type CollectionListOutputItem struct {
 	UserId    int         `json:"user_id"    description:"用户id"`
 	ObjectId  int         `json:"object_id"  description:"对象id"`
 	Type      int         `json:"type"      description:"收藏类型：1商品 2文章"`
-	Goods     GoodsItem   `json:"goods" orm:"with:id=object_id"`
-	Article   ArticleItem `json:"article" orm:"with:id=object_id"`
+	Goods     interface{} `json:"goods"`      // 使用 interface{} 类型
+	Article   interface{} `json:"article"`    // 使用 interface{} 类型
 	CreatedAt *gtime.Time `json:"created_at"` // 创建时间
 	UpdatedAt *gtime.Time `json:"updated_at"` // 修改时间
 }
 
 type GoodsItem struct {
-	g.Meta `orm:"table:goods_info"`
 	Id     uint   `json:"id"`
 	Name   string `json:"name"`
 	PicUrl string `json:"pic_url"`
@@ -61,7 +59,6 @@ type GoodsItem struct {
 }
 
 type ArticleItem struct {
-	g.Meta `orm:"table:article_info"`
 	Id     uint   `json:"id"`
 	Title  string `json:"title"`
 	Desc   string `json:"desc"`

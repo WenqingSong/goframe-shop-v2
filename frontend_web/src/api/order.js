@@ -18,17 +18,39 @@ export const getOrder = queryObj =>
 export const createOrder = info =>
   request({
     method: 'POST',
-    url: '/frontend/order/add/',
+    url: '/frontend/add/order/',
     data: JSON.stringify(info),
   });
 
 /**
- * @description
- * @param {{id: string,pay_type:string,pay_at:string,status:string}} info
+ * @description 取消订单
+ * @param {{id: string, reason: string}} info
  */
-export const editOrderStatus = info =>
+export const cancelOrder = info =>
   request({
     method: 'POST',
-    url: '/frontend/order/add/',
+    url: '/frontend/order/cancel/',
+    data: JSON.stringify(info),
+  });
+
+/**
+ * @description 支付订单
+ * @param {{id: string, pay_type: number}} info
+ */
+export const payOrder = info =>
+  request({
+    method: 'POST',
+    url: '/frontend/order/pay/',
+    data: JSON.stringify(info),
+  });
+
+/**
+ * @description 确认收货
+ * @param {{id: string}} info
+ */
+export const confirmOrder = info =>
+  request({
+    method: 'POST',
+    url: '/frontend/order/confirm/',
     data: JSON.stringify(info),
   });

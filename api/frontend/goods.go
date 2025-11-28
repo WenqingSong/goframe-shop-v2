@@ -24,8 +24,22 @@ type GoodsDetailReq struct {
 
 type GoodsDetailRes struct {
 	GoodsInfoBase
+	IsCollect bool                `json:"is_collect"`
 	Options  []GoodsOptionsBase `json:"options"` //规格 sku
 	Comments []CommentBase      `json:"comments"`
+}
+
+type GoodsGetLevelListReq struct {
+	g.Meta `path:"/goods/level/list/" method:"get" tags:"前台商品" summary:"根据分类级别获取商品列表"`
+	CommonPaginationReq
+	LevelId int `json:"level_id" v:"required|min:1#分类ID不能为空|分类ID必须大于0"`
+}
+
+type GoodsGetLevelListRes struct {
+	List  []GoodsInfoBase `json:"list"  description:"列表"`
+	Page  int             `json:"page"  description:"分页码"`
+	Size  int             `json:"size"  description:"分页数量"`
+	Total int             `json:"total" description:"数据总数"`
 }
 
 type GoodsInfoBase struct {

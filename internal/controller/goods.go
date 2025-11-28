@@ -71,3 +71,42 @@ func (*cGoods) Detail(ctx context.Context, req *frontend.GoodsDetailReq) (res *f
 	}
 	return res, nil
 }
+
+func (a *cGoods) GetLevelList(ctx context.Context, req *frontend.GoodsGetLevelListReq) (res *frontend.GoodsGetLevelListRes, err error) {
+	getListRes, err := service.Goods().GetLevelList(ctx, model.GoodsGetLevelListInput{
+		Page:    req.Page,
+		Size:    req.Size,
+		LevelId: req.LevelId,
+	})
+	if err != nil {
+		return nil, err
+	}
+	
+	// 转换类型
+	list := make([]frontend.GoodsInfoBase, 0, len(getListRes.List))
+	for _, item := range getListRes.List {
+		goodsBase := frontend.GoodsInfoBase{
+			Id:               item.Id,
+			PicUrl:           item.PicUrl,
+			Name:             item.Name,
+			Price:            item.Price,
+			Level1CategoryId: item.Level1CategoryId,
+			Level2CategoryId: item.Level2CategoryId,
+			Level3CategoryId: item.Level3CategoryId,
+			Brand:            item.Brand,
+			Stock:            item.Stock,
+			Sale:             item.Sale,
+			Tags:             item.Tags,
+			DetailInfo:       item.DetailInfo,
+			CreatedAt:        item.CreatedAt,
+		}
+		list = append(list, goodsBase)
+	}
+	
+	return &frontend.GoodsGetLevelListRes{
+		List:  list,
+		Page:  getListRes.Page,
+		Size:  getListRes.Size,
+		Total: getListRes.Total,
+	}, nil
+}

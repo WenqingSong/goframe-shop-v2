@@ -35,7 +35,7 @@ export const addArticle = articleInfo =>
 export const myArticleList = queyObj =>
     request({
         method: 'GET',
-        url: '/frontend/article/mylist'.concat('?', query(queyObj)),
+        url: '/frontend/article/my'.concat('?', query(queyObj)),
     });
 
 export const getArticleInfo = id =>
