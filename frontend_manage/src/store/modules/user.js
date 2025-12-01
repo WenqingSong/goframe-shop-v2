@@ -34,22 +34,26 @@ const actions = {
   login({ commit }, userInfo) {
     const { name, password } = userInfo;
     return new Promise((resolve, reject) => {
-      //trim是防止用户输入空格，orgid是我写死的一个管理员身份
+      //trim是防止用户输入空格
       login({ name: name.trim(), password: password })
         .then((response) => {
           if (response.code === 0) {
-            //拼接token
-            response.data.tokens =
-              response.data.type + " " + response.data.token;
-            localStorage.setItem("info", JSON.stringify(response.data));
+            // JWT token格式
+            const token = "Bearer " + response.data.token;
+            const userInfo = {
+              ...response.data,
+              tokens: token
+            };
+            localStorage.setItem("info", JSON.stringify(userInfo));
+            
+            //这里是把token存在了vuex和cookie里面
+            commit("SET_TOKEN", token);
+            setToken(token);
+            console.log("登录成功:", userInfo);
+            resolve(response);
+          } else {
+            reject(new Error(response.msg || "登录失败"));
           }
-          //这里是把token存在了vuex里面
-          const { data } = response;
-          commit("SET_TOKEN", data.tokens);
-          setToken(data.tokens);
-          console.log(data);
-          console.log(data.tokens);
-          resolve();
         })
         .catch((error) => {
           reject(error);
@@ -58,33 +62,30 @@ const actions = {
   },
 
   // get user info
-  //获取用户信息 这里到时候可以换成你们的接口 现在数据是我写死的
+  //获取用户信息
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       const info = JSON.parse(localStorage.getItem("info"));
       console.log("info", info);
-      const { data } = {
-        data: {
-          roles: info.is_admin
-            ? ["*"]
-            : info.permissions.map((item) => item.path), // 身份
-          introduction: "Administrator",
-          avatar:
-            "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
-          name: "administrator",
-          token: info.tokens,
-        },
-      };
-      console.log("permission: ", info.permissions)
-      console.log("data", data);
-      console.log("Roles: ", data.roles)
-      if (!data) {
+      
+      if (!info) {
         reject("Verification failed, please Login again.");
+        return;
       }
-
+      
+      // 简化用户信息，基于JWT响应
+      const data = {
+        roles: ["*"], // 暂时给管理员所有权限
+        introduction: "Administrator", 
+        avatar: "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
+        name: "test",
+        token: info.tokens,
+      };
+      
       const { roles, name, avatar, introduction, token } = data;
       if (!roles || roles.length <= 0) {
         reject("getInfo: roles must be a non-null array!");
+        return;
       }
 
       commit("SET_ROLES", roles);

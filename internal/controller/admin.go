@@ -15,14 +15,13 @@ var Admin = cAdmin{}
 type cAdmin struct{}
 
 func (a *cAdmin) Create(ctx context.Context, req *backend.AdminReq) (res *backend.AdminRes, err error) {
-	out, err := service.Admin().Create(ctx, model.AdminCreateInput{
-		AdminCreateUpdateBase: model.AdminCreateUpdateBase{
-			Name:     req.Name,
-			Password: req.Password,
-			RoleIds:  req.RoleIds,
-			IsAdmin:  req.IsAdmin,
-		},
-	})
+	input := &model.AdminCreateInput{}
+	input.Name = req.Name
+	input.Password = req.Password
+	input.RoleIds = req.RoleIds
+	input.IsAdmin = req.IsAdmin
+	
+	out, err := service.Admin().Create(ctx, input)
 	if err != nil {
 		return nil, err
 	}

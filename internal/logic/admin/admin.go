@@ -24,7 +24,7 @@ func New() *sAdmin {
 	return &sAdmin{}
 }
 
-func (s *sAdmin) Create(ctx context.Context, in model.AdminCreateInput) (out model.AdminCreateOutput, err error) {
+func (s *sAdmin) Create(ctx context.Context, in *model.AdminCreateInput) (out model.AdminCreateOutput, err error) {
 	// 不允许HTML代码
 	if err = ghtml.SpecialCharsMapOrStruct(in); err != nil {
 		return out, err

@@ -116,7 +116,7 @@ export default {
     };
     return {
       loginForm: {
-        name: "wangzhongyang",
+        name: "test",
         password: "111111",
       },
       loginRules: {
@@ -178,14 +178,20 @@ export default {
     handleLogins() {
       //loading 所有按钮建议都加上 防抖操作 防止用户连续多次点击
       this.loading = true;
-      this.$store.dispatch("user/login", this.loginForm);
-      setTimeout(() => {
-        this.$router.push({
-          path: this.redirect || "/",
-          query: this.otherQuery,
+      this.$store.dispatch("user/login", this.loginForm)
+        .then(() => {
+          this.$message.success("登录成功");
+          this.$router.push({
+            path: this.redirect || "/",
+            query: this.otherQuery,
+          });
+        })
+        .catch((error) => {
+          this.$message.error(error.message || "登录失败");
+        })
+        .finally(() => {
+          this.loading = false;
         });
-      },1000);
-      this.loading = false;
     },
     getOtherQuery(query) {
       return Object.keys(query).reduce((acc, cur) => {
