@@ -29,9 +29,10 @@ type CategoryUpdateInput struct {
 
 // CategoryGetListInput 获取内容列表
 type CategoryGetListInput struct {
-	Page int // 分页号码
-	Size int // 分页数量，最大50
-	Sort int // 排序类型(0:最新, 默认。1:活跃, 2:热度)
+	Page     int // 分页号码
+	Size     int // 分页数量，最大50
+	Sort     int // 排序类型(0:最新, 默认。1:活跃, 2:热度)
+	ParentId uint // 父级ID，用于查询子分类
 }
 
 // CategoryGetListOutput 查询列表结果

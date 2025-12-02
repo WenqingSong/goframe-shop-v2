@@ -21,6 +21,13 @@ export const getCategory = parent_id => {
     });
 };
 
+export const getAllCategories = () => {
+    return request({
+        method: 'GET',
+        url: '/backend/category/list/all',
+    });
+};
+
 export const getGoodsOptions = queryObj => {
     return request({
         method: 'GET',

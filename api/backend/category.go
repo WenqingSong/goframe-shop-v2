@@ -35,7 +35,8 @@ type CategoryUpdateRes struct {
 }
 type CategoryGetListCommonReq struct {
 	g.Meta `path:"/category/list" method:"get" tags:"商品分类" summary:"商品分类列表接口"`
-	Sort   int `json:"sort"   in:"query" dc:"排序类型"`
+	Sort     int `json:"sort"     in:"query" dc:"排序类型"`
+	ParentId uint `json:"parent_id" in:"query" dc:"父级ID"`
 	CommonPaginationReq
 }
 type CategoryGetListCommonRes struct {

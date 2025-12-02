@@ -50,9 +50,10 @@ func (a *cCategory) Update(ctx context.Context, req *backend.CategoryUpdateReq) 
 
 func (a *cCategory) List(ctx context.Context, req *backend.CategoryGetListCommonReq) (res *backend.CategoryGetListCommonRes, err error) {
 	getListRes, err := service.Category().GetList(ctx, model.CategoryGetListInput{
-		Page: req.Page,
-		Size: req.Size,
-		Sort: req.Sort,
+		Page:     req.Page,
+		Size:     req.Size,
+		Sort:     req.Sort,
+		ParentId: req.ParentId,
 	})
 	if err != nil {
 		return nil, err
