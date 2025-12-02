@@ -76,10 +76,7 @@ CREATE TABLE `admin_info`  (
 -- ----------------------------
 -- Records of admin_info
 -- ----------------------------
-INSERT INTO `admin_info` VALUES (1, 'zhangsan', 'e91474a50e96e9e3b0c7df489b1c0a21', '2', '2022-09-25 16:40:43', '2022-11-20 11:06:01', 'e3oHjweGEc', 0);
-INSERT INTO `admin_info` VALUES (3, 'wangzhongyang', '7382e435a4eb141adeabc3792d383e1c', '1', '2022-07-19 10:50:20', '2022-11-23 14:25:10', '4f8WG1bjne', 1);
-INSERT INTO `admin_info` VALUES (13, '李四', '9076805c0efa82a164f0c4f2a2818851', '1', '2022-11-20 11:03:35', '2022-11-20 11:03:35', 'Io45dMSb4e', 1);
-INSERT INTO `admin_info` VALUES (15, 'zhaoliu', 'd82abc6395e1c89e7837f96407cf6d5d', '2', '2022-11-20 13:45:09', '2022-11-20 13:45:49', 'aHzOD3zI7L', 0);
+INSERT INTO `admin_info` VALUES (1, 'wangzhongyang', '7382e435a4eb141adeabc3792d383e1c', '1', '2022-07-19 10:50:20', '2022-11-23 14:25:10', '4f8WG1bjne', 1);
 
 -- ----------------------------
 -- Table structure for article_info
@@ -130,10 +127,10 @@ CREATE TABLE `cart_info`  (
 -- ----------------------------
 -- Records of cart_info
 -- ----------------------------
-INSERT INTO `cart_info` VALUES (1, 1, 1, 1, '2022-07-29 13:59:10', NULL, NULL);
-INSERT INTO `cart_info` VALUES (2, 1, 2, 3, '2022-07-29 14:23:31', '2022-07-29 14:32:10', '2022-08-27 19:08:41');
-INSERT INTO `cart_info` VALUES (3, 1, 2, 3, NULL, NULL, NULL);
-INSERT INTO `cart_info` VALUES (4, 6, 2, 1, '2025-12-02 03:01:24', '2025-12-02 03:28:44', NULL);
+-- 为wangzhongyang用户添加购物车测试数据
+INSERT INTO `cart_info` VALUES (1, 1, 2, 1, '2022-07-29 13:59:10', '2022-07-29 13:59:10', NULL);
+INSERT INTO `cart_info` VALUES (2, 1, 8, 1, '2022-07-29 14:23:31', '2022-07-29 14:23:31', NULL);
+INSERT INTO `cart_info` VALUES (3, 1, 11, 2, '2022-07-29 14:30:00', '2022-07-29 14:30:00', NULL);
 
 -- ----------------------------
 -- Table structure for category_info
@@ -213,10 +210,14 @@ CREATE TABLE `collection_info`  (
 -- ----------------------------
 -- Records of collection_info
 -- ----------------------------
-INSERT INTO `collection_info` VALUES (3, 1, 1, 1, '2022-07-31 15:21:38', '2022-07-31 15:21:38');
-INSERT INTO `collection_info` VALUES (4, 4, 4, 1, '2023-01-18 15:23:28', '2023-01-18 15:23:28');
-INSERT INTO `collection_info` VALUES (16, 5, 1, 2, '2025-12-02 02:46:09', '2025-12-02 02:46:09');
-INSERT INTO `collection_info` VALUES (17, 6, 1, 1, '2025-12-02 03:01:26', '2025-12-02 03:01:26');
+-- 为wangzhongyang用户添加收藏测试数据
+-- 收藏商品
+INSERT INTO `collection_info` VALUES (1, 1, 1, 1, '2022-07-31 15:21:38', '2022-07-31 15:21:38');
+INSERT INTO `collection_info` VALUES (2, 1, 3, 1, '2022-07-31 15:22:00', '2022-07-31 15:22:00');
+INSERT INTO `collection_info` VALUES (3, 1, 4, 1, '2022-07-31 15:23:00', '2022-07-31 15:23:00');
+-- 收藏文章
+INSERT INTO `collection_info` VALUES (4, 1, 1, 2, '2022-07-31 15:24:00', '2022-07-31 15:24:00');
+INSERT INTO `collection_info` VALUES (5, 1, 2, 2, '2022-07-31 15:25:00', '2022-07-31 15:25:00');
 
 -- ----------------------------
 -- Table structure for comment_info
@@ -277,7 +278,11 @@ CREATE TABLE `consignee_info`  (
 -- ----------------------------
 -- Records of consignee_info
 -- ----------------------------
-INSERT INTO `consignee_info` VALUES (1, 1, 1, '王先生1', '13269477632', '北京', '北京市', '房山区', '拱辰街道', '大学城西', '2022-07-31 14:42:33', '2022-07-31 14:44:50', NULL);
+-- 为wangzhongyang用户添加收货地址测试数据
+-- 默认收货地址
+INSERT INTO `consignee_info` VALUES (1, 1, 1, '王中阳', '13800138000', '北京', '北京市', '朝阳区', '望京街道', '望京SOHO T1 1801室', '2022-07-31 14:42:33', '2022-07-31 14:44:50', NULL);
+-- 非默认收货地址
+INSERT INTO `consignee_info` VALUES (2, 1, 0, '王中阳', '13800138000', '上海', '上海市', '浦东新区', '张江高科技园区', '博云路2号', '2022-07-31 14:45:00', '2022-07-31 14:45:00', NULL);
 
 -- ----------------------------
 -- Table structure for coupon_info
@@ -298,21 +303,8 @@ CREATE TABLE `coupon_info`  (
 -- ----------------------------
 -- Records of coupon_info
 -- ----------------------------
-INSERT INTO `coupon_info` VALUES (1, '满2千减5百优惠券', 50000, '1,2,3', 1, '2022-07-19 14:30:48', '2022-09-25 15:35:56', NULL);
-INSERT INTO `coupon_info` VALUES (2, '满2千减5百优惠券', 50000, '0', 1, '2022-07-19 14:39:51', '2022-07-19 14:39:51', NULL);
-INSERT INTO `coupon_info` VALUES (3, '满2千减5百优惠券', 50000, '1', 1, '2022-07-29 15:58:15', '2022-08-01 13:53:11', '2022-08-01 13:53:27');
-INSERT INTO `coupon_info` VALUES (4, '满2千减5百优惠券', 50000, '0', 1, '2022-08-01 13:52:51', '2022-08-01 13:52:51', NULL);
-INSERT INTO `coupon_info` VALUES (5, '满2千减5百优惠券', 50000, '', 1, '2022-09-23 06:31:33', '2022-09-23 06:31:33', NULL);
-INSERT INTO `coupon_info` VALUES (6, '满2千减5百优惠券', 50000, '', 1, '2022-09-23 06:33:21', '2022-09-23 06:33:21', NULL);
-INSERT INTO `coupon_info` VALUES (7, '满2千减5百优惠券', 50000, '', 1, '2022-09-23 06:34:56', '2022-09-23 06:34:56', NULL);
-INSERT INTO `coupon_info` VALUES (8, '满2千减5百优惠券', 50000, '', 1, '2022-09-23 06:36:17', '2022-09-23 06:36:17', NULL);
-INSERT INTO `coupon_info` VALUES (9, '满2千减5百优惠券', 50000, '', 1, '2022-09-23 06:38:41', '2022-09-23 06:38:41', NULL);
-INSERT INTO `coupon_info` VALUES (10, '满2千减5百优惠券', 50000, '0', 1, '2022-09-25 15:32:34', '2022-09-25 15:32:34', NULL);
-INSERT INTO `coupon_info` VALUES (11, '满2千减5百优惠券', 50000, '0', 1, '2022-09-25 15:32:40', '2022-09-25 15:32:40', NULL);
-INSERT INTO `coupon_info` VALUES (12, '满2千减5百优惠券', 50000, '0', 1, '2022-09-25 15:33:23', '2022-09-25 15:33:23', NULL);
-INSERT INTO `coupon_info` VALUES (13, '满2千减5百优惠券', 50000, '0', 1, '2022-09-25 15:33:54', '2022-09-25 15:33:54', NULL);
-INSERT INTO `coupon_info` VALUES (14, '造标争级满', 82, '1,2,3', 44, '2022-09-25 15:36:12', '2023-01-16 11:43:21', NULL);
-INSERT INTO `coupon_info` VALUES (15, '土切装则', 13, '', 34, '2023-01-16 11:37:06', '2023-01-16 11:37:06', '2023-01-16 11:40:52');
+INSERT INTO `coupon_info` VALUES (1, '满2千减5百优惠券', 50000, '0', 1, '2022-07-19 14:30:48', '2022-09-25 15:35:56', NULL);
+INSERT INTO `coupon_info` VALUES (2, '全场通用满1千减1百优惠券', 10000, '0', 0, '2022-07-19 14:39:51', '2022-07-19 14:39:51', NULL);
 
 -- ----------------------------
 -- Table structure for file_info
@@ -332,8 +324,7 @@ CREATE TABLE `file_info`  (
 -- ----------------------------
 -- Records of file_info
 -- ----------------------------
-INSERT INTO `file_info` VALUES (1, 'cpk2opce3094xdzlc4.png', 'upload/20230105/cpk2opce3094xdzlc4.png', '/upload/20230105/cpk2opce3094xdzlc4.png', 15, '2023-01-05 15:19:44', '2023-01-05 15:19:44');
-INSERT INTO `file_info` VALUES (2, 'cpk2rynqpzowhwzsre.png', 'upload/20230105/cpk2rynqpzowhwzsre.png', '/upload/20230105/cpk2rynqpzowhwzsre.png', 15, '2023-01-05 15:23:59', '2023-01-05 15:23:59');
+-- 清空文件信息测试数据
 
 -- ----------------------------
 -- Table structure for goods_info
@@ -438,13 +429,7 @@ CREATE TABLE `order_goods_info`  (
 -- ----------------------------
 -- Records of order_goods_info
 -- ----------------------------
-INSERT INTO `order_goods_info` VALUES (1, 1, 1, 0, 1, '', 100, 10, 90, NULL, NULL);
-INSERT INTO `order_goods_info` VALUES (2, 8, 1, 0, 1, '', 0, 0, 0, '2022-08-27 20:50:50', '2022-08-27 20:50:50');
-INSERT INTO `order_goods_info` VALUES (3, 8, 2, 0, 3, '', 0, 0, 0, '2022-08-27 20:50:50', '2022-08-27 20:50:50');
-INSERT INTO `order_goods_info` VALUES (21, 13, 1, 5, 1, 'laboris consectetur in minim', 74, 67, 4, '2023-02-07 15:59:43', '2023-02-07 15:59:43');
-INSERT INTO `order_goods_info` VALUES (22, 13, 1, 6, 2, 'ut amet laboris laborum dolore', 69, 89, 80, '2023-02-07 15:59:43', '2023-02-07 15:59:43');
-INSERT INTO `order_goods_info` VALUES (23, 15, 1, 5, 1, '无', 10, 1, 9, '2023-02-09 14:15:59', '2023-02-09 14:15:59');
-INSERT INTO `order_goods_info` VALUES (24, 16, 1, 5, 1, '无', 10, 1, 9, '2023-02-09 14:51:09', '2023-02-09 14:51:09');
+-- 清空订单商品测试数据
 
 -- ----------------------------
 -- Table structure for order_info
@@ -472,21 +457,7 @@ CREATE TABLE `order_info`  (
 -- ----------------------------
 -- Records of order_info
 -- ----------------------------
-INSERT INTO `order_info` VALUES (1, '1659231316407832000111', 6, 1, '0', '2025-12-02 11:35:57', 1, '王先生', '13269477432', '北京丰台汽车博物馆', 10000, 100, 9900, '2022-08-27 09:35:16', '2022-07-31 09:35:16');
-INSERT INTO `order_info` VALUES (2, '1659231554317361000757', 1, 1, '0', NULL, 1, '王先生', '13269477432', '北京丰台汽车博物馆', 10000, 200, 9800, '2022-07-31 09:39:14', '2022-07-31 09:39:14');
-INSERT INTO `order_info` VALUES (3, '1661603467832912000516', 1, 0, '', '2022-12-13 21:52:26', 0, '', '', '', 0, 0, 0, '2022-12-08 20:31:07', '2022-08-27 20:31:07');
-INSERT INTO `order_info` VALUES (4, '1661603562656619000513', 1, 1, '放到快递柜就可以，不用打电话。', '2022-12-13 21:52:19', 0, '王先生', '13269477432', '北京丰台汽车博物馆', 0, 0, 0, '2022-12-09 20:32:42', '2022-08-27 20:32:42');
-INSERT INTO `order_info` VALUES (5, '1661604424031843000546', 1, 0, '', '2022-12-13 21:52:12', 0, '', '', '', 0, 0, 0, '2022-12-10 20:47:04', '2022-08-27 20:47:04');
-INSERT INTO `order_info` VALUES (6, '1661604530142913000770', 1, 1, '这是备注', '2022-12-13 21:52:05', 1, '', '', '', 100, 0, 0, '2022-12-11 20:48:50', '2022-08-27 20:48:50');
-INSERT INTO `order_info` VALUES (7, '166160461284091500027', 1, 1, '这是备注', '2022-12-13 21:51:58', 1, '', '', '', 100, 0, 9800, '2022-12-12 20:50:50', '2022-08-27 20:50:12');
-INSERT INTO `order_info` VALUES (8, '166160465089079000090', 1, 1, '这是备注', '2022-12-19 13:14:07', 1, '', '', '', 100, 0, 9800, '2022-12-19 20:50:50', '2022-08-27 20:50:50');
-INSERT INTO `order_info` VALUES (9, '1675756215452071000340', 15, 0, 'ad sint', NULL, 1, '应便更空政于八', '18130435879', '香港特别行政区三沙市望城区', 25, 31, 97, '2023-02-07 15:50:15', '2023-02-07 15:50:15');
-INSERT INTO `order_info` VALUES (10, '1675756478857950000699', 15, 0, 'ad sint', NULL, 1, '应便更空政于八', '18130435879', '香港特别行政区三沙市望城区', 25, 31, 97, '2023-02-07 15:54:38', '2023-02-07 15:54:38');
-INSERT INTO `order_info` VALUES (11, '1675756573337742000600', 15, 0, 'ad sint', NULL, 1, '应便更空政于八', '18130435879', '香港特别行政区三沙市望城区', 25, 31, 97, '2023-02-07 15:56:13', '2023-02-07 15:56:13');
-INSERT INTO `order_info` VALUES (13, '1675756783046217000276', 15, 0, 'consequat cupidatat in', NULL, 1, '在区三少', '18127326325', '广东省天津市安溪县', 87, 66, 92, '2023-02-07 15:59:43', '2023-02-07 15:59:43');
-INSERT INTO `order_info` VALUES (14, '1675923255725252000737', 15, 0, '备注', NULL, 1, '王中阳go', '18130435879', '北京市朝阳区望京SOHO', 10, 1, 9, '2023-02-09 14:14:15', '2023-02-09 14:14:15');
-INSERT INTO `order_info` VALUES (15, '1675923359070046000221', 15, 0, '备注', NULL, 1, '王中阳go', '18130435879', '北京市朝阳区望京SOHO', 10, 1, 9, '2023-02-09 14:15:59', '2023-02-09 14:15:59');
-INSERT INTO `order_info` VALUES (16, '1675925468868358000350', 15, 0, '备注', NULL, 1, '王中阳go', '18130435879', '北京市朝阳区望京SOHO', 10, 1, 9, '2023-02-09 14:51:09', '2023-02-09 14:51:09');
+-- 清空订单测试数据
 
 -- ----------------------------
 -- Table structure for permission_info
@@ -506,10 +477,9 @@ CREATE TABLE `permission_info`  (
 -- ----------------------------
 -- Records of permission_info
 -- ----------------------------
-INSERT INTO `permission_info` VALUES (1, '文章1', '*', '2022-09-25 15:03:01', '2022-09-25 15:03:43', NULL);
-INSERT INTO `permission_info` VALUES (2, '测试2', 'admin.test.index', NULL, NULL, NULL);
-INSERT INTO `permission_info` VALUES (5, '商品3', 'admin/goods', '2022-12-26 19:51:44', '2022-12-26 19:52:29', NULL);
-INSERT INTO `permission_info` VALUES (6, '商品2', 'admin/goods', '2022-12-26 19:52:01', '2022-12-26 19:52:01', NULL);
+INSERT INTO `permission_info` VALUES (1, '文章管理', 'admin/article', '2022-09-25 15:03:01', '2022-09-25 15:03:43', NULL);
+INSERT INTO `permission_info` VALUES (2, '商品管理', 'admin/goods', '2022-12-26 19:51:44', '2022-12-26 19:52:29', NULL);
+INSERT INTO `permission_info` VALUES (3, '分类管理', 'admin/category', '2022-12-26 19:52:01', '2022-12-26 19:52:01', NULL);
 
 -- ----------------------------
 -- Table structure for position_info
@@ -531,7 +501,7 @@ CREATE TABLE `position_info`  (
 -- ----------------------------
 -- Records of position_info
 -- ----------------------------
-INSERT INTO `position_info` VALUES (2, 'https://images.zsxq.com/FgdL08hVmh-40_e12vh-ifbXpGxB?e=2000966400', '测试', 'https://articles.zsxq.com/id_wd15wsegvow1.html', 0, 1, '2022-11-18 17:44:07', '2022-11-18 17:44:07', '2022-11-18 17:44:59');
+-- 清空位置信息测试数据
 
 -- ----------------------------
 -- Table structure for praise_info
@@ -551,8 +521,7 @@ CREATE TABLE `praise_info`  (
 -- ----------------------------
 -- Records of praise_info
 -- ----------------------------
-INSERT INTO `praise_info` VALUES (8, 4, 1, 1, '2023-01-19 12:18:07', '2023-01-19 12:18:07');
-INSERT INTO `praise_info` VALUES (9, 5, 2, 1, '2025-12-02 02:46:08', '2025-12-02 02:46:08');
+-- 清空点赞测试数据
 
 -- ----------------------------
 -- Table structure for refund_info
@@ -575,7 +544,7 @@ CREATE TABLE `refund_info`  (
 -- ----------------------------
 -- Records of refund_info
 -- ----------------------------
-INSERT INTO `refund_info` VALUES (1, 'refund1659247832739250000428', 1, 1, '不想要了', 1, 1, '2022-07-31 14:10:32', '2022-07-31 14:10:32', NULL);
+-- 清空售后退款测试数据
 
 -- ----------------------------
 -- Table structure for role_info
@@ -595,8 +564,8 @@ CREATE TABLE `role_info`  (
 -- ----------------------------
 -- Records of role_info
 -- ----------------------------
-INSERT INTO `role_info` VALUES (1, '运营1', '测试', '2022-09-25 10:35:52', '2022-12-24 10:51:24', NULL);
-INSERT INTO `role_info` VALUES (3, '运营', '', '2022-12-21 10:43:33', '2022-12-21 10:43:33', NULL);
+INSERT INTO `role_info` VALUES (1, '超级管理员', '拥有系统所有权限', '2022-09-25 10:35:52', '2022-12-24 10:51:24', NULL);
+INSERT INTO `role_info` VALUES (2, '普通管理员', '拥有基础管理权限', '2022-12-21 10:43:33', '2022-12-21 10:43:33', NULL);
 
 -- ----------------------------
 -- Table structure for role_permission_info
@@ -615,7 +584,13 @@ CREATE TABLE `role_permission_info`  (
 -- ----------------------------
 -- Records of role_permission_info
 -- ----------------------------
-INSERT INTO `role_permission_info` VALUES (2, 1, 1, NULL, NULL);
+-- 超级管理员拥有所有权限
+INSERT INTO `role_permission_info` VALUES (1, 1, 1, NULL, NULL);
+INSERT INTO `role_permission_info` VALUES (2, 1, 2, NULL, NULL);
+INSERT INTO `role_permission_info` VALUES (3, 1, 3, NULL, NULL);
+-- 普通管理员拥有商品和分类管理权限
+INSERT INTO `role_permission_info` VALUES (4, 2, 2, NULL, NULL);
+INSERT INTO `role_permission_info` VALUES (5, 2, 3, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for rotation_info
@@ -663,6 +638,13 @@ CREATE TABLE `seckill_goods`  (
 -- ----------------------------
 -- Records of seckill_goods
 -- ----------------------------
+-- 添加合理的秒杀商品数据
+-- 索尼电视秒杀
+INSERT INTO `seckill_goods` VALUES (1, 1, 2, 699900, 599900, 10, '2025-12-01 00:00:00', '2025-12-31 23:59:59', 1, '2025-11-30 10:00:00', '2025-11-30 10:00:00');
+-- iPhone 14 Pro秒杀
+INSERT INTO `seckill_goods` VALUES (2, 3, 8, 899900, 799900, 5, '2025-12-01 00:00:00', '2025-12-31 23:59:59', 1, '2025-11-30 10:00:00', '2025-11-30 10:00:00');
+-- 华为耳机秒杀
+INSERT INTO `seckill_goods` VALUES (3, 4, 11, 129900, 99900, 20, '2025-12-01 00:00:00', '2025-12-31 23:59:59', 1, '2025-11-30 10:00:00', '2025-11-30 10:00:00');
 
 -- ----------------------------
 -- Table structure for seckill_order
@@ -726,9 +708,9 @@ CREATE TABLE `user_coupon_info`  (
 -- ----------------------------
 -- Records of user_coupon_info
 -- ----------------------------
+-- 为wangzhongyang用户添加可用优惠券
 INSERT INTO `user_coupon_info` VALUES (1, 1, 1, 1, '2022-07-29 16:01:13', '2022-07-29 16:01:13', NULL);
-INSERT INTO `user_coupon_info` VALUES (2, 39, 61, 72, '2022-07-29 16:16:18', '2023-01-16 15:22:28', NULL);
-INSERT INTO `user_coupon_info` VALUES (3, 55, 30, 58, '2023-01-16 15:20:29', '2023-01-16 15:20:29', '2023-01-16 15:21:14');
+INSERT INTO `user_coupon_info` VALUES (2, 1, 2, 1, '2022-07-29 16:01:13', '2022-07-29 16:01:13', NULL);
 
 -- ----------------------------
 -- Table structure for user_info
@@ -753,11 +735,6 @@ CREATE TABLE `user_info`  (
 -- ----------------------------
 -- Records of user_info
 -- ----------------------------
-INSERT INTO `user_info` VALUES (1, 'lida', 'https://img1.baidu.com/it/u=2029513305,2137933177&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=472', '26bebfe4cf87cc2bd7b89c237fe42df3', 'QLAFRsKG2N', 1, 1, '个性签名', '银河中学', '2022-07-28 17:19:42', '2022-07-31 19:25:01', NULL);
-INSERT INTO `user_info` VALUES (2, 'wang', '', '', '', 1, 1, '', '', NULL, NULL, NULL);
-INSERT INTO `user_info` VALUES (3, '作证表之有', 'http://dummyimage.com/100x100', '34929b5d84cf66ae73797d5b48297710', '6bZBjqX1Nk', 1, 92, 'incididunt Excepteur aliqua non', 'cupidatat magna', '2023-01-18 08:19:38', '2023-01-18 08:19:38', NULL);
-INSERT INTO `user_info` VALUES (4, 'wzy', 'http://dummyimage.com/100x100', 'a90f083adf941cd75bde9cc371fbe00b', 'wpm0bGNBrf', 63, 52, 'Excepteur', 'voluptate in non ea ut', '2023-01-18 09:54:46', '2023-01-18 12:14:13', NULL);
-INSERT INTO `user_info` VALUES (5, 'wangzhongyang', 'http://dummyimage.com/100x100', '82131d93ab13a1a4f9ec840a9ddbabf7', 'T0iKtv31BU', 1, 1, '和我一起学编程吧', '六个1', '2024-12-26 11:25:43', '2024-12-26 11:25:43', NULL);
-INSERT INTO `user_info` VALUES (6, 'lps2', 'https://img1.baidu.com/it/u=3269593700,2695107730&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500', 'bfaa33746e8f7a9ee39f2c12a61f6b47', 'jg1FJXCfxG', 1, 0, '1', '1', '2025-12-02 02:56:44', '2025-12-02 02:56:44', NULL);
+INSERT INTO `user_info` VALUES (1, 'wangzhongyang', 'http://dummyimage.com/100x100', '82131d93ab13a1a4f9ec840a9ddbabf7', 'T0iKtv31BU', 1, 1, '和我一起学编程吧', '六个1', '2024-12-26 11:25:43', '2024-12-26 11:25:43', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
