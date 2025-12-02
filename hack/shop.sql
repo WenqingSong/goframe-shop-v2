@@ -11,7 +11,7 @@
  Target Server Version : 80012
  File Encoding         : 65001
 
- Date: 02/12/2025 10:58:02
+ Date: 02/12/2025 11:37:05
 */
 
 SET NAMES utf8mb4;
@@ -103,14 +103,14 @@ CREATE TABLE `article_info`  (
 -- ----------------------------
 -- Records of article_info
 -- ----------------------------
-INSERT INTO `article_info` VALUES (1, 101, '华凌N8HE1空调使用3个月真实感受：卧室制冷神器', '租房党福音！静音省电，制冷快，这个夏天终于能睡好觉了', 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fgfs17.gomein.net.cn%2FT108VWB4W_1RCvBVdK_800.jpg%3Fv%3D1&refer=http%3A%2F%2Fgfs17.gomein.net.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1660794257&t=795ee536d5af33788a249b08d0b28b6f', 2, 236, '坐标上海，卧室15平左右，6月份入手的华凌N8HE1。安装师傅很专业，半小时搞定。\r\n\r\n使用感受：\r\n1. 制冷真的快！开机5分钟整个房间就凉下来了，温度很均匀\r\n2. 超级静音！晚上开睡眠模式，几乎听不到声音，再也不会被空调噪音吵醒\r\n3. 省电！一个月下来电费比去年用老空调省了快100块\r\n4. 外观简约大气，白色百搭，和我家装修风格很配\r\n\r\n缺点：遥控器有点简单，要是能连接手机APP就更好了。不过这个价格，还要什么自行车！', '2022-06-15 14:30:22', '2022-06-15 14:30:22', NULL);
-INSERT INTO `article_info` VALUES (2, 102, '小米空气净化器Pro H：过敏体质的救星', '养宠物+过敏体质的我，终于找到了呼吸自由的秘诀', 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/5f7a9c5b9e1c4a1d0d3d3d3d3d3d3d3d.jpg', 2, 189, '家里养了两只猫，我又有过敏性鼻炎，一到春秋就难受得不行。朋友推荐了小米空气净化器Pro H，用了半个月，效果真的惊艳！\r\n\r\n使用体验：\r\n1. 净化速度快！开机半小时，PM2.5从120降到20以下\r\n2. 智能感应很灵敏，宠物掉毛多的时候会自动调高风速\r\n3. 静音效果好，晚上开睡眠模式几乎没声音\r\n4. 手机APP可以实时查看空气质量，还能远程控制\r\n\r\n现在每天起床鼻子都很舒服，再也不会一直打喷嚏了。强烈推荐给养宠物和过敏体质的朋友！', '2022-09-28 09:15:47', '2022-09-28 09:15:47', NULL);
-INSERT INTO `article_info` VALUES (3, 103, '戴森V12吸尘器：让做家务变成一种享受', '无线轻便，吸力强，各种缝隙都能轻松搞定', 'https://www.dyson.cn/content/dam/dyson-cn/images/products/cordless-vacuums/v12/dyson-v12-detect-slim/fluffy-main-image.png', 2, 452, '作为一个爱干净的家庭主妇，试过很多吸尘器，直到遇到戴森V12。\r\n\r\n使用感受：\r\n1. 无线设计太方便了！不用再拖着线到处跑，想吸哪里吸哪里\r\n2. 吸力真的强！地板上的头发、灰尘，甚至地毯里的深层污垢都能吸干净\r\n3. 配件丰富，沙发、窗帘、床褥都能用不同的吸头搞定\r\n4. 续航不错，120平的房子一次吸完还有电\r\n5. 自清洁功能很贴心，不用手动清理滤网\r\n\r\n虽然价格有点贵，但真的物超所值，大大节省了做家务的时间！', '2022-11-12 16:45:12', '2022-11-12 16:45:12', NULL);
-INSERT INTO `article_info` VALUES (4, 104, '美的BCD-478WSPZM(E)冰箱：大容量还能除味', '三口之家够用，保鲜效果好，再也没有异味困扰', 'https://img12.360buyimg.com/n7/jfs/t1/198818/30/30076/123456/632c9a29E1a7a5a5a/1a1a1a1a1a1a1a1a.jpg', 2, 156, '家里之前的冰箱太小了，放不了多少东西，还容易串味。双十一换了美的这款478升的冰箱，真的太香了！\r\n\r\n使用体验：\r\n1. 容量大！冷藏冷冻都很能装，三口之家完全够用\r\n2. 保鲜效果好！放了一周的蔬菜还是很新鲜，水果也不容易坏\r\n3. 除味效果不错，打开冰箱再也没有难闻的异味\r\n4. 外观是磨砂玻璃，很高级，容易清洁\r\n5. 一级能效，省电又静音\r\n\r\n价格也很亲民，性价比很高，推荐给需要换冰箱的家庭！', '2022-12-05 11:20:33', '2022-12-05 11:20:33', NULL);
-INSERT INTO `article_info` VALUES (5, 105, '索尼XR-65X90J电视：在家就能享受影院级体验', '画质惊艳，音效震撼，看电影玩游戏都超爽', 'https://www.sony.com.cn/image/0014b557b6d34b99a52b39a7000d3d3d?fmt=pjpeg&wid=1200&hei=630&bgcolor=FFFFFF&bgc=FFFFFF', 2, 318, '作为一个影音爱好者，纠结了很久终于入手了索尼XR-65X90J。\r\n\r\n使用感受：\r\n1. 画质真的绝了！色彩鲜艳真实，对比度高，HDR效果惊艳\r\n2. 音效震撼，自带的扬声器就有很好的环绕感\r\n3. 系统流畅，反应快，没有广告\r\n4. 游戏模式延迟很低，玩PS5体验超棒\r\n5. 外观简约大气，挂墙效果很好\r\n\r\n虽然价格不便宜，但对于追求画质和音效的朋友来说，绝对值得入手！', '2023-02-18 19:45:56', '2023-02-18 19:45:56', NULL);
-INSERT INTO `article_info` VALUES (6, 106, '小熊加湿器JSQ-C40L5：办公室和卧室都能用', '静音加湿，容量大，再也不怕皮肤干燥了', 'https://img14.360buyimg.com/n7/jfs/t1/187655/33/29876/123456/632c9a29E1a7a5a5a/2b2b2b2b2b2b2b2b.jpg', 2, 98, '北方的冬天真的太干燥了，办公室和家里都需要加湿器。对比了很多款，选了小熊这款。\r\n\r\n使用体验：\r\n1. 容量大！4升的水箱，加满水可以用一整晚\r\n2. 加湿效果好，房间湿度能保持在40-50%之间\r\n3. 静音！办公室用不会影响同事，晚上用也不会吵\r\n4. 有定时功能，很方便\r\n5. 外观可爱，放在桌面不占地方\r\n\r\n价格便宜，质量不错，推荐给需要加湿器的朋友！', '2023-01-10 10:15:22', '2023-01-10 10:15:22', NULL);
-INSERT INTO `article_info` VALUES (7, 107, '苏泊尔SF40HC88电饭煲：煮出的米饭真的不一样', 'IH加热，口感Q弹，各种米都能煮出好味道', 'https://img13.360buyimg.com/n7/jfs/t1/198818/30/30076/123456/632c9a29E1a7a5a5a/3c3c3c3c3c3c3c3c.jpg', 2, 175, '家里之前的电饭煲用了5年，煮出来的米饭总是软硬不均。换了苏泊尔这款IH电饭煲，真的惊艳到我了！\r\n\r\n使用体验：\r\n1. 米饭口感真的好！Q弹有嚼劲，不管是东北米还是泰国香米都能煮出好味道\r\n2. 功能丰富，有柴火饭、粥、汤、蛋糕等多种模式\r\n3. 预约功能很方便，早上出门前预约，晚上回家就能吃现成的\r\n4. 内胆厚重，导热均匀，不容易粘锅\r\n5. 外观简约大气，容易清洁\r\n\r\n价格适中，性价比很高，推荐给注重米饭口感的朋友！', '2023-03-25 15:30:44', '2023-03-25 15:30:44', NULL);
-INSERT INTO `article_info` VALUES (8, 108, 'AirPods Pro 2使用体验：降噪效果真的能打', '通勤路上的救星，音质好，佩戴舒适', 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MQD83CH/A_AV1?wid=2000&hei=2000&fmt=jpeg&qlt=95&.v=1664472259559', 2, 422, '作为一个每天通勤2小时的打工人，AirPods Pro 2真的是我的救星！\r\n\r\n使用体验：\r\n1. 降噪效果太绝了！地铁上的噪音几乎完全听不到，世界瞬间安静\r\n2. 音质比第一代有提升，低音更饱满，高音清晰\r\n3. 佩戴舒适，长时间戴也不会耳朵疼\r\n4. 续航不错，单次能用6小时，配合充电盒能用30小时\r\n5. 空间音频效果惊艳，看电影就像在电影院一样\r\n\r\n虽然价格不便宜，但对于每天通勤的人来说，真的能提升生活质量！', '2023-04-12 18:55:17', '2023-04-12 18:55:17', NULL);
+INSERT INTO `article_info` VALUES (1, 101, '华凌N8HE1空调使用3个月真实感受：卧室制冷神器', '租房党福音！静音省电，制冷快，这个夏天终于能睡好觉了', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 236, '坐标上海，卧室15平左右，6月份入手的华凌N8HE1。安装师傅很专业，半小时搞定。\r\n\r\n使用感受：\r\n1. 制冷真的快！开机5分钟整个房间就凉下来了，温度很均匀\r\n2. 超级静音！晚上开睡眠模式，几乎听不到声音，再也不会被空调噪音吵醒\r\n3. 省电！一个月下来电费比去年用老空调省了快100块\r\n4. 外观简约大气，白色百搭，和我家装修风格很配\r\n\r\n缺点：遥控器有点简单，要是能连接手机APP就更好了。不过这个价格，还要什么自行车！', '2022-06-15 14:30:22', '2022-06-15 14:30:22', NULL);
+INSERT INTO `article_info` VALUES (2, 102, '小米空气净化器Pro H：过敏体质的救星', '养宠物+过敏体质的我，终于找到了呼吸自由的秘诀', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 189, '家里养了两只猫，我又有过敏性鼻炎，一到春秋就难受得不行。朋友推荐了小米空气净化器Pro H，用了半个月，效果真的惊艳！\r\n\r\n使用体验：\r\n1. 净化速度快！开机半小时，PM2.5从120降到20以下\r\n2. 智能感应很灵敏，宠物掉毛多的时候会自动调高风速\r\n3. 静音效果好，晚上开睡眠模式几乎没声音\r\n4. 手机APP可以实时查看空气质量，还能远程控制\r\n\r\n现在每天起床鼻子都很舒服，再也不会一直打喷嚏了。强烈推荐给养宠物和过敏体质的朋友！', '2022-09-28 09:15:47', '2022-09-28 09:15:47', NULL);
+INSERT INTO `article_info` VALUES (3, 103, '戴森V12吸尘器：让做家务变成一种享受', '无线轻便，吸力强，各种缝隙都能轻松搞定', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 452, '作为一个爱干净的家庭主妇，试过很多吸尘器，直到遇到戴森V12。\r\n\r\n使用感受：\r\n1. 无线设计太方便了！不用再拖着线到处跑，想吸哪里吸哪里\r\n2. 吸力真的强！地板上的头发、灰尘，甚至地毯里的深层污垢都能吸干净\r\n3. 配件丰富，沙发、窗帘、床褥都能用不同的吸头搞定\r\n4. 续航不错，120平的房子一次吸完还有电\r\n5. 自清洁功能很贴心，不用手动清理滤网\r\n\r\n虽然价格有点贵，但真的物超所值，大大节省了做家务的时间！', '2022-11-12 16:45:12', '2022-11-12 16:45:12', NULL);
+INSERT INTO `article_info` VALUES (4, 104, '美的BCD-478WSPZM(E)冰箱：大容量还能除味', '三口之家够用，保鲜效果好，再也没有异味困扰', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 156, '家里之前的冰箱太小了，放不了多少东西，还容易串味。双十一换了美的这款478升的冰箱，真的太香了！\r\n\r\n使用体验：\r\n1. 容量大！冷藏冷冻都很能装，三口之家完全够用\r\n2. 保鲜效果好！放了一周的蔬菜还是很新鲜，水果也不容易坏\r\n3. 除味效果不错，打开冰箱再也没有难闻的异味\r\n4. 外观是磨砂玻璃，很高级，容易清洁\r\n5. 一级能效，省电又静音\r\n\r\n价格也很亲民，性价比很高，推荐给需要换冰箱的家庭！', '2022-12-05 11:20:33', '2022-12-05 11:20:33', NULL);
+INSERT INTO `article_info` VALUES (5, 105, '索尼XR-65X90J电视：在家就能享受影院级体验', '画质惊艳，音效震撼，看电影玩游戏都超爽', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 318, '作为一个影音爱好者，纠结了很久终于入手了索尼XR-65X90J。\r\n\r\n使用感受：\r\n1. 画质真的绝了！色彩鲜艳真实，对比度高，HDR效果惊艳\r\n2. 音效震撼，自带的扬声器就有很好的环绕感\r\n3. 系统流畅，反应快，没有广告\r\n4. 游戏模式延迟很低，玩PS5体验超棒\r\n5. 外观简约大气，挂墙效果很好\r\n\r\n虽然价格不便宜，但对于追求画质和音效的朋友来说，绝对值得入手！', '2023-02-18 19:45:56', '2023-02-18 19:45:56', NULL);
+INSERT INTO `article_info` VALUES (6, 106, '小熊加湿器JSQ-C40L5：办公室和卧室都能用', '静音加湿，容量大，再也不怕皮肤干燥了', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 98, '北方的冬天真的太干燥了，办公室和家里都需要加湿器。对比了很多款，选了小熊这款。\r\n\r\n使用体验：\r\n1. 容量大！4升的水箱，加满水可以用一整晚\r\n2. 加湿效果好，房间湿度能保持在40-50%之间\r\n3. 静音！办公室用不会影响同事，晚上用也不会吵\r\n4. 有定时功能，很方便\r\n5. 外观可爱，放在桌面不占地方\r\n\r\n价格便宜，质量不错，推荐给需要加湿器的朋友！', '2023-01-10 10:15:22', '2023-01-10 10:15:22', NULL);
+INSERT INTO `article_info` VALUES (7, 107, '苏泊尔SF40HC88电饭煲：煮出的米饭真的不一样', 'IH加热，口感Q弹，各种米都能煮出好味道', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 175, '家里之前的电饭煲用了5年，煮出来的米饭总是软硬不均。换了苏泊尔这款IH电饭煲，真的惊艳到我了！\r\n\r\n使用体验：\r\n1. 米饭口感真的好！Q弹有嚼劲，不管是东北米还是泰国香米都能煮出好味道\r\n2. 功能丰富，有柴火饭、粥、汤、蛋糕等多种模式\r\n3. 预约功能很方便，早上出门前预约，晚上回家就能吃现成的\r\n4. 内胆厚重，导热均匀，不容易粘锅\r\n5. 外观简约大气，容易清洁\r\n\r\n价格适中，性价比很高，推荐给注重米饭口感的朋友！', '2023-03-25 15:30:44', '2023-03-25 15:30:44', NULL);
+INSERT INTO `article_info` VALUES (8, 108, 'AirPods Pro 2使用体验：降噪效果真的能打', '通勤路上的救星，音质好，佩戴舒适', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 422, '作为一个每天通勤2小时的打工人，AirPods Pro 2真的是我的救星！\r\n\r\n使用体验：\r\n1. 降噪效果太绝了！地铁上的噪音几乎完全听不到，世界瞬间安静\r\n2. 音质比第一代有提升，低音更饱满，高音清晰\r\n3. 佩戴舒适，长时间戴也不会耳朵疼\r\n4. 续航不错，单次能用6小时，配合充电盒能用30小时\r\n5. 空间音频效果惊艳，看电影就像在电影院一样\r\n\r\n虽然价格不便宜，但对于每天通勤的人来说，真的能提升生活质量！', '2023-04-12 18:55:17', '2023-04-12 18:55:17', NULL);
 
 -- ----------------------------
 -- Table structure for cart_info
@@ -133,6 +133,7 @@ CREATE TABLE `cart_info`  (
 INSERT INTO `cart_info` VALUES (1, 1, 1, 1, '2022-07-29 13:59:10', NULL, NULL);
 INSERT INTO `cart_info` VALUES (2, 1, 2, 3, '2022-07-29 14:23:31', '2022-07-29 14:32:10', '2022-08-27 19:08:41');
 INSERT INTO `cart_info` VALUES (3, 1, 2, 3, NULL, NULL, NULL);
+INSERT INTO `cart_info` VALUES (4, 6, 2, 1, '2025-12-02 03:01:24', '2025-12-02 03:28:44', NULL);
 
 -- ----------------------------
 -- Table structure for category_info
@@ -158,41 +159,41 @@ CREATE TABLE `category_info`  (
 -- ----------------------------
 -- Records of category_info
 -- ----------------------------
-INSERT INTO `category_info` VALUES (1, 0, '家用电器', 'https://img.yzcdn.cn/vant/apple-1.jpg', 1, 1, 1, '涵盖各类家电产品，满足家庭生活需求', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (2, 0, '手机数码', 'https://img.yzcdn.cn/vant/apple-2.jpg', 1, 2, 1, '手机、数码配件等智能产品', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (3, 0, '电脑办公', 'https://img.yzcdn.cn/vant/apple-3.jpg', 1, 3, 1, '电脑、办公设备及耗材', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (4, 0, '家居家装', 'https://img.yzcdn.cn/vant/apple-4.jpg', 1, 4, 1, '家居用品、装修材料等', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (5, 0, '服饰鞋包', 'https://img.yzcdn.cn/vant/apple-5.jpg', 1, 5, 1, '服装、鞋靴、箱包等时尚单品', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (6, 1, '电视', 'https://img.yzcdn.cn/vant/apple-1.jpg', 2, 1, 1, '各类智能电视产品', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (7, 1, '空调', 'https://img.yzcdn.cn/vant/apple-1.jpg', 2, 2, 1, '空调制冷制热设备', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (8, 1, '冰箱', 'https://img.yzcdn.cn/vant/apple-1.jpg', 2, 3, 1, '冷藏冷冻保鲜设备', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (9, 1, '洗衣机', 'https://img.yzcdn.cn/vant/apple-1.jpg', 2, 4, 1, '衣物清洗设备', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (10, 1, '厨房电器', 'https://img.yzcdn.cn/vant/apple-1.jpg', 2, 5, 1, '厨房用各类电器', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (11, 2, '手机', 'https://img.yzcdn.cn/vant/apple-2.jpg', 2, 1, 1, '智能手机产品', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (12, 2, '耳机', 'https://img.yzcdn.cn/vant/apple-2.jpg', 2, 2, 1, '各类耳机产品', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (13, 2, '智能穿戴', 'https://img.yzcdn.cn/vant/apple-2.jpg', 2, 3, 1, '智能手表、手环等', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (14, 2, '摄影摄像', 'https://img.yzcdn.cn/vant/apple-2.jpg', 2, 4, 1, '相机、摄像机等设备', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (15, 3, '笔记本电脑', 'https://img.yzcdn.cn/vant/apple-3.jpg', 2, 1, 1, '便携式笔记本电脑', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (16, 3, '台式机', 'https://img.yzcdn.cn/vant/apple-3.jpg', 2, 2, 1, '台式电脑主机', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (17, 3, '平板电脑', 'https://img.yzcdn.cn/vant/apple-3.jpg', 2, 3, 1, '平板设备', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (18, 3, '办公耗材', 'https://img.yzcdn.cn/vant/apple-3.jpg', 2, 4, 1, '打印纸、墨盒等耗材', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (19, 6, '全面屏电视', 'https://img.yzcdn.cn/vant/apple-1.jpg', 3, 1, 1, '无边框全面屏设计电视', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (20, 6, '4K超高清电视', 'https://img.yzcdn.cn/vant/apple-1.jpg', 3, 2, 1, '4K分辨率超高清电视', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (21, 6, '8K超高清电视', 'https://img.yzcdn.cn/vant/apple-1.jpg', 3, 3, 1, '8K分辨率超高清电视', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (22, 6, '量子点电视', 'https://img.yzcdn.cn/vant/apple-1.jpg', 3, 4, 1, '量子点显示技术电视', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (23, 6, 'OLED电视', 'https://img.yzcdn.cn/vant/apple-1.jpg', 3, 5, 1, 'OLED自发光显示电视', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (24, 7, '挂壁式空调', 'https://img.yzcdn.cn/vant/apple-1.jpg', 3, 1, 1, '卧室客厅挂壁安装空调', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (25, 7, '立柜式空调', 'https://img.yzcdn.cn/vant/apple-1.jpg', 3, 2, 1, '大空间立柜式空调', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (26, 7, '中央空调', 'https://img.yzcdn.cn/vant/apple-1.jpg', 3, 3, 1, '多房间中央空调系统', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (27, 7, '风管机', 'https://img.yzcdn.cn/vant/apple-1.jpg', 3, 4, 1, '隐藏式风管空调', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (28, 11, '5G手机', 'https://img.yzcdn.cn/vant/apple-2.jpg', 3, 1, 1, '支持5G网络的智能手机', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (29, 11, '折叠屏手机', 'https://img.yzcdn.cn/vant/apple-2.jpg', 3, 2, 1, '可折叠屏幕智能手机', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (30, 11, '游戏手机', 'https://img.yzcdn.cn/vant/apple-2.jpg', 3, 3, 1, '高性能游戏专用手机', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (31, 11, '拍照手机', 'https://img.yzcdn.cn/vant/apple-2.jpg', 3, 4, 1, '高像素拍照智能手机', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (32, 15, '轻薄本', 'https://img.yzcdn.cn/vant/apple-3.jpg', 3, 1, 1, '轻薄便携笔记本电脑', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (33, 15, '游戏本', 'https://img.yzcdn.cn/vant/apple-3.jpg', 3, 2, 1, '高性能游戏笔记本电脑', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (34, 15, '商务本', 'https://img.yzcdn.cn/vant/apple-3.jpg', 3, 3, 1, '商务办公专用笔记本', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `category_info` VALUES (35, 15, '二合一笔记本', 'https://img.yzcdn.cn/vant/apple-3.jpg', 3, 4, 1, '平板笔记本二合一设备', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (1, 0, '家用电器', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 1, 1, 1, '涵盖各类家电产品，满足家庭生活需求', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (2, 0, '手机数码', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 1, 2, 1, '手机、数码配件等智能产品', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (3, 0, '电脑办公', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 1, 3, 1, '电脑、办公设备及耗材', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (4, 0, '家居家装', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 1, 4, 1, '家居用品、装修材料等', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (5, 0, '服饰鞋包', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 1, 5, 1, '服装、鞋靴、箱包等时尚单品', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (6, 1, '电视', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 1, 1, '各类智能电视产品', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (7, 1, '空调', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 2, 1, '空调制冷制热设备', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (8, 1, '冰箱', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 3, 1, '冷藏冷冻保鲜设备', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (9, 1, '洗衣机', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 4, 1, '衣物清洗设备', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (10, 1, '厨房电器', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 5, 1, '厨房用各类电器', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (11, 2, '手机', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 1, 1, '智能手机产品', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (12, 2, '耳机', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 2, 1, '各类耳机产品', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (13, 2, '智能穿戴', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 3, 1, '智能手表、手环等', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (14, 2, '摄影摄像', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 4, 1, '相机、摄像机等设备', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (15, 3, '笔记本电脑', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 1, 1, '便携式笔记本电脑', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (16, 3, '台式机', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 2, 1, '台式电脑主机', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (17, 3, '平板电脑', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 3, 1, '平板设备', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (18, 3, '办公耗材', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 4, 1, '打印纸、墨盒等耗材', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (19, 6, '全面屏电视', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 3, 1, 1, '无边框全面屏设计电视', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (20, 6, '4K超高清电视', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 3, 2, 1, '4K分辨率超高清电视', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (21, 6, '8K超高清电视', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 3, 3, 1, '8K分辨率超高清电视', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (22, 6, '量子点电视', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 3, 4, 1, '量子点显示技术电视', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (23, 6, 'OLED电视', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 3, 5, 1, 'OLED自发光显示电视', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (24, 7, '挂壁式空调', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 3, 1, 1, '卧室客厅挂壁安装空调', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (25, 7, '立柜式空调', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 3, 2, 1, '大空间立柜式空调', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (26, 7, '中央空调', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 3, 3, 1, '多房间中央空调系统', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (27, 7, '风管机', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 3, 4, 1, '隐藏式风管空调', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (28, 11, '5G手机', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 3, 1, 1, '支持5G网络的智能手机', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (29, 11, '折叠屏手机', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 3, 2, 1, '可折叠屏幕智能手机', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (30, 11, '游戏手机', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 3, 3, 1, '高性能游戏专用手机', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (31, 11, '拍照手机', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 3, 4, 1, '高像素拍照智能手机', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (32, 15, '轻薄本', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 3, 1, 1, '轻薄便携笔记本电脑', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (33, 15, '游戏本', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 3, 2, 1, '高性能游戏笔记本电脑', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (34, 15, '商务本', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 3, 3, 1, '商务办公专用笔记本', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `category_info` VALUES (35, 15, '二合一笔记本', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 3, 4, 1, '平板笔记本二合一设备', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
 
 -- ----------------------------
 -- Table structure for collection_info
@@ -215,6 +216,7 @@ CREATE TABLE `collection_info`  (
 INSERT INTO `collection_info` VALUES (3, 1, 1, 1, '2022-07-31 15:21:38', '2022-07-31 15:21:38');
 INSERT INTO `collection_info` VALUES (4, 4, 4, 1, '2023-01-18 15:23:28', '2023-01-18 15:23:28');
 INSERT INTO `collection_info` VALUES (16, 5, 1, 2, '2025-12-02 02:46:09', '2025-12-02 02:46:09');
+INSERT INTO `collection_info` VALUES (17, 6, 1, 1, '2025-12-02 03:01:26', '2025-12-02 03:01:26');
 
 -- ----------------------------
 -- Table structure for comment_info
@@ -387,32 +389,32 @@ CREATE TABLE `goods_options_info`  (
 -- ----------------------------
 -- Records of goods_options_info
 -- ----------------------------
-INSERT INTO `goods_options_info` VALUES (1, 1, 'https://example.com/tv-55.jpg', '索尼XR-55X90J 55英寸 4K超高清', 549900, 50, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (2, 1, 'https://example.com/tv-65.jpg', '索尼XR-65X90J 65英寸 4K超高清', 699900, 30, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (3, 1, 'https://example.com/tv-75.jpg', '索尼XR-75X90J 75英寸 4K超高清', 899900, 20, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (4, 2, 'https://example.com/ac-1.5.jpg', '格力KFR-35GW 1.5匹 壁挂式空调', 329900, 100, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (5, 2, 'https://example.com/ac-2.0.jpg', '格力KFR-50GW 2匹 壁挂式空调', 429900, 80, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (6, 2, 'https://example.com/ac-3.0.jpg', '格力KFR-72LW 3匹 立柜式空调', 599900, 60, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (7, 3, 'https://example.com/iphone-128.jpg', 'iPhone 14 Pro 128GB 深空黑色', 799900, 80, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (8, 3, 'https://example.com/iphone-256.jpg', 'iPhone 14 Pro 256GB 暗紫色', 899900, 70, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (9, 3, 'https://example.com/iphone-512.jpg', 'iPhone 14 Pro 512GB 银色', 1099900, 50, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (10, 3, 'https://example.com/iphone-1tb.jpg', 'iPhone 14 Pro 1TB 金色', 1299900, 30, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (11, 4, 'https://example.com/earbuds-white.jpg', '华为FreeBuds Pro 2 陶瓷白', 129900, 150, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (12, 4, 'https://example.com/earbuds-black.jpg', '华为FreeBuds Pro 2 星际黑', 129900, 150, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (13, 4, 'https://example.com/earbuds-silver.jpg', '华为FreeBuds Pro 2 冰霜银', 129900, 120, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (14, 5, 'https://example.com/laptop-i5.jpg', 'ThinkPad X1 Carbon i5-1340P 16GB 512GB', 999900, 40, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (15, 5, 'https://example.com/laptop-i7.jpg', 'ThinkPad X1 Carbon i7-1360P 16GB 1TB', 1299900, 35, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (16, 5, 'https://example.com/laptop-i7-32gb.jpg', 'ThinkPad X1 Carbon i7-1360P 32GB 2TB', 1599900, 25, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (17, 6, 'https://example.com/sofa-3seat-beige.jpg', '顾家布艺沙发 三人位 米白色', 499900, 30, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (18, 6, 'https://example.com/sofa-3seat-gray.jpg', '顾家布艺沙发 三人位 深灰色', 499900, 30, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (19, 6, 'https://example.com/sofa-4seat.jpg', '顾家布艺沙发 四人位 米白色', 599900, 20, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (20, 6, 'https://example.com/sofa-l-shaped.jpg', '顾家布艺沙发 L型转角 米白色', 799900, 15, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (21, 7, 'https://example.com/nike-41.jpg', 'Nike Air Zoom Pegasus 39 41码 黑白色', 89900, 60, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (22, 7, 'https://example.com/nike-42.jpg', 'Nike Air Zoom Pegasus 39 42码 黑白色', 89900, 60, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (23, 7, 'https://example.com/nike-43.jpg', 'Nike Air Zoom Pegasus 39 43码 黑白色', 89900, 50, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (24, 7, 'https://example.com/nike-44.jpg', 'Nike Air Zoom Pegasus 39 44码 黑白色', 89900, 40, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (25, 7, 'https://example.com/nike-blue-42.jpg', 'Nike Air Zoom Pegasus 39 42码 蓝橙色', 89900, 55, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
-INSERT INTO `goods_options_info` VALUES (26, 7, 'https://example.com/nike-blue-43.jpg', 'Nike Air Zoom Pegasus 39 43码 蓝橙色', 89900, 45, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (1, 1, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', '索尼XR-55X90J 55英寸 4K超高清', 549900, 50, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (2, 1, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', '索尼XR-65X90J 65英寸 4K超高清', 699900, 30, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (3, 1, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', '索尼XR-75X90J 75英寸 4K超高清', 899900, 20, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (4, 2, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', '格力KFR-35GW 1.5匹 壁挂式空调', 329900, 100, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (5, 2, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', '格力KFR-50GW 2匹 壁挂式空调', 429900, 80, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (6, 2, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', '格力KFR-72LW 3匹 立柜式空调', 599900, 60, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (7, 3, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 'iPhone 14 Pro 128GB 深空黑色', 799900, 80, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (8, 3, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 'iPhone 14 Pro 256GB 暗紫色', 899900, 70, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (9, 3, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 'iPhone 14 Pro 512GB 银色', 1099900, 50, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (10, 3, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 'iPhone 14 Pro 1TB 金色', 1299900, 30, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (11, 4, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', '华为FreeBuds Pro 2 陶瓷白', 129900, 150, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (12, 4, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', '华为FreeBuds Pro 2 星际黑', 129900, 150, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (13, 4, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', '华为FreeBuds Pro 2 冰霜银', 129900, 120, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (14, 5, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 'ThinkPad X1 Carbon i5-1340P 16GB 512GB', 999900, 40, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (15, 5, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 'ThinkPad X1 Carbon i7-1360P 16GB 1TB', 1299900, 35, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (16, 5, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 'ThinkPad X1 Carbon i7-1360P 32GB 2TB', 1599900, 25, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (17, 6, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', '顾家布艺沙发 三人位 米白色', 499900, 30, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (18, 6, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', '顾家布艺沙发 三人位 深灰色', 499900, 30, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (19, 6, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', '顾家布艺沙发 四人位 米白色', 599900, 20, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (20, 6, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', '顾家布艺沙发 L型转角 米白色', 799900, 15, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (21, 7, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 'Nike Air Zoom Pegasus 39 41码 黑白色', 89900, 60, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (22, 7, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 'Nike Air Zoom Pegasus 39 42码 黑白色', 89900, 60, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (23, 7, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 'Nike Air Zoom Pegasus 39 43码 黑白色', 89900, 50, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (24, 7, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 'Nike Air Zoom Pegasus 39 44码 黑白色', 89900, 40, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (25, 7, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 'Nike Air Zoom Pegasus 39 42码 蓝橙色', 89900, 55, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_options_info` VALUES (26, 7, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 'Nike Air Zoom Pegasus 39 43码 蓝橙色', 89900, 45, '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
 
 -- ----------------------------
 -- Table structure for order_goods_info
@@ -470,7 +472,7 @@ CREATE TABLE `order_info`  (
 -- ----------------------------
 -- Records of order_info
 -- ----------------------------
-INSERT INTO `order_info` VALUES (1, '1659231316407832000111', 1, 1, '0', NULL, 1, '王先生', '13269477432', '北京丰台汽车博物馆', 10000, 100, 9900, '2022-08-27 09:35:16', '2022-07-31 09:35:16');
+INSERT INTO `order_info` VALUES (1, '1659231316407832000111', 6, 1, '0', '2025-12-02 11:35:57', 1, '王先生', '13269477432', '北京丰台汽车博物馆', 10000, 100, 9900, '2022-08-27 09:35:16', '2022-07-31 09:35:16');
 INSERT INTO `order_info` VALUES (2, '1659231554317361000757', 1, 1, '0', NULL, 1, '王先生', '13269477432', '北京丰台汽车博物馆', 10000, 200, 9800, '2022-07-31 09:39:14', '2022-07-31 09:39:14');
 INSERT INTO `order_info` VALUES (3, '1661603467832912000516', 1, 0, '', '2022-12-13 21:52:26', 0, '', '', '', 0, 0, 0, '2022-12-08 20:31:07', '2022-08-27 20:31:07');
 INSERT INTO `order_info` VALUES (4, '1661603562656619000513', 1, 1, '放到快递柜就可以，不用打电话。', '2022-12-13 21:52:19', 0, '王先生', '13269477432', '北京丰台汽车博物馆', 0, 0, 0, '2022-12-09 20:32:42', '2022-08-27 20:32:42');

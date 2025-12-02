@@ -219,7 +219,7 @@ const setReply = (id, user) => {
   <div class="container">
     <van-nav-bar :title="$route.meta.title" placeholder fixed left-arrow @click-left="$router.back()" />
     <div class="content">
-      <van-image class="img" fit="cover" :src="info.pic_url" />
+      <van-image class="img" fit="cover" :src="info.picUrl || info.pic_url" />
       <div class="body">
         <p class="title">{{ info.title }}</p>
         <div class="info">
