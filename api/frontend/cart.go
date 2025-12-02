@@ -41,3 +41,14 @@ type ListCartItem struct {
 	Goods    interface{} `json:"goods"`
 	Article  interface{} `json:"article"`
 }
+
+type UpdateCartReq struct {
+	g.Meta    `path:"/cart/update" in:"post" method:"post" tags:"前台购物车" summary:"更新购物车"`
+	Id        uint `json:"id" v:"required#购物车id必填" dc:"购物车id"`
+	GoodsId   uint `json:"goods_id" dc:"商品id"`
+	Count     int  `json:"count" v:"required#商品数量必填" dc:"商品数量"`
+}
+
+type UpdateCartRes struct {
+	Id uint `json:"id"`
+}

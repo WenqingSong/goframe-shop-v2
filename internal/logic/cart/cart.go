@@ -2,6 +2,7 @@ package cart
 
 import (
 	"context"
+	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/util/gconv"
 	"goframe-shop-v2/internal/consts"
@@ -84,4 +85,32 @@ func (s *sCart) List(ctx context.Context, in model.ListCartInput) (out *model.Li
 		return out, err
 	}
 	return
+}
+
+func (s *sCart) Update(ctx context.Context, in model.UpdateCartInput) (out model.UpdateCartOutput, err error) {
+	// 获取当前用户id
+	userId := gconv.Uint(ctx.Value(consts.CtxUserId))
+	
+	// 检查该购物车项是否属于当前用户
+	condition := g.Map{
+		dao.CartInfo.Columns().Id:     in.Id,
+		dao.CartInfo.Columns().UserId: userId,
+	}
+	
+	count, err := dao.CartInfo.Ctx(ctx).Where(condition).Count()
+	if err != nil {
+		return model.UpdateCartOutput{}, err
+	}
+	
+	if count == 0 {
+		return model.UpdateCartOutput{}, gerror.New("购物车项不存在或无权限操作")
+	}
+	
+	// 更新购物车项的数量
+	_, err = dao.CartInfo.Ctx(ctx).Data(dao.CartInfo.Columns().Count, in.Count).WherePri(in.Id).Update()
+	if err != nil {
+		return model.UpdateCartOutput{}, err
+	}
+	
+	return model.UpdateCartOutput{Id: in.Id}, nil
 }

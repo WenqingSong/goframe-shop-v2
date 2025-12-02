@@ -48,3 +48,14 @@ func (a *cCart) List(ctx context.Context, req *frontend.ListCartReq) (res *front
 	}
 	return data, nil
 }
+
+func (a *cCart) Update(ctx context.Context, req *frontend.UpdateCartReq) (res *frontend.UpdateCartRes, err error) {
+	out, err := service.Cart().Update(ctx, model.UpdateCartInput{
+		Id:    req.Id,
+		Count: req.Count,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &frontend.UpdateCartRes{Id: out.Id}, nil
+}
