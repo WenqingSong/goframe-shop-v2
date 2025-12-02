@@ -12,8 +12,8 @@
                     <div class="img_box">
                         <img
                             style="height: 100%; width: 100%"
-                            :src="item.picUrl"
-                            :alt="item.goods_name" />
+                            :src="item.pic_url || item.picUrl"
+                            :alt="item.name || item.goods_name" />
                     </div>
                     <div class="goods-desc">
                         <div class="title">{{ item.name }}</div>

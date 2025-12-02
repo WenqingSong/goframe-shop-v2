@@ -125,6 +125,11 @@ controller.Goods,        //商品管理
 			//	)
 			//})
 
+			// 添加静态文件服务
+			s.Group("/upload", func(group *ghttp.RouterGroup) {
+				group.Static("/", "upload")
+			})
+			
 			s.SetPort(8199) //设置端口
 			s.Run()
 			return nil

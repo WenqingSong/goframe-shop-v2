@@ -106,7 +106,7 @@ const onSubmit = () => {
                         <van-card class="goods_card" @click-thumb="goGoods(it.goods_options_info?.goods_id || 0)" :key="it.id"
                             :num="it.count" :price="(((it.goods_options_info?.price || 0) / 100.0) * it.count).toFixed(2)"
                             :desc="it.goods_options_info?.goods_info?.detail_info || ''" :title="it.goods_options_info?.name || '未知商品'"
-                            :thumb="it.goods_options_info?.pic_url || ''">
+                            :thumb="it.ops?.pic_url || it.goods_options_info?.pic_url || ''">
                             <template #tags>
                                 <van-tag plain type="primary">{{
                                     it.goods_options_info?.goods_info?.tags || ''

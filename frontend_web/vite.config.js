@@ -48,6 +48,12 @@ export default defineConfig(({ command, mode }) => {
                     changeOrigin: true,
                     logLevel: 'debug',
                     secure: false,
+                },
+                '/upload': {
+                    target: env.VITE_REQUEST_URL,
+                    changeOrigin: true,
+                    logLevel: 'debug',
+                    secure: false,
                 }
             },
         },
