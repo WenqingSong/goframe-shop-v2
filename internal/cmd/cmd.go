@@ -57,13 +57,13 @@ var (
 						controller.Upload,       //实现可跨项目使用的文件上云工具类
 						controller.Coupon,       //商品优惠券管理
 						controller.UserCoupon,   //商品优惠券管理
-controller.Goods,        //商品管理
-					controller.GoodsOptions, //商品规格管理
-					controller.Address,      //城市地址管理
-					//这么写是为了避免前后端重复注册相同的路由和方法
-					controller.Order.List,     //订单列表
-					controller.Order.Detail,   //订单详情
-					backend.Article,           //文章管理&CMS
+						controller.Goods,        //商品管理
+						controller.GoodsOptions, //商品规格管理
+						controller.Address,      //城市地址管理
+						//这么写是为了避免前后端重复注册相同的路由和方法
+						controller.Order.List,   //订单列表
+						controller.Order.Detail, //订单详情
+						backend.Article,         //文章管理&CMS
 					//controller.Consignee.List, //地址列表 - 已移除，使用新的 consignee 服务
 					//controller.SeckillBackend, //秒杀后台管理
 					)
@@ -87,29 +87,29 @@ controller.Goods,        //商品管理
 					controller.Goods,         //商品
 					controller.User.Login,    //用户登录
 				)
-//需要登录鉴权的路由组
-			group.Group("/", func(group *ghttp.RouterGroup) {
-				// 前台需要登录鉴权的接口，挂载带 Next 的 UserAuth JWT 中间件
-				group.Middleware(
-					service.Middleware().UserAuth,
-				)
-				//需要登录鉴权的接口放到这里
-				group.Bind(
-					controller.User.Info,           //当前登录用户的信息
-					controller.User.UpdatePassword, //当前用户修改密码
-					controller.User.Logout,         //用户登出
-					controller.Collection,          //收藏
-					controller.Praise,              //收藏
-					controller.Comment,             //评论
-					controller.Cart,                //购物车
-					controller.OrderGoodsComments,  //订单评价
-					frontend.Order,                 //订单相关操作（列表、详情、支付、取消、确认收货等）
-					frontend.Article,               //文章 @author自愚自乐
-					frontend.Refund,                //售后 @author自愚自乐
-					frontend.Consignee,             //收货地址管理
-					//controller.SeckillFrontend,     //秒杀前台
-				)
-			})
+				//需要登录鉴权的路由组
+				group.Group("/", func(group *ghttp.RouterGroup) {
+					// 前台需要登录鉴权的接口，挂载带 Next 的 UserAuth JWT 中间件
+					group.Middleware(
+						service.Middleware().UserAuth,
+					)
+					//需要登录鉴权的接口放到这里
+					group.Bind(
+						controller.User.Info,           //当前登录用户的信息
+						controller.User.UpdatePassword, //当前用户修改密码
+						controller.User.Logout,         //用户登出
+						controller.Collection,          //收藏
+						controller.Praise,              //收藏
+						controller.Comment,             //评论
+						controller.Cart,                //购物车
+						controller.OrderGoodsComments,  //订单评价
+						frontend.Order,                 //订单相关操作（列表、详情、支付、取消、确认收货等）
+						frontend.Article,               //文章 @author自愚自乐
+						frontend.Refund,                //售后 @author自愚自乐
+						frontend.Consignee,             //收货地址管理
+						//controller.SeckillFrontend,     //秒杀前台
+					)
+				})
 			})
 
 			// 添加公开的秒杀路由（不需要登录）
@@ -125,11 +125,6 @@ controller.Goods,        //商品管理
 			//	)
 			//})
 
-			// 添加静态文件服务
-			s.Group("/upload", func(group *ghttp.RouterGroup) {
-				group.Static("/", "upload")
-			})
-			
 			s.SetPort(8199) //设置端口
 			s.Run()
 			return nil
