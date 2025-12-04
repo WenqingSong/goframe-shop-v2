@@ -121,7 +121,7 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page="currentPage"
+        :current-page.sync="currentPage"
         :page-sizes="[10, 20, 50, 100]"
         :page-size="limit"
         layout="total, sizes, prev, pager, next, jumper"
@@ -151,7 +151,7 @@ export default {
       currentPage: 1, //当前页
       limit: 10, //每页条数
       page: 1, //页数
-      total: null, //总条数
+      total: 0, //总条数
       dialogFormVisible: false, // 控制新增角色弹出框
       isEdit: false, // 是否是编辑
       editId: "", // 当前编辑角色id
@@ -219,7 +219,7 @@ export default {
       if (res.code === 0) {
         if (res.data.list.length > 0) {
           this.roleList = res.data.list;
-          this.total = res.data.count;
+          this.total = res.data.total || res.data.count || 0;
         }
       }
     },
@@ -230,7 +230,6 @@ export default {
       this.getList();
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
       this.currentPage = val;
       this.getList();
     },

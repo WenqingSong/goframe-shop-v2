@@ -22,7 +22,7 @@
         </el-table-column>
       </el-table>
       <!-- 所有列表都要有分页 除非有特殊要求 否则数据多的情况下就没办法看了 -->
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4"
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage4"
         :page-sizes="[10, 20, 50, 100]" :page-size="limit" layout="total, sizes, prev, pager, next, jumper"
         :total="total">
       </el-pagination>
@@ -66,7 +66,7 @@ export default {
       currentPage4: 1,//当前页
       limit: 10,//每页条数
       page: 1,//页数
-      total: null,//总条数
+      total: 0,//总条数
       dialogVisible: false,
       title: ''
 
@@ -85,7 +85,7 @@ export default {
         console.log(res)
         if (res.code === 0) {
           this.productList = res.data.list
-          this.total = res.data.count
+          this.total = res.data.total || res.data.count || 0
         }
       })
     },
@@ -135,8 +135,7 @@ export default {
     },
     handleCurrentChange(val) {
       this.currentPage4 = val;
-      this.getList(); // 获取新数据
-      console.log(`当前页: ${val}`);
+      this.getList();
     },
     // 重置搜索栏
     doReset() {

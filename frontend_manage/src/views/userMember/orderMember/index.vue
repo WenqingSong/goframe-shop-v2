@@ -109,7 +109,7 @@
        <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page="currentPage4"
+          :current-page.sync="currentPage4"
           :page-sizes="[10, 20, 50, 100]"
           :page-size="limit"
           layout="total, sizes, prev, pager, next, jumper"
@@ -143,7 +143,7 @@
         currentPage4: 1,//当前页
         limit: 10,//每页条数
         page: 1,//页数
-        total: null,//总条数
+        total: 0,//总条数
         roleList: [],
         search: {
           sex: '',
@@ -188,7 +188,7 @@
             })
             this.orderLists = res.data.list
             console.log(this.orderLists)
-            this.total = res.data.count
+            this.total = res.data.total || res.data.count || 0
           }
         })
       },
@@ -227,9 +227,8 @@
         this.getList()
       },
       handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
-        this.currentPage4 = val
-        this.getList()
+        this.currentPage4 = val;
+        this.getList();
       },
       // 重置搜索栏
       doReset() {
