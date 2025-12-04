@@ -21,14 +21,14 @@ type ArticleRes struct {
 }
 
 type ArticleDeleteReq struct {
-	g.Meta `path:"/article/delete" method:"delete" tags:"文章" summary:"删除文章接口"`
-	Id     uint `v:"min:1#请选择需要删除的文章" dc:"文章id"`
+	g.Meta    `path:"/article/delete" method:"delete" tags:"文章" summary:"删除文章接口"`
+	ArticleId uint `json:"article_id" v:"min:1#请选择需要删除的文章" dc:"文章id"`
 }
 type ArticleDeleteRes struct{}
 
 type ArticleUpdateReq struct {
-	g.Meta `path:"/article/update/" method:"post" tags:"文章" summary:"修改文章接口"`
-	Id     uint `json:"id"      v:"min:1#请选择需要修改的文章" dc:"文章Id"`
+	g.Meta    `path:"/article/update" method:"post" tags:"文章" summary:"修改文章接口"`
+	ArticleId uint `json:"article_id" v:"min:1#请选择需要修改的文章" dc:"文章Id"`
 	ArticleCommonAddUpdate
 }
 type ArticleUpdateRes struct {

@@ -15,10 +15,8 @@
         </el-table-column>
         <el-table-column label="展示图片" prop="title" width="150">
           <template slot-scope="scope">
-            <img style="width: 100px;" :src="scope.row.pic_url" alt="">
+            <img style="width: 100px;" :src="scope.row.picUrl || scope.row.pic_url" alt="">
           </template>
-        </el-table-column>
-        <el-table-column label="添加时间" width="200" prop="created_at">
         </el-table-column>
         <el-table-column label="内容" prop="detail">
         </el-table-column>
@@ -111,7 +109,7 @@ export default {
         type: 'warning'
       }).then(() => {
         let params = {
-          id: id
+          article_id: id
         }
         recommendDelete(params).then(res => {
           console.log(res)
@@ -182,7 +180,10 @@ export default {
     edit(data) {
       this.dialogVisible = true
       this.title = '编辑'
-      this.form = data
+      this.form = {
+        ...data,
+        pic_url: data.picUrl || data.pic_url
+      }
     },
     add() {
       let params = {
@@ -190,7 +191,6 @@ export default {
         pic_url: this.form.pic_url,
         detail: this.form.detail,
         desc: this.form.desc,
-        id: this.form.id,
       }
       recommendAdd(params).then(res => {
         if (res.code === 0) {
@@ -206,6 +206,8 @@ export default {
             type: 'error'
           })
         }
+      }).catch(err => {
+        console.log(err)
       })
     },
     updata() {
@@ -214,7 +216,7 @@ export default {
         pic_url: this.form.pic_url,
         detail: this.form.detail,
         desc: this.form.desc,
-        id: this.form.id,
+        article_id: this.form.id,
       }
       recommendUpdata(params).then(res => {
         if (res.code === 0) {

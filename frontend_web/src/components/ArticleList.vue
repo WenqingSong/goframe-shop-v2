@@ -161,7 +161,7 @@ onMounted(() => {
     <div>
         <van-list class="content" v-model:loading="loading" :finished="finished" :immediate-check="false"
             finished-text="没有更多了" @load="onLoad" offset>
-            <van-card class="item" v-for="article in list" :key="article.id" :thumb="article.pic_url"
+            <van-card class="item" v-for="article in list" :key="article.id" :thumb="article.picUrl || article.pic_url"
                 @click="handleClick(article)">
                 <template #title>
                     <p class="title">

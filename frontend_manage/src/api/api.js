@@ -149,14 +149,14 @@ export function couponUpdate(data) {
 //评价列表
 export function evaluateList(data) {
   return request({
-    url: "/frontend/comment/list".concat('?', query(data)),
+    url: "/backend/comment/list".concat('?', query(data)),
     method: "get",
   });
 }
 //删除评价
 export function evaluateDelete(data) {
   return request({
-    url: "/frontend/delete/comment",
+    url: "/backend/comment/delete",
     method: "delete",
     data,
   });
@@ -240,6 +240,14 @@ export function addressList(data) {
   return request({
     url: "/backend/consignee/list".concat('?', query(data)),
     method: "get",
+  });
+}
+//删除地址
+export function addressDelete(data) {
+  return request({
+    url: "/backend/consignee/delete",
+    method: "delete",
+    data,
   });
 }
 //修改密码

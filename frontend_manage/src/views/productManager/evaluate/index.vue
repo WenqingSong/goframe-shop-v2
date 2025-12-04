@@ -10,13 +10,13 @@
 
       <el-table :data="productList" border style="width: 100%">
         <el-table-column type="index" label="序号" width="100" fixed="left" />
-        <el-table-column label="评价" prop="content">
+        <el-table-column label="评价" prop="Content">
         </el-table-column>
-        <el-table-column label="评论时间" width="200" prop="created_at">
+        <el-table-column label="评论时间" width="200" prop="CreatedAt">
         </el-table-column>
         <el-table-column fixed="right" label="操作" width="100">
           <template slot-scope="scope">
-            <el-button type="text" size="small" @click="deletes(scope.row.id)"><span
+            <el-button type="text" size="small" @click="deletes(scope.row.Id)"><span
                 style="color: red">删除</span></el-button>
           </template>
         </el-table-column>
@@ -96,7 +96,7 @@ export default {
         type: 'warning'
       }).then(() => {
         let params = {
-          id: id
+          comment_id: id
         }
         evaluateDelete(params).then(res => {
           console.log(res)

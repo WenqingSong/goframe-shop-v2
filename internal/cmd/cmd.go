@@ -34,11 +34,10 @@ var (
 				)
 				//不需要登录的路由组绑定
 				group.Bind(
-					controller.Admin.Create, // 管理员
-					controller.Login,        // 登录
-					controller.Data,         // 数据大屏相关
-					controller.Rotation,     // 轮播图
-					controller.Category,     // 商品分类
+					controller.Admin.Create,       // 管理员
+					controller.Login.Login,        // 登录
+					controller.Login.RefreshToken, // 刷新Token
+					controller.Data,               // 数据大屏相关
 				)
 				//需要登录的路由组绑定（JWT 中间件）
 				group.Group("/", func(group *ghttp.RouterGroup) {
@@ -46,25 +45,32 @@ var (
 						service.Middleware().Auth,
 					)
 					group.Bind(
-						controller.Role,         // 角色
-						controller.Permission,   // 权限
-						controller.Admin.List,   // 管理员
-						controller.Admin.Update, // 管理员
-						controller.Admin.Delete, // 管理员
-						controller.Admin.Info,   // 查询当前管理员信息
-						controller.Position,     // 手工位
-						controller.File,         //从0到1实现文件入库
-						controller.Upload,       //实现可跨项目使用的文件上云工具类
-						controller.Coupon,       //商品优惠券管理
-						controller.UserCoupon,   //商品优惠券管理
-						controller.Goods,        //商品管理
-						controller.GoodsOptions, //商品规格管理
-						controller.Address,      //城市地址管理
+						controller.Login.Logout,    // 登出
+						controller.Rotation.Create, // 轮播图-创建
+						controller.Rotation.Delete, // 轮播图-删除
+						controller.Rotation.Update, // 轮播图-更新
+						controller.Rotation.List,   // 轮播图-列表
+						controller.Category,        // 商品分类
+						controller.Role,            // 角色
+						controller.Permission,      // 权限
+						controller.Admin.List,      // 管理员
+						controller.Admin.Update,    // 管理员
+						controller.Admin.Delete,    // 管理员
+						controller.Admin.Info,      // 查询当前管理员信息
+						controller.Position,        // 手工位
+						controller.File,            //从0到1实现文件入库
+						controller.Upload,          //实现可跨项目使用的文件上云工具类
+						controller.Coupon,          //商品优惠券管理
+						controller.UserCoupon,      //商品优惠券管理
+						controller.Goods,           //商品管理
+						controller.GoodsOptions,    //商品规格管理
+						controller.Address,         //城市地址管理
 						//这么写是为了避免前后端重复注册相同的路由和方法
 						controller.Order.List,   //订单列表
 						controller.Order.Detail, //订单详情
 						backend.Article,         //文章管理&CMS
-					//controller.Consignee.List, //地址列表 - 已移除，使用新的 consignee 服务
+						backend.Comment,         //评论管理
+						backend.Consignee,       //收货地址管理
 					//controller.SeckillBackend, //秒杀后台管理
 					)
 				})
@@ -83,9 +89,11 @@ var (
 				)
 				//不需要登录的路由组绑定
 				group.Bind(
-					controller.User.Register, //用户注册
-					controller.Goods,         //商品
-					controller.User.Login,    //用户登录
+					controller.User.Register,         //用户注册
+					controller.Goods,                 //商品
+					controller.User.Login,            //用户登录
+					controller.Rotation.ListFrontend, //前台轮播图列表（不需要登录）
+					frontend.Category,                //前台商品分类（不需要登录）
 				)
 				//需要登录鉴权的路由组
 				group.Group("/", func(group *ghttp.RouterGroup) {

@@ -67,14 +67,26 @@
         border
         style="width: 100%"
       >
-        <el-table-column type="index" width="100" label="序号" fixed="left" />
-        <el-table-column label="姓名" width="340" prop="name">
+        <el-table-column type="index" width="80" label="序号" fixed="left" />
+        <el-table-column label="用户" width="120" prop="user_name">
         </el-table-column>
-        <el-table-column label="电话" width="340" prop="phone">
+        <el-table-column label="收货人" width="100" prop="name">
         </el-table-column>
-        <el-table-column label="地址" prop="price">
+        <el-table-column label="收货电话" width="130" prop="phone">
+        </el-table-column>
+        <el-table-column label="默认" width="80">
           <template slot-scope="scope">
-            {{ scope.row.city + scope.row.town + (scope.row.street !== "null" ? scope.row.street : '') + scope.row.detail }}
+            <el-tag v-if="scope.row.is_default === 1" type="success" size="mini">是</el-tag>
+            <el-tag v-else type="info" size="mini">否</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="收货地址" prop="address">
+        </el-table-column>
+        <el-table-column fixed="right" label="操作" width="80">
+          <template slot-scope="scope">
+            <el-button type="text" size="small" @click="deletes(scope.row.id)">
+              <span style="color: red">删除</span>
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -93,7 +105,7 @@
 </template>
 
 <script>
-import { addressList } from '@/api/api.js'
+import { addressList, addressDelete } from '@/api/api.js'
 export default {
   name: "ProductList",
   components: {},
@@ -156,6 +168,32 @@ export default {
     // 搜索按钮
     doSearch() {
       this.getList()
+    },
+    // 删除地址
+    deletes(id) {
+      this.$confirm('删除后不可恢复, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        let params = {
+          consignee_id: id
+        }
+        addressDelete(params).then(res => {
+          if (res.code === 0) {
+            this.$message({
+              message: '删除成功',
+              type: 'success'
+            })
+            this.getList()
+          } else {
+            this.$message({
+              message: res.msg,
+              type: 'error'
+            })
+          }
+        })
+      }).catch(() => {})
     },
   },
 };

@@ -170,7 +170,7 @@ export default {
             return
           }
           let params = {
-            id: row.id
+            category_id: row.id
           }
           classDelete(params).then(res => {
             if(res.code === 0) {

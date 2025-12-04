@@ -21,6 +21,10 @@ type (
 		Update(ctx context.Context, in model.UpdateConsigneeInput) (out *model.UpdateConsigneeOutput, err error)
 		// Delete 删除收货地址
 		Delete(ctx context.Context, in model.DeleteConsigneeInput) (out *model.DeleteConsigneeOutput, err error)
+		// AdminGetList 后台管理列表（包含用户信息）
+		AdminGetList(ctx context.Context, page, size int) (out *model.ConsigneeAdminListOutput, err error)
+		// AdminDelete 后台管理删除
+		AdminDelete(ctx context.Context, id uint) error
 	}
 )
 

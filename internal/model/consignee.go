@@ -33,6 +33,23 @@ type ConsigneeGetListOutputItem struct {
 	DeletedAt *gtime.Time `json:"deleted_at" `
 }
 
+// 后台管理列表输出（包含用户信息）
+type ConsigneeAdminListOutput struct {
+	List  []ConsigneeAdminListItem `json:"list" description:"列表"`
+	Page  int                      `json:"page" description:"分页码"`
+	Size  int                      `json:"size" description:"分页数量"`
+	Total int                      `json:"total" description:"数据总数"`
+}
+
+type ConsigneeAdminListItem struct {
+	Id        uint   `json:"id"`
+	UserName  string `json:"user_name"` // 用户名
+	IsDefault int    `json:"is_default"`
+	Name      string `json:"name"`
+	Phone     string `json:"phone"`
+	Address   string `json:"address"` // 完整地址
+}
+
 // AddConsigneeInput 添加收货地址输入
 type AddConsigneeInput struct {
 	UserId    uint   `json:"userId"`

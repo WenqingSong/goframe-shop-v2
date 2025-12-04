@@ -126,7 +126,7 @@ export default {
           type: 'warning'
         }).then(() => {
           let params = {
-            id: row.id
+            rotation_id: row.id
           }
           loopDelete(params).then(res => {
             console.log(res)
@@ -184,7 +184,7 @@ export default {
       let params = {
         pic_url: this.form.pic_url,
         link: this.form.link,
-        id: this.form.id,
+        rotation_id: this.form.id,
         sort: this.form.sort
       }
       loopEdit(params).then(res => {

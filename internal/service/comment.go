@@ -14,6 +14,7 @@ type (
 	IComment interface {
 		AddComment(ctx context.Context, in model.AddCommentInput) (res *model.AddCommentOutput, err error)
 		DeleteComment(ctx context.Context, in model.DeleteCommentInput) (res *model.DeleteCommentOutput, err error)
+		AdminDeleteComment(ctx context.Context, id uint) error // 后台管理员删除评论
 		GetList(ctx context.Context, in model.CommentListInput) (out *model.CommentListOutput, err error)
 	}
 )
