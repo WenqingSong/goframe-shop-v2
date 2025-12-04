@@ -20,7 +20,7 @@ func (a *cAdmin) Create(ctx context.Context, req *backend.AdminReq) (res *backen
 	input.Password = req.Password
 	input.RoleIds = req.RoleIds
 	input.IsAdmin = req.IsAdmin
-	
+
 	out, err := service.Admin().Create(ctx, input)
 	if err != nil {
 		return nil, err
@@ -38,13 +38,13 @@ func (c *cAdmin) Info(ctx context.Context, req *backend.AdminGetInfoReq) (res *b
 }
 
 func (a *cAdmin) Delete(ctx context.Context, req *backend.AdminDeleteReq) (res *backend.AdminDeleteRes, err error) {
-	err = service.Admin().Delete(ctx, req.Id)
+	err = service.Admin().Delete(ctx, req.AdminId)
 	return
 }
 
 func (a *cAdmin) Update(ctx context.Context, req *backend.AdminUpdateReq) (res *backend.AdminUpdateRes, err error) {
 	err = service.Admin().Update(ctx, model.AdminUpdateInput{
-		Id: req.Id,
+		Id: req.AdminId,
 		AdminCreateUpdateBase: model.AdminCreateUpdateBase{
 			Name:     req.Name,
 			Password: req.Password,
@@ -52,7 +52,7 @@ func (a *cAdmin) Update(ctx context.Context, req *backend.AdminUpdateReq) (res *
 			IsAdmin:  req.IsAdmin,
 		},
 	})
-	return &backend.AdminUpdateRes{Id: req.Id}, nil
+	return &backend.AdminUpdateRes{Id: req.AdminId}, nil
 }
 
 func (a *cAdmin) List(ctx context.Context, req *backend.AdminGetListCommonReq) (res *backend.AdminGetListCommonRes, err error) {

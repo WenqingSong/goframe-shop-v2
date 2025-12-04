@@ -17,6 +17,8 @@ type (
 		Delete(ctx context.Context, id uint) error
 		Update(ctx context.Context, in model.PermissionUpdateInput) error
 		GetList(ctx context.Context, in model.PermissionGetListInput) (out *model.PermissionGetListOutput, err error)
+		// GetPathsByRoleIds 根据角色ID列表获取所有权限路径
+		GetPathsByRoleIds(ctx context.Context, roleIds []int) ([]string, error)
 	}
 )
 

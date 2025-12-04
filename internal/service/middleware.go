@@ -17,6 +17,8 @@ type (
 		Auth(r *ghttp.Request)
 		UserAuth(r *ghttp.Request)
 		GTokenSetCtx(r *ghttp.Request)
+		// PermissionCheck 权限校验中间件
+		PermissionCheck(r *ghttp.Request)
 	}
 )
 

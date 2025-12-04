@@ -14,6 +14,11 @@ type (
 	IUser interface {
 		Register(ctx context.Context, in model.RegisterInput) (out model.RegisterOutput, err error)
 		UpdatePassword(ctx context.Context, in model.UpdatePasswordInput) (out model.UpdatePasswordOutput, err error)
+		// 后台管理接口
+		GetList(ctx context.Context, in model.UserGetListInput) (out *model.UserGetListOutput, err error)
+		UpdateStatus(ctx context.Context, id uint, status int) error
+		Delete(ctx context.Context, id uint) error
+		GetById(ctx context.Context, id uint) (*model.UserInfoItem, error)
 	}
 )
 

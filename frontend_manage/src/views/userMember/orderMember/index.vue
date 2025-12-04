@@ -124,14 +124,11 @@
   // import orderApi from "@/api/order/index";
   // import mixin from "@/mixins/index";
   import {
-    addAdmin,
-    couponDelete,
-    editAdmin,
-    getAdminList,
     getRoleList,
     memberDelete,
     memberList,
-    memberUpdate
+    memberUpdate,
+    promoteToAdmin
   } from '@/api/api.js'
   export default {
     name: "memberlist",
@@ -180,10 +177,11 @@
         memberList(params).then( res => {
           if(res.code === 0){
             res.data.list.forEach(res => {
+              // status=1正常(未冻结)，status=0冻结
               if(res.status == 1){
-                res.cool = false
+                res.cool = false  // 未冻结
               } else {
-                res.cool = true
+                res.cool = true   // 已冻结
               }
             })
             this.orderLists = res.data.list
@@ -194,19 +192,15 @@
       },
       // 冻结账号
       switchChange(data) {
-        let status = ''
-        if(data.cool == false){
-          status = 1
-        } else {
-          status = 2
-        }
+        // cool=true表示要冻结(status=0)，cool=false表示解冻(status=1)
+        let status = data.cool ? 0 : 1
         let params = {
           id: data.id,
           status: status
         }
         memberUpdate(params).then( res => {
           if(res.code == 0){
-            if(status == 2){
+            if(status == 0){
               this.$message({
                 message: '已冻结该用户',
                 type: 'success'
@@ -268,53 +262,39 @@
 
 
       async addadmin(row) {
-        this.$confirm('是否提升为管理员?', '提示', {
+        // 弹出输入密码和选择角色的对话框
+        this.$prompt('请输入管理员密码', '提升为管理员', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          let params = {
-            id: row.id
-          }
-          memberDelete(params).then(res => {
-            console.log(res)
-            if(res.code === 0) {
-              this.$message({
-                message: '成功',
-                type: 'success'
-              })
-              this.getList()
-            }
-          })
-        })
-        this.form.password = row.password;
-        this.form.name = row.name;
-        this.form.user_salt = row.user_salt;
-        // const { name, desc } = this.form;
-        if (name.length < 1 && desc.length < 1) {
-          this.$message({
-            message: "内容不能为空",
-            type: "warning",
-          });
-          return;
-        }
-          // 验证是否有相同名称
-          if (this.roleList.some((item) => item.name === name)) {
+          inputType: 'password',
+          inputPlaceholder: '请输入密码'
+        }).then(async ({ value }) => {
+          if (!value || value.length < 1) {
             this.$message({
-              message: "已有相同用户名",
+              message: "密码不能为空",
               type: "warning",
             });
             return;
           }
-          const res = await addAdmin(this.form);
+          const params = {
+            user_id: row.id,
+            password: value,
+            role_ids: "2" // 默认普通管理员角色
+          }
+          const res = await promoteToAdmin(params);
           if (res.code === 0) {
             this.$message({
-              message: "添加成功",
-              type: "success",
-            });
+              message: '提升成功',
+              type: 'success'
+            })
+            this.getList()
           }
-        // 更新页面
-        this.getList();
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
       },
 
     },

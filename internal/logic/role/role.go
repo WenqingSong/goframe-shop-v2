@@ -1,11 +1,12 @@
 package role
 
 import (
-	"github.com/gogf/gf/v2/frame/g"
 	"goframe-shop-v2/internal/dao"
 	"goframe-shop-v2/internal/model"
 	"goframe-shop-v2/internal/model/entity"
 	"goframe-shop-v2/internal/service"
+
+	"github.com/gogf/gf/v2/frame/g"
 	"golang.org/x/net/context"
 )
 
@@ -89,15 +90,97 @@ func (s *sRole) GetList(ctx context.Context, in model.RoleGetListInput) (out *mo
 	}
 	// 没有数据
 	if len(list) == 0 {
+		out.List = make([]model.RoleGetListOutputItem, 0)
 		return out, nil
 	}
 	out.Total, err = m.Count()
 	if err != nil {
 		return out, err
 	}
-	//不指定item的键名用：Scan
-	if err := listModel.Scan(&out.List); err != nil {
-		return out, err
+
+	// 构建输出列表，包含权限信息
+	out.List = make([]model.RoleGetListOutputItem, 0, len(list))
+	for _, role := range list {
+		// 获取该角色的权限列表
+		permissions, _ := s.GetPermissionsByRoleId(ctx, uint(role.Id))
+		out.List = append(out.List, model.RoleGetListOutputItem{
+			Id:          uint(role.Id),
+			Name:        role.Name,
+			Desc:        role.Desc,
+			CreatedAt:   role.CreatedAt,
+			UpdatedAt:   role.UpdatedAt,
+			Permissions: permissions,
+		})
 	}
 	return
+}
+
+// AddPermissions 批量添加权限
+func (s *sRole) AddPermissions(ctx context.Context, roleId uint, permissionIds []uint) error {
+	if len(permissionIds) == 0 {
+		return nil
+	}
+	// 批量插入
+	data := make([]g.Map, 0, len(permissionIds))
+	for _, pid := range permissionIds {
+		data = append(data, g.Map{
+			dao.RolePermissionInfo.Columns().RoleId:       roleId,
+			dao.RolePermissionInfo.Columns().PermissionId: pid,
+		})
+	}
+	_, err := dao.RolePermissionInfo.Ctx(ctx).Data(data).Insert()
+	return err
+}
+
+// DeletePermissions 批量删除权限
+func (s *sRole) DeletePermissions(ctx context.Context, roleId uint, permissionIds []uint) error {
+	if len(permissionIds) == 0 {
+		return nil
+	}
+	_, err := dao.RolePermissionInfo.Ctx(ctx).
+		Where(dao.RolePermissionInfo.Columns().RoleId, roleId).
+		WhereIn(dao.RolePermissionInfo.Columns().PermissionId, permissionIds).
+		Delete()
+	return err
+}
+
+// GetPermissionsByRoleId 根据角色ID获取权限列表
+func (s *sRole) GetPermissionsByRoleId(ctx context.Context, roleId uint) ([]model.RolePermissionItem, error) {
+	// 查询角色权限关联
+	var rolePermissions []entity.RolePermissionInfo
+	err := dao.RolePermissionInfo.Ctx(ctx).
+		Where(dao.RolePermissionInfo.Columns().RoleId, roleId).
+		Scan(&rolePermissions)
+	if err != nil {
+		return nil, err
+	}
+	if len(rolePermissions) == 0 {
+		return []model.RolePermissionItem{}, nil
+	}
+
+	// 提取权限ID
+	permissionIds := make([]int, 0, len(rolePermissions))
+	for _, rp := range rolePermissions {
+		permissionIds = append(permissionIds, rp.PermissionId)
+	}
+
+	// 查询权限详情
+	var permissions []entity.PermissionInfo
+	err = dao.PermissionInfo.Ctx(ctx).
+		WhereIn(dao.PermissionInfo.Columns().Id, permissionIds).
+		Scan(&permissions)
+	if err != nil {
+		return nil, err
+	}
+
+	// 转换输出
+	result := make([]model.RolePermissionItem, 0, len(permissions))
+	for _, p := range permissions {
+		result = append(result, model.RolePermissionItem{
+			Id:   uint(p.Id),
+			Name: p.Name,
+			Path: p.Path,
+		})
+	}
+	return result, nil
 }

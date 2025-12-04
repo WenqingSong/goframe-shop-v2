@@ -40,11 +40,19 @@ type RoleGetListOutput struct {
 }
 
 type RoleGetListOutputItem struct {
-	Id        uint        `json:"id"` // 自增ID
-	Name      string      `json:"name"`
-	Desc      string      `json:"desc"`
-	CreatedAt *gtime.Time `json:"created_at"` // 创建时间
-	UpdatedAt *gtime.Time `json:"updated_at"` // 修改时间
+	Id          uint                 `json:"id"` // 自增ID
+	Name        string               `json:"name"`
+	Desc        string               `json:"desc"`
+	CreatedAt   *gtime.Time          `json:"created_at"`  // 创建时间
+	UpdatedAt   *gtime.Time          `json:"updated_at"`  // 修改时间
+	Permissions []RolePermissionItem `json:"permissions"` // 角色拥有的权限列表
+}
+
+// RolePermissionItem 角色权限项
+type RolePermissionItem struct {
+	Id   uint   `json:"id"`
+	Name string `json:"name"`
+	Path string `json:"path"`
 }
 
 type RoleSearchOutputItem struct {

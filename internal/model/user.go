@@ -41,3 +41,27 @@ type UserInfoBase struct {
 	Sign   string `json:"sign"`
 	Status uint8  `json:"status"`
 }
+
+// 后台用户管理相关
+type UserGetListInput struct {
+	Page int
+	Size int
+}
+
+type UserGetListOutput struct {
+	List  []UserInfoItem `json:"list"`
+	Page  int            `json:"page"`
+	Size  int            `json:"size"`
+	Total int            `json:"total"`
+}
+
+type UserInfoItem struct {
+	Id        int    `json:"id"`
+	Name      string `json:"name"`
+	Avatar    string `json:"avatar"`
+	Sex       int    `json:"sex"`
+	Status    int    `json:"status"` // 1正常 2冻结
+	Sign      string `json:"sign"`
+	CreatedAt string `json:"created_at"`
+	UpdatedAt string `json:"updated_at"`
+}

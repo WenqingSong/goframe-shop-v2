@@ -37,11 +37,13 @@
             <el-input v-model.trim="form.name"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
-            <el-input v-model.trim="form.password"></el-input>
+            <el-input 
+              v-model.trim="form.password" 
+              type="password"
+              :placeholder="isEdit ? '不填则不修改密码' : '请输入密码'"
+              show-password
+            ></el-input>
           </el-form-item>
-          <!-- <el-form-item label="分配角色">
-            <el-input v-model.trim="form.role_id"></el-input>
-          </el-form-item> -->
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="addRoleFormCancel()">取 消</el-button>
@@ -112,30 +114,36 @@
         />
         <el-table-column align="center" label="操作" width="200">
           <template slot-scope="scope">
-            <!-- 编辑按钮 -->
-            <el-button
-              type="primary"
-              size="mini"
-              icon="el-icon-edit"
-              @click="editUserHandler(scope.row)"
-              circle
-            />
-            <!--分配角色按钮 -->
-            <el-button
-              type="warning"
-              size="mini"
-              icon="el-icon-key"
-              @click="assignRoles(scope.row.id, scope.row.role_names)"
-              circle
-            />
-            <!-- 删除按钮 -->
-            <el-button
-              type="danger"
-              size="mini"
-              icon="el-icon-delete"
-              @click="deleteUserHandler(scope.row.id)"
-              circle
-            />
+            <!-- 超级管理员不能被其他超级管理员修改 -->
+            <template v-if="scope.row.is_admin !== 1 || currentAdminId == scope.row.id">
+              <!-- 编辑按钮 -->
+              <el-button
+                type="primary"
+                size="mini"
+                icon="el-icon-edit"
+                @click="editUserHandler(scope.row)"
+                circle
+              />
+              <!--分配角色按钮（超级管理员不需要分配角色） -->
+              <el-button
+                v-if="scope.row.is_admin !== 1"
+                type="warning"
+                size="mini"
+                icon="el-icon-key"
+                @click="assignRoles(scope.row)"
+                circle
+              />
+              <!-- 删除按钮（不能删除自己） -->
+              <el-button
+                v-if="currentAdminId != scope.row.id"
+                type="danger"
+                size="mini"
+                icon="el-icon-delete"
+                @click="deleteUserHandler(scope.row.id)"
+                circle
+              />
+            </template>
+            <span v-else style="color: #999">无权操作</span>
           </template>
         </el-table-column>
       </el-table>
@@ -175,6 +183,8 @@ export default {
       dialogRoleForm: false, // 控制分配权限框
       isEdit: false, // 是否是编辑
       editId: "", // 当前编辑id
+      currentAdminId: null, // 当前登录的管理员ID
+      roleOptions: [], // 角色选项列表
       /**
        * 搜索
        */
@@ -196,7 +206,7 @@ export default {
         name: "",
         password: "",
         is_admin: "1",
-        // role_id: 37,
+        role_ids: "",
       },
       /**
        * 分配角色数据
@@ -212,6 +222,7 @@ export default {
   },
   computed: {},
   created() {
+    this.getCurrentAdminId();
     this.getList();
   },
   watch: {
@@ -229,6 +240,18 @@ export default {
     },
   },
   methods: {
+    // 获取当前登录管理员ID
+    getCurrentAdminId() {
+      try {
+        const token = localStorage.getItem('token');
+        if (token) {
+          const payload = JSON.parse(atob(token.split('.')[1]));
+          this.currentAdminId = Number(payload.id);
+        }
+      } catch (e) {
+        console.error('解析token失败', e);
+      }
+    },
     async getList() {
       this.roleList = [];
       const params = {
@@ -257,11 +280,11 @@ export default {
           item.role_names =
             item.is_admin === 1
               ? ["超级管理员"]
-              : item.role_id_array
+              : (item.role_id_array || [])
                   .map(
                     (id) => roleList.data.list.find((it) => it.id == id)?.name
                   )
-                  .filter((item) => item);
+                  .filter((name) => name);
           console.log(item.role_names);
         });
         console.table(userInfoList);
@@ -346,7 +369,7 @@ export default {
           });
           return;
         }
-        const res = await editAdmin({ ...this.form, id: this.editId });
+        const res = await editAdmin({ ...this.form, admin_id: this.editId });
         if (res.code === 0) {
           this.$message({
             message: "修改成功",
@@ -363,6 +386,7 @@ export default {
           return;
         }
         this.form.is_admin = 0;
+        this.form.role_ids = "2"; // 默认分配普通管理员角色
         const res = await addAdmin(this.form);
         if (res.code === 0) {
           this.$message({
@@ -379,28 +403,48 @@ export default {
     /**
      * 编辑事件
      */
-    editUserHandler(role) {
-      console.log(role);
+    async editUserHandler(row) {
+      console.log('编辑管理员:', row);
       this.isEdit = true;
-      this.editId = role.id;
-      this.form.name = role.name;
+      this.editId = row.id;
+      this.form.name = row.name;
+      this.form.password = ''; // 清空密码
+      // 获取角色列表
+      const res = await getRoleList({ limit: 50, page: 1 });
+      if (res.code === 0) {
+        this.roleOptions = res.data.list.map((item) => ({
+          value: String(item.id),
+          label: item.name,
+        }));
+      }
+      // 设置当前角色（需要在 roleOptions 设置后）
+      this.form.role_ids = row.role_ids || '';
+      console.log('设置角色:', this.form.role_ids, '角色选项:', this.roleOptions);
       this.dialogFormVisible = true;
     },
     /**
-     * 分配权限按钮
+     * 分配角色按钮
      */
-    async assignRoles(id, roleNames) {
-      this.assign.id = id;
-
+    async assignRoles(row) {
+      this.assign.id = row.id;
       this.dialogRoleForm = true;
-      const res = await getRoleList({ limit: 10, page: 1 });
-      console.log(res);
+      
+      // 获取角色列表
+      const res = await getRoleList({ limit: 50, page: 1 });
       if (res.code === 0) {
         this.assign.options = res.data.list.map((item) => ({
           value: item.id,
           label: item.name,
         }));
       }
+      
+      // 设置当前角色为选中状态
+      if (row.role_id_array && row.role_id_array.length > 0) {
+        this.assign.value = row.role_id_array;
+      } else {
+        this.assign.value = [];
+      }
+      console.log('当前角色:', this.assign.value);
     },
     /**
      * 搜索
@@ -470,7 +514,7 @@ export default {
       this.dialogRoleForm = false;
       const role_ids = this.assign.value.join(",");
       console.log(role_ids);
-      const res = await editAdmin({ id: this.assign.id, role_ids });
+      const res = await editAdmin({ admin_id: this.assign.id, role_ids });
       console.log(res);
       if (res.code === 0) {
         this.$message({

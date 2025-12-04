@@ -75,6 +75,19 @@
         <el-table-column align="center" label="id" prop="id" width="100" />
         <el-table-column align="center" label="名称" prop="name" />
         <el-table-column align="center" label="描述" prop="desc" />
+        <el-table-column align="center" label="已有权限" width="300">
+          <template slot-scope="scope">
+            <el-tag
+              v-for="perm in scope.row.permissions"
+              :key="perm.id"
+              size="small"
+              style="margin: 2px"
+            >
+              {{ perm.name }}
+            </el-tag>
+            <span v-if="!scope.row.permissions || scope.row.permissions.length === 0" style="color: #999">暂无权限</span>
+          </template>
+        </el-table-column>
         <el-table-column
           align="center"
           label="创建时间"
@@ -180,6 +193,7 @@ export default {
         options: [],
         id: null,
         timer: null,
+        currentPermissionIds: [], // 当前角色已有的权限ID
       },
       resKeys: [],
     };
@@ -379,49 +393,27 @@ export default {
         page: 1,
         keyword: "",
       });
-      if (res.code === 0) {
-        this.assign.options = res.data.list
-          ?.map?.((item, i, arr) => {
-            if (item.path.split("/").length === 2) {
-              console.log(item.path);
-              return {
-                id: item.id,
-                label: item.name,
-                path: item.path,
-                children: arr
-                  .map((it) =>
-                    it.path.split("/").length > 2 && it.path.includes(item.path)
-                      ? {
-                          id: it.id,
-                          label: it.name,
-                          path: it.path,
-                        }
-                      : false
-                  )
-                  .filter((it) => it)
-                  .reverse(),
-              };
-            }
-          })
-          .filter((it) => it)
-          .reverse();
-        console.log("---------------");
-        console.table(this.assign.options);
+      if (res.code === 0 && res.data.list) {
+        // 直接将权限列表转换为树形结构（平铺显示）
+        this.assign.options = res.data.list.map((item) => ({
+          id: item.id,
+          label: item.name + ' (' + item.path + ')',
+          path: item.path,
+        }));
+        console.log("权限列表:", this.assign.options);
+        
+        // 保存所有权限ID，用于删除时使用
+        this.resKeys = res.data.list.map((item) => item.id);
+        
+        // 保存当前角色已有的权限ID
+        this.assign.currentPermissionIds = row.permissions?.map((p) => p.id) || [];
+        
+        // 设置已有权限为选中状态
+        this.$nextTick(() => {
+          console.log("已有权限IDs:", this.assign.currentPermissionIds);
+          this.$refs.tree.setCheckedKeys(this.assign.currentPermissionIds, false);
+        });
       }
-      console.log(res);
-      this.resKeys = res.data.list.map((item) => item.id);
-      console.log(row.permissions);
-      const keys = row.permissions
-        ?.map?.((item) =>
-          item.path.split("/").length === 2 &&
-          row.permissions.some(it=>it.path.includes(item.path.concat("/")))
-            ? false
-            : item.id
-        )
-        .filter((it) => it);
-      console.log(keys);
-      console.log()
-      this.$refs.tree.setCheckedKeys(keys || [], true);
     },
     /**
      * 关闭分配权限对话框
@@ -433,23 +425,40 @@ export default {
      * 分配权限对话框确认
      */
     async assignPermissionsConfirm() {
-      const select = this.$refs.tree
-        .getCheckedNodes(false, true)
+      // 获取当前选中的权限ID
+      const selectedIds = this.$refs.tree
+        .getCheckedNodes(false, false)
         .map((it) => it.id);
-      const deleteRes = await deleteRolePermission({
-        role_id: this.assign.id,
-        permission_ids: this.resKeys,
-      });
-      console.log(deleteRes);
-      const addRes = await editRolePermission({
-        role_id: this.assign.id,
-        permission_ids: select,
-      });
-      console.log({
-        role_id: this.assign.id,
-        permission_ids: select,
-      });
-      console.log(addRes);
+      
+      // 计算需要删除的权限（原来有但现在没选中的）
+      const toDelete = this.assign.currentPermissionIds.filter(
+        (id) => !selectedIds.includes(id)
+      );
+      
+      // 计算需要添加的权限（现在选中但原来没有的）
+      const toAdd = selectedIds.filter(
+        (id) => !this.assign.currentPermissionIds.includes(id)
+      );
+      
+      console.log("需要删除的权限:", toDelete);
+      console.log("需要添加的权限:", toAdd);
+      
+      // 删除取消勾选的权限
+      if (toDelete.length > 0) {
+        await deleteRolePermission({
+          role_id: this.assign.id,
+          permission_ids: toDelete,
+        });
+      }
+      
+      // 添加新勾选的权限
+      if (toAdd.length > 0) {
+        await editRolePermission({
+          role_id: this.assign.id,
+          permission_ids: toAdd,
+        });
+      }
+      
       this.dialogRolePermission = false;
       this.$message({
         message: "分配成功",

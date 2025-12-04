@@ -4,6 +4,7 @@ import (
 	"goframe-shop-v2/api/backend"
 	"goframe-shop-v2/internal/model"
 	"goframe-shop-v2/internal/service"
+
 	"golang.org/x/net/context"
 )
 
@@ -52,6 +53,24 @@ func (c *cRole) DeletePermission(ctx context.Context, req *backend.DeletePermiss
 		return nil, err
 	}
 	return &backend.DeletePermissionRes{}, err
+}
+
+// 角色批量添加权限
+func (c *cRole) AddPermissions(ctx context.Context, req *backend.AddPermissionsReq) (res *backend.AddPermissionsRes, err error) {
+	err = service.Role().AddPermissions(ctx, req.RoleId, req.PermissionIds)
+	if err != nil {
+		return nil, err
+	}
+	return &backend.AddPermissionsRes{}, nil
+}
+
+// 角色批量删除权限
+func (c *cRole) DeletePermissions(ctx context.Context, req *backend.DeletePermissionsReq) (res *backend.DeletePermissionsRes, err error) {
+	err = service.Role().DeletePermissions(ctx, req.RoleId, req.PermissionIds)
+	if err != nil {
+		return nil, err
+	}
+	return &backend.DeletePermissionsRes{}, nil
 }
 
 func (c *cRole) Update(ctx context.Context, req *backend.RoleUpdateReq) (res *backend.RoleUpdateRes, err error) {

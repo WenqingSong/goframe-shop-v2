@@ -1,18 +1,37 @@
 package middleware
 
 import (
+	"strings"
+
 	"goframe-shop-v2/internal/consts"
 	"goframe-shop-v2/internal/model"
 	"goframe-shop-v2/internal/service"
 	"goframe-shop-v2/utility/response"
 
 	"github.com/goflyfox/gtoken/gtoken"
+	jwt "github.com/gogf/gf-jwt/v2"
 	"github.com/gogf/gf/v2/errors/gcode"
 	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/util/gconv"
 )
+
+// 超管专属路径（权限管理模块）
+var adminOnlyPaths = []string{
+	"/backend/role",
+	"/backend/permission",
+	"/backend/admin",
+	"/backend/user", // 用户管理
+}
+
+// 不需要权限校验的路径（登录、注册、登出等）
+var noPermissionCheckPaths = []string{
+	"/backend/login",
+	"/backend/logout",
+	"/backend/admin/create",
+	"/backend/refresh-token",
+}
 
 type sMiddleware struct {
 	LoginUrl string // 登录路由地址
@@ -140,6 +159,87 @@ func (s *sMiddleware) UserAuth(r *ghttp.Request) {
 }
 
 var GToken *gtoken.GfToken
+
+// PermissionCheck 权限校验中间件
+// 检查当前管理员是否有权限访问当前路径
+func (s *sMiddleware) PermissionCheck(r *ghttp.Request) {
+	ctx := r.Context()
+	requestPath := r.URL.Path
+
+	// 检查是否是不需要权限校验的路径
+	for _, path := range noPermissionCheckPaths {
+		if strings.HasPrefix(requestPath, path) {
+			r.Middleware.Next()
+			return
+		}
+	}
+
+	// 从JWT中获取管理员信息
+	claims := jwt.ExtractClaims(ctx)
+	if claims == nil {
+		response.JsonExit(r, 401, "未登录或登录已过期")
+		return
+	}
+
+	// 获取 is_admin 和 role_ids
+	isAdmin := gconv.Int(claims["is_admin"])
+	roleIdsStr := gconv.String(claims["role_ids"])
+
+	g.Log().Debug(ctx, "PermissionCheck - path:", requestPath, "is_admin:", isAdmin, "role_ids:", roleIdsStr)
+
+	// 超级管理员拥有所有权限
+	if isAdmin == 1 {
+		r.Middleware.Next()
+		return
+	}
+
+	// 检查是否是超管专属路径
+	for _, adminPath := range adminOnlyPaths {
+		if strings.HasPrefix(requestPath, adminPath) {
+			response.JsonExit(r, 403, "权限不足，该功能仅超级管理员可访问")
+			return
+		}
+	}
+
+	// 解析 role_ids（格式如 "1,2,3"）
+	var roleIds []int
+	if roleIdsStr != "" {
+		roleIdStrs := strings.Split(roleIdsStr, ",")
+		for _, idStr := range roleIdStrs {
+			idStr = strings.TrimSpace(idStr)
+			if idStr != "" {
+				roleIds = append(roleIds, gconv.Int(idStr))
+			}
+		}
+	}
+
+	// 如果没有角色，则无权限
+	if len(roleIds) == 0 {
+		response.JsonExit(r, 403, "权限不足，未分配角色")
+		return
+	}
+
+	// 获取该角色拥有的所有权限路径
+	allowedPaths, err := service.Permission().GetPathsByRoleIds(ctx, roleIds)
+	if err != nil {
+		g.Log().Error(ctx, "获取权限路径失败:", err)
+		response.JsonExit(r, 500, "权限校验失败")
+		return
+	}
+
+	g.Log().Debug(ctx, "PermissionCheck - allowedPaths:", allowedPaths)
+
+	// 检查当前请求路径是否匹配任一权限路径（前缀匹配）
+	for _, allowedPath := range allowedPaths {
+		if strings.HasPrefix(requestPath, allowedPath) {
+			r.Middleware.Next()
+			return
+		}
+	}
+
+	// 没有匹配的权限
+	response.JsonExit(r, 403, "权限不足，无法访问该功能")
+}
 
 // Gtoken鉴权
 func (s *sMiddleware) GTokenSetCtx(r *ghttp.Request) {

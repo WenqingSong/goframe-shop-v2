@@ -100,20 +100,20 @@ const actions = {
   // user logout
   logout({ commit, state, dispatch }) {
     return new Promise((resolve, reject) => {
-      logout({ token: state.token }).then(() => {
-        commit("SET_TOKEN", "");
-        commit("SET_ROLES", []);
-        removeToken();
-        resetRouter();
-        //退出要清除localStorage里的用户信息
-        localStorage.removeItem("info");
+      // 先清除本地状态，避免退出时其他请求报权限不足
+      commit("SET_TOKEN", "");
+      commit("SET_ROLES", []);
+      removeToken();
+      resetRouter();
+      localStorage.removeItem("info");
 
-        // reset visited views and cached views
-        // to fixed https://github.com/PanJiaChen/vue-element-admin/issues/2485
-        dispatch("tagsView/delAllViews", null, { root: true });
+      // reset visited views and cached views
+      dispatch("tagsView/delAllViews", null, { root: true });
 
-        resolve();
-      });
+      // 后端登出（忽略错误）
+      logout({ token: state.token }).catch(() => {});
+      
+      resolve();
     });
   },
 

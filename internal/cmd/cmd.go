@@ -39,10 +39,11 @@ var (
 					controller.Login.RefreshToken, // 刷新Token
 					controller.Data,               // 数据大屏相关
 				)
-				//需要登录的路由组绑定（JWT 中间件）
+				//需要登录的路由组绑定（JWT 中间件 + 权限校验）
 				group.Group("/", func(group *ghttp.RouterGroup) {
 					group.Middleware(
 						service.Middleware().Auth,
+						service.Middleware().PermissionCheck,
 					)
 					group.Bind(
 						controller.Login.Logout,    // 登出
@@ -71,6 +72,7 @@ var (
 						backend.Article,         //文章管理&CMS
 						backend.Comment,         //评论管理
 						backend.Consignee,       //收货地址管理
+						backend.User,            //用户管理（超管专属）
 					//controller.SeckillBackend, //秒杀后台管理
 					)
 				})
