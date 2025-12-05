@@ -11,7 +11,7 @@
  Target Server Version : 80012
  File Encoding         : 65001
 
- Date: 02/12/2025 11:37:05
+ Date: 05/12/2025 16:07:29
 */
 
 SET NAMES utf8mb4;
@@ -71,12 +71,13 @@ CREATE TABLE `admin_info`  (
   `is_admin` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否超级管理员',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name_unique`(`name` ASC) USING BTREE COMMENT '名字唯一索引'
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of admin_info
 -- ----------------------------
-INSERT INTO `admin_info` VALUES (1, 'wangzhongyang', '7382e435a4eb141adeabc3792d383e1c', '1', '2022-07-19 10:50:20', '2022-11-23 14:25:10', '4f8WG1bjne', 1);
+INSERT INTO `admin_info` VALUES (1, 'wangzhongyang', 'ce1d477c2c7a11384053d8981d85bd96', '2', '2025-12-04 08:21:39', '2025-12-04 09:00:18', '9IQDuhRTJW', 1);
+INSERT INTO `admin_info` VALUES (2, 'test', '9122185be9f038b36b30bd65daa79b80', '1', '2025-12-04 08:42:32', '2025-12-04 08:42:32', 'vId0yaMHzQ', 0);
 
 -- ----------------------------
 -- Table structure for article_info
@@ -100,14 +101,14 @@ CREATE TABLE `article_info`  (
 -- ----------------------------
 -- Records of article_info
 -- ----------------------------
-INSERT INTO `article_info` VALUES (1, 101, '华凌N8HE1空调使用3个月真实感受：卧室制冷神器', '租房党福音！静音省电，制冷快，这个夏天终于能睡好觉了', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 236, '坐标上海，卧室15平左右，6月份入手的华凌N8HE1。安装师傅很专业，半小时搞定。\r\n\r\n使用感受：\r\n1. 制冷真的快！开机5分钟整个房间就凉下来了，温度很均匀\r\n2. 超级静音！晚上开睡眠模式，几乎听不到声音，再也不会被空调噪音吵醒\r\n3. 省电！一个月下来电费比去年用老空调省了快100块\r\n4. 外观简约大气，白色百搭，和我家装修风格很配\r\n\r\n缺点：遥控器有点简单，要是能连接手机APP就更好了。不过这个价格，还要什么自行车！', '2022-06-15 14:30:22', '2022-06-15 14:30:22', NULL);
-INSERT INTO `article_info` VALUES (2, 102, '小米空气净化器Pro H：过敏体质的救星', '养宠物+过敏体质的我，终于找到了呼吸自由的秘诀', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 189, '家里养了两只猫，我又有过敏性鼻炎，一到春秋就难受得不行。朋友推荐了小米空气净化器Pro H，用了半个月，效果真的惊艳！\r\n\r\n使用体验：\r\n1. 净化速度快！开机半小时，PM2.5从120降到20以下\r\n2. 智能感应很灵敏，宠物掉毛多的时候会自动调高风速\r\n3. 静音效果好，晚上开睡眠模式几乎没声音\r\n4. 手机APP可以实时查看空气质量，还能远程控制\r\n\r\n现在每天起床鼻子都很舒服，再也不会一直打喷嚏了。强烈推荐给养宠物和过敏体质的朋友！', '2022-09-28 09:15:47', '2022-09-28 09:15:47', NULL);
-INSERT INTO `article_info` VALUES (3, 103, '戴森V12吸尘器：让做家务变成一种享受', '无线轻便，吸力强，各种缝隙都能轻松搞定', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 452, '作为一个爱干净的家庭主妇，试过很多吸尘器，直到遇到戴森V12。\r\n\r\n使用感受：\r\n1. 无线设计太方便了！不用再拖着线到处跑，想吸哪里吸哪里\r\n2. 吸力真的强！地板上的头发、灰尘，甚至地毯里的深层污垢都能吸干净\r\n3. 配件丰富，沙发、窗帘、床褥都能用不同的吸头搞定\r\n4. 续航不错，120平的房子一次吸完还有电\r\n5. 自清洁功能很贴心，不用手动清理滤网\r\n\r\n虽然价格有点贵，但真的物超所值，大大节省了做家务的时间！', '2022-11-12 16:45:12', '2022-11-12 16:45:12', NULL);
-INSERT INTO `article_info` VALUES (4, 104, '美的BCD-478WSPZM(E)冰箱：大容量还能除味', '三口之家够用，保鲜效果好，再也没有异味困扰', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 156, '家里之前的冰箱太小了，放不了多少东西，还容易串味。双十一换了美的这款478升的冰箱，真的太香了！\r\n\r\n使用体验：\r\n1. 容量大！冷藏冷冻都很能装，三口之家完全够用\r\n2. 保鲜效果好！放了一周的蔬菜还是很新鲜，水果也不容易坏\r\n3. 除味效果不错，打开冰箱再也没有难闻的异味\r\n4. 外观是磨砂玻璃，很高级，容易清洁\r\n5. 一级能效，省电又静音\r\n\r\n价格也很亲民，性价比很高，推荐给需要换冰箱的家庭！', '2022-12-05 11:20:33', '2022-12-05 11:20:33', NULL);
-INSERT INTO `article_info` VALUES (5, 105, '索尼XR-65X90J电视：在家就能享受影院级体验', '画质惊艳，音效震撼，看电影玩游戏都超爽', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 318, '作为一个影音爱好者，纠结了很久终于入手了索尼XR-65X90J。\r\n\r\n使用感受：\r\n1. 画质真的绝了！色彩鲜艳真实，对比度高，HDR效果惊艳\r\n2. 音效震撼，自带的扬声器就有很好的环绕感\r\n3. 系统流畅，反应快，没有广告\r\n4. 游戏模式延迟很低，玩PS5体验超棒\r\n5. 外观简约大气，挂墙效果很好\r\n\r\n虽然价格不便宜，但对于追求画质和音效的朋友来说，绝对值得入手！', '2023-02-18 19:45:56', '2023-02-18 19:45:56', NULL);
-INSERT INTO `article_info` VALUES (6, 106, '小熊加湿器JSQ-C40L5：办公室和卧室都能用', '静音加湿，容量大，再也不怕皮肤干燥了', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 98, '北方的冬天真的太干燥了，办公室和家里都需要加湿器。对比了很多款，选了小熊这款。\r\n\r\n使用体验：\r\n1. 容量大！4升的水箱，加满水可以用一整晚\r\n2. 加湿效果好，房间湿度能保持在40-50%之间\r\n3. 静音！办公室用不会影响同事，晚上用也不会吵\r\n4. 有定时功能，很方便\r\n5. 外观可爱，放在桌面不占地方\r\n\r\n价格便宜，质量不错，推荐给需要加湿器的朋友！', '2023-01-10 10:15:22', '2023-01-10 10:15:22', NULL);
-INSERT INTO `article_info` VALUES (7, 107, '苏泊尔SF40HC88电饭煲：煮出的米饭真的不一样', 'IH加热，口感Q弹，各种米都能煮出好味道', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 175, '家里之前的电饭煲用了5年，煮出来的米饭总是软硬不均。换了苏泊尔这款IH电饭煲，真的惊艳到我了！\r\n\r\n使用体验：\r\n1. 米饭口感真的好！Q弹有嚼劲，不管是东北米还是泰国香米都能煮出好味道\r\n2. 功能丰富，有柴火饭、粥、汤、蛋糕等多种模式\r\n3. 预约功能很方便，早上出门前预约，晚上回家就能吃现成的\r\n4. 内胆厚重，导热均匀，不容易粘锅\r\n5. 外观简约大气，容易清洁\r\n\r\n价格适中，性价比很高，推荐给注重米饭口感的朋友！', '2023-03-25 15:30:44', '2023-03-25 15:30:44', NULL);
-INSERT INTO `article_info` VALUES (8, 108, 'AirPods Pro 2使用体验：降噪效果真的能打', '通勤路上的救星，音质好，佩戴舒适', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 422, '作为一个每天通勤2小时的打工人，AirPods Pro 2真的是我的救星！\r\n\r\n使用体验：\r\n1. 降噪效果太绝了！地铁上的噪音几乎完全听不到，世界瞬间安静\r\n2. 音质比第一代有提升，低音更饱满，高音清晰\r\n3. 佩戴舒适，长时间戴也不会耳朵疼\r\n4. 续航不错，单次能用6小时，配合充电盒能用30小时\r\n5. 空间音频效果惊艳，看电影就像在电影院一样\r\n\r\n虽然价格不便宜，但对于每天通勤的人来说，真的能提升生活质量！', '2023-04-12 18:55:17', '2023-04-12 18:55:17', NULL);
+INSERT INTO `article_info` VALUES (1, 1, '华凌N8HE1空调使用3个月真实感受：卧室制冷神器', '租房党福音！静音省电，制冷快，这个夏天终于能睡好觉了', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 236, '坐标上海，卧室15平左右，6月份入手的华凌N8HE1。安装师傅很专业，半小时搞定。\r\n\r\n使用感受：\r\n1. 制冷真的快！开机5分钟整个房间就凉下来了，温度很均匀\r\n2. 超级静音！晚上开睡眠模式，几乎听不到声音，再也不会被空调噪音吵醒\r\n3. 省电！一个月下来电费比去年用老空调省了快100块\r\n4. 外观简约大气，白色百搭，和我家装修风格很配\r\n\r\n缺点：遥控器有点简单，要是能连接手机APP就更好了。不过这个价格，还要什么自行车！', '2022-06-15 14:30:22', '2025-12-04 06:11:55', NULL);
+INSERT INTO `article_info` VALUES (2, 1, '小米空气净化器Pro H：过敏体质的救星2', '养宠物+过敏体质的我，终于找到了呼吸自由的秘诀', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 189, '家里养了两只猫，我又有过敏性鼻炎，一到春秋就难受得不行。朋友推荐了小米空气净化器Pro H，用了半个月，效果真的惊艳！\r\n\r\n使用体验：\r\n1. 净化速度快！开机半小时，PM2.5从120降到20以下\r\n2. 智能感应很灵敏，宠物掉毛多的时候会自动调高风速\r\n3. 静音效果好，晚上开睡眠模式几乎没声音\r\n4. 手机APP可以实时查看空气质量，还能远程控制\r\n\r\n现在每天起床鼻子都很舒服，再也不会一直打喷嚏了。强烈推荐给养宠物和过敏体质的朋友！', '2022-09-28 09:15:47', '2025-12-04 06:18:43', NULL);
+INSERT INTO `article_info` VALUES (3, 1, '戴森V12吸尘器：让做家务变成一种享受', '无线轻便，吸力强，各种缝隙都能轻松搞定', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 452, '作为一个爱干净的家庭主妇，试过很多吸尘器，直到遇到戴森V12。\r\n\r\n使用感受：\r\n1. 无线设计太方便了！不用再拖着线到处跑，想吸哪里吸哪里\r\n2. 吸力真的强！地板上的头发、灰尘，甚至地毯里的深层污垢都能吸干净\r\n3. 配件丰富，沙发、窗帘、床褥都能用不同的吸头搞定\r\n4. 续航不错，120平的房子一次吸完还有电\r\n5. 自清洁功能很贴心，不用手动清理滤网\r\n\r\n虽然价格有点贵，但真的物超所值，大大节省了做家务的时间！', '2022-11-12 16:45:12', '2022-11-12 16:45:12', NULL);
+INSERT INTO `article_info` VALUES (4, 1, '美的BCD-478WSPZM(E)冰箱：大容量还能除味', '三口之家够用，保鲜效果好，再也没有异味困扰', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 156, '家里之前的冰箱太小了，放不了多少东西，还容易串味。双十一换了美的这款478升的冰箱，真的太香了！\r\n\r\n使用体验：\r\n1. 容量大！冷藏冷冻都很能装，三口之家完全够用\r\n2. 保鲜效果好！放了一周的蔬菜还是很新鲜，水果也不容易坏\r\n3. 除味效果不错，打开冰箱再也没有难闻的异味\r\n4. 外观是磨砂玻璃，很高级，容易清洁\r\n5. 一级能效，省电又静音\r\n\r\n价格也很亲民，性价比很高，推荐给需要换冰箱的家庭！', '2022-12-05 11:20:33', '2022-12-05 11:20:33', NULL);
+INSERT INTO `article_info` VALUES (5, 1, '索尼XR-65X90J电视：在家就能享受影院级体验', '画质惊艳，音效震撼，看电影玩游戏都超爽', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 318, '作为一个影音爱好者，纠结了很久终于入手了索尼XR-65X90J。\r\n\r\n使用感受：\r\n1. 画质真的绝了！色彩鲜艳真实，对比度高，HDR效果惊艳\r\n2. 音效震撼，自带的扬声器就有很好的环绕感\r\n3. 系统流畅，反应快，没有广告\r\n4. 游戏模式延迟很低，玩PS5体验超棒\r\n5. 外观简约大气，挂墙效果很好\r\n\r\n虽然价格不便宜，但对于追求画质和音效的朋友来说，绝对值得入手！', '2023-02-18 19:45:56', '2023-02-18 19:45:56', NULL);
+INSERT INTO `article_info` VALUES (6, 1, '小熊加湿器JSQ-C40L5：办公室和卧室都能用', '静音加湿，容量大，再也不怕皮肤干燥了', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 98, '北方的冬天真的太干燥了，办公室和家里都需要加湿器。对比了很多款，选了小熊这款。\r\n\r\n使用体验：\r\n1. 容量大！4升的水箱，加满水可以用一整晚\r\n2. 加湿效果好，房间湿度能保持在40-50%之间\r\n3. 静音！办公室用不会影响同事，晚上用也不会吵\r\n4. 有定时功能，很方便\r\n5. 外观可爱，放在桌面不占地方\r\n\r\n价格便宜，质量不错，推荐给需要加湿器的朋友！', '2023-01-10 10:15:22', '2023-01-10 10:15:22', NULL);
+INSERT INTO `article_info` VALUES (7, 1, '苏泊尔SF40HC88电饭煲：煮出的米饭真的不一样', 'IH加热，口感Q弹，各种米都能煮出好味道', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 175, '家里之前的电饭煲用了5年，煮出来的米饭总是软硬不均。换了苏泊尔这款IH电饭煲，真的惊艳到我了！\r\n\r\n使用体验：\r\n1. 米饭口感真的好！Q弹有嚼劲，不管是东北米还是泰国香米都能煮出好味道\r\n2. 功能丰富，有柴火饭、粥、汤、蛋糕等多种模式\r\n3. 预约功能很方便，早上出门前预约，晚上回家就能吃现成的\r\n4. 内胆厚重，导热均匀，不容易粘锅\r\n5. 外观简约大气，容易清洁\r\n\r\n价格适中，性价比很高，推荐给注重米饭口感的朋友！', '2023-03-25 15:30:44', '2023-03-25 15:30:44', NULL);
+INSERT INTO `article_info` VALUES (8, 1, 'AirPods Pro 2使用体验：降噪效果真的能打', '通勤路上的救星，音质好，佩戴舒适', 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 2, 422, '作为一个每天通勤2小时的打工人，AirPods Pro 2真的是我的救星！\r\n\r\n使用体验：\r\n1. 降噪效果太绝了！地铁上的噪音几乎完全听不到，世界瞬间安静\r\n2. 音质比第一代有提升，低音更饱满，高音清晰\r\n3. 佩戴舒适，长时间戴也不会耳朵疼\r\n4. 续航不错，单次能用6小时，配合充电盒能用30小时\r\n5. 空间音频效果惊艳，看电影就像在电影院一样\r\n\r\n虽然价格不便宜，但对于每天通勤的人来说，真的能提升生活质量！', '2023-04-12 18:55:17', '2023-04-12 18:55:17', NULL);
 
 -- ----------------------------
 -- Table structure for cart_info
@@ -127,7 +128,6 @@ CREATE TABLE `cart_info`  (
 -- ----------------------------
 -- Records of cart_info
 -- ----------------------------
--- 为wangzhongyang用户添加购物车测试数据
 INSERT INTO `cart_info` VALUES (1, 1, 2, 1, '2022-07-29 13:59:10', '2022-07-29 13:59:10', NULL);
 INSERT INTO `cart_info` VALUES (2, 1, 8, 1, '2022-07-29 14:23:31', '2022-07-29 14:23:31', NULL);
 INSERT INTO `cart_info` VALUES (3, 1, 11, 2, '2022-07-29 14:30:00', '2022-07-29 14:30:00', NULL);
@@ -151,7 +151,7 @@ CREATE TABLE `category_info`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_parent_id`(`parent_id` ASC) USING BTREE,
   INDEX `idx_status`(`status` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 36 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品分类表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品分类表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of category_info
@@ -210,12 +210,9 @@ CREATE TABLE `collection_info`  (
 -- ----------------------------
 -- Records of collection_info
 -- ----------------------------
--- 为wangzhongyang用户添加收藏测试数据
--- 收藏商品
 INSERT INTO `collection_info` VALUES (1, 1, 1, 1, '2022-07-31 15:21:38', '2022-07-31 15:21:38');
 INSERT INTO `collection_info` VALUES (2, 1, 3, 1, '2022-07-31 15:22:00', '2022-07-31 15:22:00');
 INSERT INTO `collection_info` VALUES (3, 1, 4, 1, '2022-07-31 15:23:00', '2022-07-31 15:23:00');
--- 收藏文章
 INSERT INTO `collection_info` VALUES (4, 1, 1, 2, '2022-07-31 15:24:00', '2022-07-31 15:24:00');
 INSERT INTO `collection_info` VALUES (5, 1, 2, 2, '2022-07-31 15:25:00', '2022-07-31 15:25:00');
 
@@ -273,15 +270,12 @@ CREATE TABLE `consignee_info`  (
   `updated_at` datetime NULL DEFAULT NULL,
   `deleted_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of consignee_info
 -- ----------------------------
--- 为wangzhongyang用户添加收货地址测试数据
--- 默认收货地址
 INSERT INTO `consignee_info` VALUES (1, 1, 1, '王中阳', '13800138000', '北京', '北京市', '朝阳区', '望京街道', '望京SOHO T1 1801室', '2022-07-31 14:42:33', '2022-07-31 14:44:50', NULL);
--- 非默认收货地址
 INSERT INTO `consignee_info` VALUES (2, 1, 0, '王中阳', '13800138000', '上海', '上海市', '浦东新区', '张江高科技园区', '博云路2号', '2022-07-31 14:45:00', '2022-07-31 14:45:00', NULL);
 
 -- ----------------------------
@@ -324,7 +318,6 @@ CREATE TABLE `file_info`  (
 -- ----------------------------
 -- Records of file_info
 -- ----------------------------
--- 清空文件信息测试数据
 
 -- ----------------------------
 -- Table structure for goods_info
@@ -352,7 +345,7 @@ CREATE TABLE `goods_info`  (
 -- ----------------------------
 -- Records of goods_info
 -- ----------------------------
-INSERT INTO `goods_info` VALUES (1, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', '索尼XR-65X90J 65英寸 4K超高清 HDR 安卓智能电视', 699900, 1, 6, 20, '索尼', 100, 500, '4K超高清, HDR, 安卓智能, 全面屏', '格力1.5匹变频空调，一级能效，冷暖两用，静音设计，适合15-20平米房间使用，节能省电，制冷制热效果好。', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
+INSERT INTO `goods_info` VALUES (1, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', '索尼XR-65X90J 65英寸 4K超高清 HDR 安卓智能电视', 699900, 2, 0, 0, '索尼', 100, 500, '4K超高清, HDR, 安卓智能, 全面屏', '格力1.5匹变频空调，一级能效，冷暖两用，静音设计，适合15-20平米房间使用，节能省电，制冷制热效果好。', '2023-01-01 00:00:00', '2025-12-02 08:14:51', NULL);
 INSERT INTO `goods_info` VALUES (2, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', '格力KFR-35GW/NhGc1B 1.5匹 变频冷暖 一级能效 壁挂式空调', 329900, 1, 7, 24, '格力', 200, 800, '变频冷暖, 一级能效, 壁挂式, 静音', '格力1.5匹变频空调，一级能效，冷暖两用，静音设计，适合15-20平米房间使用，节能省电，制冷制热效果好。', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
 INSERT INTO `goods_info` VALUES (3, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', 'Apple iPhone 14 Pro 256GB 暗紫色 移动联通电信5G手机', 899900, 2, 11, 28, '苹果', 150, 1200, '5G, 256GB, 暗紫色, A16芯片', 'iPhone 14 Pro采用A16仿生芯片，灵动岛设计，4800万像素主摄，支持ProMotion自适应刷新率，全天候显示，是苹果旗舰手机的代表。', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
 INSERT INTO `goods_info` VALUES (4, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', '华为FreeBuds Pro 2 主动降噪 无线蓝牙耳机', 129900, 2, 12, 0, '华为', 300, 2000, '主动降噪, 无线蓝牙, 高清音质', '华为FreeBuds Pro 2采用主动降噪技术，高清音质，无线蓝牙连接，续航持久，佩戴舒适，适合日常使用和通勤。', '2023-01-01 00:00:00', '2023-01-01 00:00:00', NULL);
@@ -375,7 +368,7 @@ CREATE TABLE `goods_options_info`  (
   `updated_at` datetime NULL DEFAULT NULL,
   `deleted_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品规格表\n' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品规格表\n' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of goods_options_info
@@ -429,7 +422,6 @@ CREATE TABLE `order_goods_info`  (
 -- ----------------------------
 -- Records of order_goods_info
 -- ----------------------------
--- 清空订单商品测试数据
 
 -- ----------------------------
 -- Table structure for order_info
@@ -457,7 +449,6 @@ CREATE TABLE `order_info`  (
 -- ----------------------------
 -- Records of order_info
 -- ----------------------------
--- 清空订单测试数据
 
 -- ----------------------------
 -- Table structure for permission_info
@@ -472,14 +463,18 @@ CREATE TABLE `permission_info`  (
   `deleted_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `unique_name`(`name` ASC) USING BTREE COMMENT '名称唯一索引'
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of permission_info
 -- ----------------------------
-INSERT INTO `permission_info` VALUES (1, '文章管理', 'admin/article', '2022-09-25 15:03:01', '2022-09-25 15:03:43', NULL);
-INSERT INTO `permission_info` VALUES (2, '商品管理', 'admin/goods', '2022-12-26 19:51:44', '2022-12-26 19:52:29', NULL);
-INSERT INTO `permission_info` VALUES (3, '分类管理', 'admin/category', '2022-12-26 19:52:01', '2022-12-26 19:52:01', NULL);
+INSERT INTO `permission_info` VALUES (1, '轮播图管理', '/backend/rotation', '2022-09-25 15:03:01', '2025-12-04 08:10:34', NULL);
+INSERT INTO `permission_info` VALUES (2, '文章管理', '/backend/article', '2022-12-26 19:51:44', '2022-12-26 19:52:29', NULL);
+INSERT INTO `permission_info` VALUES (3, '评论管理', '/backend/comment', '2022-12-26 19:52:01', '2022-12-26 19:52:01', NULL);
+INSERT INTO `permission_info` VALUES (4, '商品管理', '/backend/goods', '2025-12-04 15:23:03', '2025-12-04 15:23:04', NULL);
+INSERT INTO `permission_info` VALUES (5, '分类管理', '/backend/category', '2025-12-04 15:27:24', '2025-12-04 15:38:31', NULL);
+INSERT INTO `permission_info` VALUES (6, '订单管理', '/backend/order', '2025-12-04 15:27:26', '2025-12-04 15:38:34', NULL);
+INSERT INTO `permission_info` VALUES (7, '收货地址管理', '/backend/consignee', '2025-12-04 15:27:29', '2025-12-04 15:38:36', NULL);
 
 -- ----------------------------
 -- Table structure for position_info
@@ -501,7 +496,6 @@ CREATE TABLE `position_info`  (
 -- ----------------------------
 -- Records of position_info
 -- ----------------------------
--- 清空位置信息测试数据
 
 -- ----------------------------
 -- Table structure for praise_info
@@ -521,7 +515,6 @@ CREATE TABLE `praise_info`  (
 -- ----------------------------
 -- Records of praise_info
 -- ----------------------------
--- 清空点赞测试数据
 
 -- ----------------------------
 -- Table structure for refund_info
@@ -544,7 +537,6 @@ CREATE TABLE `refund_info`  (
 -- ----------------------------
 -- Records of refund_info
 -- ----------------------------
--- 清空售后退款测试数据
 
 -- ----------------------------
 -- Table structure for role_info
@@ -559,12 +551,12 @@ CREATE TABLE `role_info`  (
   `deleted_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `unique_index`(`name` ASC) USING BTREE COMMENT '角色昵称唯一索引'
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of role_info
 -- ----------------------------
-INSERT INTO `role_info` VALUES (1, '超级管理员', '拥有系统所有权限', '2022-09-25 10:35:52', '2022-12-24 10:51:24', NULL);
+INSERT INTO `role_info` VALUES (1, '比超级低一级管理员', '拥有系统所有权限', '2025-12-02 08:21:58', '2025-12-04 08:08:58', NULL);
 INSERT INTO `role_info` VALUES (2, '普通管理员', '拥有基础管理权限', '2022-12-21 10:43:33', '2022-12-21 10:43:33', NULL);
 
 -- ----------------------------
@@ -579,18 +571,20 @@ CREATE TABLE `role_permission_info`  (
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `unique_index`(`role_id` ASC, `permission_id` ASC) USING BTREE COMMENT '唯一索引'
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of role_permission_info
 -- ----------------------------
--- 超级管理员拥有所有权限
-INSERT INTO `role_permission_info` VALUES (1, 1, 1, NULL, NULL);
-INSERT INTO `role_permission_info` VALUES (2, 1, 2, NULL, NULL);
-INSERT INTO `role_permission_info` VALUES (3, 1, 3, NULL, NULL);
--- 普通管理员拥有商品和分类管理权限
-INSERT INTO `role_permission_info` VALUES (4, 2, 2, NULL, NULL);
-INSERT INTO `role_permission_info` VALUES (5, 2, 3, NULL, NULL);
+INSERT INTO `role_permission_info` VALUES (4, 2, 2, '2025-12-03 15:54:08', '2025-12-04 16:55:24');
+INSERT INTO `role_permission_info` VALUES (5, 2, 3, '2025-12-03 15:54:10', '2025-12-04 16:55:27');
+INSERT INTO `role_permission_info` VALUES (6, 1, 1, '2025-12-04 08:10:16', '2025-12-04 08:10:16');
+INSERT INTO `role_permission_info` VALUES (7, 1, 2, '2025-12-04 08:10:16', '2025-12-04 08:10:16');
+INSERT INTO `role_permission_info` VALUES (8, 1, 3, '2025-12-04 08:10:16', '2025-12-04 08:10:16');
+INSERT INTO `role_permission_info` VALUES (9, 1, 4, '2025-12-04 08:10:16', '2025-12-04 08:10:16');
+INSERT INTO `role_permission_info` VALUES (10, 1, 5, '2025-12-04 08:10:16', '2025-12-04 08:10:16');
+INSERT INTO `role_permission_info` VALUES (11, 1, 6, '2025-12-04 08:10:16', '2025-12-04 08:10:16');
+INSERT INTO `role_permission_info` VALUES (12, 1, 7, '2025-12-04 08:10:16', '2025-12-04 08:10:16');
 
 -- ----------------------------
 -- Table structure for rotation_info
@@ -605,13 +599,13 @@ CREATE TABLE `rotation_info`  (
   `updated_at` datetime NULL DEFAULT NULL,
   `deleted_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '轮播图表\n' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '轮播图表\n' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of rotation_info
 -- ----------------------------
-INSERT INTO `rotation_info` VALUES (1, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', '1', 10, '2022-07-19 04:53:01', '2025-05-30 15:40:53', NULL);
-INSERT INTO `rotation_info` VALUES (8, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', '2', 1, '2025-05-30 15:40:42', '2025-05-30 15:40:42', NULL);
+INSERT INTO `rotation_info` VALUES (9, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', '1', 1, '2025-12-02 08:34:08', '2025-12-03 07:09:15', NULL);
+INSERT INTO `rotation_info` VALUES (14, 'https://daxinggonghui.oss-cn-beijing.aliyuncs.com/images/zhanwei.jpg', '2', 0, '2025-12-04 05:59:04', '2025-12-04 05:59:23', NULL);
 
 -- ----------------------------
 -- Table structure for seckill_goods
@@ -633,17 +627,13 @@ CREATE TABLE `seckill_goods`  (
   INDEX `idx_goods_id_options_id`(`goods_id` ASC, `goods_options_id` ASC) USING BTREE,
   INDEX `idx_status`(`status` ASC) USING BTREE,
   INDEX `idx_start_end_time`(`start_time` ASC, `end_time` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '秒杀商品表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '秒杀商品表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of seckill_goods
 -- ----------------------------
--- 添加合理的秒杀商品数据
--- 索尼电视秒杀
 INSERT INTO `seckill_goods` VALUES (1, 1, 2, 699900, 599900, 10, '2025-12-01 00:00:00', '2025-12-31 23:59:59', 1, '2025-11-30 10:00:00', '2025-11-30 10:00:00');
--- iPhone 14 Pro秒杀
 INSERT INTO `seckill_goods` VALUES (2, 3, 8, 899900, 799900, 5, '2025-12-01 00:00:00', '2025-12-31 23:59:59', 1, '2025-11-30 10:00:00', '2025-11-30 10:00:00');
--- 华为耳机秒杀
 INSERT INTO `seckill_goods` VALUES (3, 4, 11, 129900, 99900, 20, '2025-12-01 00:00:00', '2025-12-31 23:59:59', 1, '2025-11-30 10:00:00', '2025-11-30 10:00:00');
 
 -- ----------------------------
@@ -708,7 +698,6 @@ CREATE TABLE `user_coupon_info`  (
 -- ----------------------------
 -- Records of user_coupon_info
 -- ----------------------------
--- 为wangzhongyang用户添加可用优惠券
 INSERT INTO `user_coupon_info` VALUES (1, 1, 1, 1, '2022-07-29 16:01:13', '2022-07-29 16:01:13', NULL);
 INSERT INTO `user_coupon_info` VALUES (2, 1, 2, 1, '2022-07-29 16:01:13', '2022-07-29 16:01:13', NULL);
 
@@ -730,11 +719,11 @@ CREATE TABLE `user_info`  (
   `updated_at` datetime NULL DEFAULT NULL,
   `deleted_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user_info
 -- ----------------------------
-INSERT INTO `user_info` VALUES (1, 'wangzhongyang', 'http://dummyimage.com/100x100', '82131d93ab13a1a4f9ec840a9ddbabf7', 'T0iKtv31BU', 1, 1, '和我一起学编程吧', '六个1', '2024-12-26 11:25:43', '2024-12-26 11:25:43', NULL);
+INSERT INTO `user_info` VALUES (1, 'wangzhongyang', 'http://dummyimage.com/100x100', '82131d93ab13a1a4f9ec840a9ddbabf7', 'T0iKtv31BU', 1, 1, '和我一起学编程吧', '六个1', '2024-12-26 11:25:43', '2025-12-04 07:56:57', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
