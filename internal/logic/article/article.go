@@ -51,10 +51,14 @@ func (s *sArticle) Update(ctx context.Context, in model.ArticleUpdateInput) erro
 	if err != nil {
 		return err
 	}
-	//前端用户判断修改
-	if in.IsAdmin == consts.ArticleIsUser && in.IsAdmin != detail.IsAdmin || detail.UserId != in.UserId {
-		return gerror.New(consts.ResourcePermissionFail)
+	// 后台管理员(IsAdmin=1)可以编辑所有文章，前台用户只能编辑自己的文章
+	if in.IsAdmin == consts.ArticleIsUser {
+		// 前台用户：只能编辑自己发布的文章
+		if detail.IsAdmin != consts.ArticleIsUser || detail.UserId != in.UserId {
+			return gerror.New(consts.ResourcePermissionFail)
+		}
 	}
+	// 后台管理员(IsAdmin=1或0)不做权限限制，可以编辑所有文章
 	_, err = dao.ArticleInfo.Ctx(ctx).
 		OmitEmpty(). //过滤空值
 		Data(in).

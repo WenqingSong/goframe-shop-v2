@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"errors"
 	"time"
 
 	"goframe-shop-v2/internal/dao"
@@ -157,5 +158,13 @@ func UserAuthenticator(ctx context.Context) (interface{}, error) {
 		return nil, jwt.ErrFailedAuthentication
 	}
 
+	// 检查用户状态：status=0 表示已冻结
+	if user.Status == 0 {
+		return nil, ErrUserFrozen
+	}
+
 	return &user, nil
 }
+
+// ErrUserFrozen 用户已被冻结错误
+var ErrUserFrozen = errors.New("账号已被冻结，无法登录")

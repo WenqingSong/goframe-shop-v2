@@ -1,12 +1,13 @@
-package position
+package category
 
 import (
 	"context"
-	"github.com/gogf/gf/v2/frame/g"
 	"goframe-shop-v2/internal/dao"
 	"goframe-shop-v2/internal/model"
 	"goframe-shop-v2/internal/model/entity"
 	"goframe-shop-v2/internal/service"
+
+	"github.com/gogf/gf/v2/frame/g"
 )
 
 type sCategory struct{}
@@ -53,6 +54,12 @@ func (s *sCategory) Update(ctx context.Context, in model.CategoryUpdateInput) er
 func (s *sCategory) GetList(ctx context.Context, in model.CategoryGetListInput) (out *model.CategoryGetListOutput, err error) {
 	//1.获得*gdb.Model对象，方面后续调用
 	m := dao.CategoryInfo.Ctx(ctx)
+
+	// 如果指定了ParentId，则添加过滤条件
+	if in.ParentId > 0 {
+		m = m.Where(dao.CategoryInfo.Columns().ParentId, in.ParentId)
+	}
+
 	//2. 实例化响应结构体
 	out = &model.CategoryGetListOutput{
 		Page: in.Page,
@@ -102,4 +109,21 @@ func (s *sCategory) GetListAll(ctx context.Context, in model.CategoryGetListInpu
 		return out, err
 	}
 	return
+}
+
+// GetHierarchicalList 获取分类层级列表
+func (s *sCategory) GetHierarchicalList(ctx context.Context) (out interface{}, err error) {
+	// 先获取所有分类
+	var (
+		m = dao.CategoryInfo.Ctx(ctx)
+	)
+	listModel := m.OrderDesc(dao.CategoryInfo.Columns().Sort)
+	var list []*entity.CategoryInfo
+	if err := listModel.Scan(&list); err != nil {
+		return nil, err
+	}
+	// 构建层级结构
+	// 这里可以根据业务需求实现分类的层级关系构建
+	// 例如：将分类列表转换为树形结构
+	return list, nil
 }

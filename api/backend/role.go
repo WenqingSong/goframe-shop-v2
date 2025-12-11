@@ -50,6 +50,15 @@ type AddPermissionRes struct {
 	Id uint `json:"id"`
 }
 
+// 批量添加权限
+type AddPermissionsReq struct {
+	g.Meta        `path:"/role/add/permissions" method:"post" tags:"角色" summary:"角色批量添加权限接口"`
+	RoleId        uint   `json:"role_id" v:"required#角色ID必填" desc:"角色id"`
+	PermissionIds []uint `json:"permission_ids" desc:"权限id列表"`
+}
+
+type AddPermissionsRes struct{}
+
 type DeletePermissionReq struct {
 	g.Meta       `path:"/role/delete/permission" method:"delete" tags:"角色" summary:"角色删除权限接口"`
 	RoleId       uint `json:"role_id" desc:"角色id"`
@@ -58,3 +67,12 @@ type DeletePermissionReq struct {
 
 type DeletePermissionRes struct {
 }
+
+// 批量删除权限
+type DeletePermissionsReq struct {
+	g.Meta        `path:"/role/delete/permissions" method:"delete" tags:"角色" summary:"角色批量删除权限接口"`
+	RoleId        uint   `json:"role_id" v:"required#角色ID必填" desc:"角色id"`
+	PermissionIds []uint `json:"permission_ids" desc:"权限id列表"`
+}
+
+type DeletePermissionsRes struct{}

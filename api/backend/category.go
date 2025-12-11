@@ -20,22 +20,23 @@ type CategoryRes struct {
 }
 
 type CategoryDeleteReq struct {
-	g.Meta `path:"/category/delete" method:"delete" tags:"商品分类" summary:"删除商品分类接口"`
-	Id     uint `v:"min:1#请选择需要删除的商品分类" dc:"商品分类id"`
+	g.Meta     `path:"/category/delete" method:"delete" tags:"商品分类" summary:"删除商品分类接口"`
+	CategoryId uint `json:"category_id" v:"min:1#请选择需要删除的商品分类" dc:"商品分类id"`
 }
 type CategoryDeleteRes struct{}
 
 type CategoryUpdateReq struct {
-	g.Meta `path:"/category/update/{Id}" method:"post" tags:"商品分类" summary:"修改商品分类接口"`
-	Id     uint `json:"id"      v:"min:1#请选择需要修改的商品分类" dc:"商品分类Id"`
+	g.Meta     `path:"/category/update" method:"post" tags:"商品分类" summary:"修改商品分类接口"`
+	CategoryId uint `json:"category_id" v:"min:1#请选择需要修改的商品分类" dc:"商品分类Id"`
 	CommonAddUpdate
 }
 type CategoryUpdateRes struct {
 	Id uint `json:"id"`
 }
 type CategoryGetListCommonReq struct {
-	g.Meta `path:"/category/list" method:"get" tags:"商品分类" summary:"商品分类列表接口"`
-	Sort   int `json:"sort"   in:"query" dc:"排序类型"`
+	g.Meta   `path:"/category/list" method:"get" tags:"商品分类" summary:"商品分类列表接口"`
+	Sort     int  `json:"sort"     in:"query" dc:"排序类型"`
+	ParentId uint `json:"parent_id" in:"query" dc:"父级ID"`
 	CommonPaginationReq
 }
 type CategoryGetListCommonRes struct {

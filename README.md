@@ -2,11 +2,21 @@
 
 基于 GoFrame v2.9.5 构建的前后端分离电商系统，聚焦 GoFrame 最佳实践与中后台业务落地。
 
-# 目录说明
+# 项目介绍
 
-1. 项目遵循 GoFrame 官方推荐的分层结构（`internal` 业务分层/服务注册在 `internal/cmd`）。
-2. Web 前台目录：`frontend_web`
-3. 管理后台前端目录：`frontend_manage`
+本电商系统采用前后端分离架构，基于GoFrame框架开发，提供了完整的电商功能和管理后台。
+
+## 目录说明
+
+1. **后端代码**：项目主目录采用GoFrame建议的目录结构设计，便于维护和扩展
+2. **前端代码**：
+   - `frontend_web`：电商网站前端目录
+   - `frontend_manage`：系统管理后台前端目录
+3. **配置文件**：
+   - `hack/config.yaml`：开发环境配置
+   - `manifest/config/config.yaml`：生产环境配置
+4. **数据库脚本**：`hack/shop.sql`
+5. **API文档**：基于Swagger自动生成
 
 # 特性
 
@@ -63,6 +73,7 @@ gf run main.go
 - Web 前台：`frontend_web`（Vue）
   - 安装依赖与启动：见 `frontend_web/README.md`
 - 管理后台：`frontend_manage`（Vue + ElementUI）
+http://127.0.0.1:8199/swagger/
 
 测试账号（前台）：账号 `wangzhongyang`，密码 `111111`（参考 `frontend_web/README.md`）
 
@@ -142,7 +153,7 @@ CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build
 ## for windows
 
 ```
-CGO_ENABLE=0 GOOS=windows GOARCH=amd64 go build
+CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build
 ```
 
 # 部署流程

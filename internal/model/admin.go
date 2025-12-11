@@ -63,16 +63,25 @@ type AdminGetListOutput struct {
 //}
 
 type AdminGetListOutputItem struct {
-	Id        uint        `json:"id"` // 自增ID
-	Name      string      `json:"name"`
-	RoleIds   string      `json:"role_ids"`
-	IsAdmin   uint        `json:"is_admin"`
-	CreatedAt *gtime.Time `json:"created_at"` // 创建时间
-	UpdatedAt *gtime.Time `json:"updated_at"` // 修改时间
+	Id          uint        `json:"id"` // 自增ID
+	Name        string      `json:"name"`
+	RoleIds     string      `json:"role_ids"`
+	RoleIdArray []int       `json:"role_id_array"` // 角色ID数组
+	IsAdmin     int         `json:"is_admin"`
+	CreatedAt   *gtime.Time `json:"created_at"` // 创建时间
+	UpdatedAt   *gtime.Time `json:"updated_at"` // 修改时间
 }
 
 type AdminSearchOutputItem struct {
 	AdminGetListOutputItem
+}
+
+// AdminInfo 管理员信息（用于权限校验）
+type AdminInfo struct {
+	Id      int    `json:"id"`
+	Name    string `json:"name"`
+	RoleIds string `json:"role_ids"`
+	IsAdmin int    `json:"is_admin"`
 }
 
 //// AdminListItem 主要用于列表展示

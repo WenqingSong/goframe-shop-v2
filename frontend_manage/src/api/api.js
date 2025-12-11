@@ -149,14 +149,14 @@ export function couponUpdate(data) {
 //评价列表
 export function evaluateList(data) {
   return request({
-    url: "/frontend/comment/list".concat('?', query(data)),
+    url: "/backend/comment/list".concat('?', query(data)),
     method: "get",
   });
 }
 //删除评价
 export function evaluateDelete(data) {
   return request({
-    url: "/frontend/delete/comment",
+    url: "/backend/comment/delete",
     method: "delete",
     data,
   });
@@ -170,26 +170,34 @@ export function orderList(data) {
   });
 }
 
-//管理员列表
+//用户列表（user_info表）
 export function memberList(data) {
   return request({
-    url: "/backend/admin/list".concat('?', query(data)),
+    url: "/backend/user/list".concat('?', query(data)),
     method: "get",
   });
 }
-//冻结会员
+//冻结/解冻用户
 export function memberUpdate(data) {
   return request({
-    url: "/backend/user/update",
+    url: "/backend/user/status",
     method: "post",
     data,
   });
 }
-//删除会员
+//删除用户
 export function memberDelete(data) {
   return request({
     url: "/backend/user/delete",
     method: "delete",
+    data,
+  });
+}
+//提升用户为管理员
+export function promoteToAdmin(data) {
+  return request({
+    url: "/backend/user/promote",
+    method: "post",
     data,
   });
 }
@@ -242,6 +250,14 @@ export function addressList(data) {
     method: "get",
   });
 }
+//删除地址
+export function addressDelete(data) {
+  return request({
+    url: "/backend/consignee/delete",
+    method: "delete",
+    data,
+  });
+}
 //修改密码
 export function updataPassword(data) {
   return request({
@@ -284,19 +300,19 @@ export function editRole(data) {
 }
 
 /**
- * 添加角色权限
+ * 批量添加角色权限
  * @param {{role_id:number,permission_ids:number[]}} data
  */
 export function editRolePermission(data) {
-  return request({ url: "/backend/role/add/permission", method: "post", data });
+  return request({ url: "/backend/role/add/permissions", method: "post", data });
 }
 
 /**
- * 删除角色权限
+ * 批量删除角色权限
  * @param {{role_id:number,permission_ids:number[]}} data
  */
 export function deleteRolePermission(data) {
-  return request({ url: "/backend/role/delete/permission", method: "delete", data });
+  return request({ url: "/backend/role/delete/permissions", method: "delete", data });
 }
 
 /**
@@ -353,7 +369,7 @@ export function addAdmin(data) {
 
 /**
  * 编辑管理员
- * @param {{name?:string,password?:string,role_ids?:number,id:number,is_admin?:number}} data
+ * @param {{name?:string,password?:string,role_ids?:string,admin_id:number,is_admin?:number}} data
  */
 export function editAdmin(data) {
   return request({ url: "/backend/admin/update", method: "post", data });
@@ -361,12 +377,12 @@ export function editAdmin(data) {
 
 /**
  * 删除管理员
- * @param {number} id
+ * @param {number} adminId
  */
-export function deleteAdmin(id) {
+export function deleteAdmin(adminId) {
   return request({
     url: "/backend/admin/delete",
     method: "delete",
-    data: { id },
+    data: { admin_id: adminId },
   });
 }

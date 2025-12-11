@@ -19,8 +19,8 @@ func init() {
 	auth := jwt.New(&jwt.GfJWTMiddleware{
 		Realm:           "shop",
 		Key:             []byte("secret key"),
-		Timeout:         time.Minute * 60,
-		MaxRefresh:      time.Minute * 60,
+		Timeout:         time.Hour * 24,     // Token 有效期改为 24 小时
+		MaxRefresh:      time.Hour * 24 * 7, // 刷新期限改为 7 天
 		IdentityKey:     "id",
 		TokenLookup:     "header: Authorization, query: token, cookie: jwt",
 		TokenHeadName:   "Bearer",
@@ -81,7 +81,7 @@ func Authenticator(ctx context.Context) (interface{}, error) {
 		return "", err
 	}
 
-	if user := Admin().GetAdminByNamePassword(ctx, in); user != nil {
+	if user := Admin().GetAdminByNamePasswordWithRoles(ctx, in); user != nil {
 		return user, nil
 	}
 

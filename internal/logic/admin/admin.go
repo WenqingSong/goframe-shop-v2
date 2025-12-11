@@ -7,6 +7,8 @@ import (
 	"goframe-shop-v2/internal/model/entity"
 	"goframe-shop-v2/internal/service"
 	"goframe-shop-v2/utility"
+	"strconv"
+	"strings"
 
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/encoding/ghtml"
@@ -109,14 +111,42 @@ func (s *sAdmin) GetList(ctx context.Context, in model.AdminGetListInput) (out *
 	out.Total, err = m.Count()
 	if err != nil || out.Total == 0 {
 		//解决空数据返回[] 而不是返回nil null的问题
-		out.List = make([]model.AdminGetListOutputItem, 0, 0)
+		out.List = make([]model.AdminGetListOutputItem, 0)
 		return out, err
 	}
-	//5. 延迟初始化list切片 确定有数据，再按期望大小初始化切片容量
-	out.List = make([]model.AdminGetListOutputItem, 0, out.Total)
-	//6. 把查询到的结果赋值到响应结构体中
-	if err := listModel.Scan(&out.List); err != nil {
+
+	// 查询管理员列表
+	var list []entity.AdminInfo
+	if err := listModel.Scan(&list); err != nil {
 		return out, err
+	}
+
+	// 构建输出列表，解析 role_ids 为数组
+	out.List = make([]model.AdminGetListOutputItem, 0, len(list))
+	for _, admin := range list {
+		// 解析 role_ids 字符串为数组
+		var roleIdArray []int
+		if admin.RoleIds != "" {
+			roleIdStrs := strings.Split(admin.RoleIds, ",")
+			for _, idStr := range roleIdStrs {
+				idStr = strings.TrimSpace(idStr)
+				if idStr != "" {
+					if id, err := strconv.Atoi(idStr); err == nil {
+						roleIdArray = append(roleIdArray, id)
+					}
+				}
+			}
+		}
+
+		out.List = append(out.List, model.AdminGetListOutputItem{
+			Id:          uint(admin.Id),
+			Name:        admin.Name,
+			RoleIds:     admin.RoleIds,
+			RoleIdArray: roleIdArray,
+			IsAdmin:     admin.IsAdmin,
+			CreatedAt:   admin.CreatedAt,
+			UpdatedAt:   admin.UpdatedAt,
+		})
 	}
 	return
 }
@@ -136,4 +166,40 @@ func (s *sAdmin) GetAdminByNamePassword(ctx context.Context, in model.UserLoginI
 			"username": adminInfo.Name,
 		}
 	}
+}
+
+// GetAdminByNamePasswordWithRoles 登录验证并返回包含角色信息的数据（用于JWT存储）
+func (s *sAdmin) GetAdminByNamePasswordWithRoles(ctx context.Context, in model.UserLoginInput) map[string]interface{} {
+	adminInfo := entity.AdminInfo{}
+	err := dao.AdminInfo.Ctx(ctx).Where("name", in.Name).Scan(&adminInfo)
+	if err != nil {
+		return nil
+	}
+	if utility.EncryptPassword(in.Password, adminInfo.UserSalt) != adminInfo.Password {
+		return nil
+	}
+	return g.Map{
+		"id":       adminInfo.Id,
+		"username": adminInfo.Name,
+		"is_admin": adminInfo.IsAdmin,
+		"role_ids": adminInfo.RoleIds,
+	}
+}
+
+// GetById 根据ID获取管理员信息
+func (s *sAdmin) GetById(ctx context.Context, id int) (*model.AdminInfo, error) {
+	var adminInfo entity.AdminInfo
+	err := dao.AdminInfo.Ctx(ctx).Where(dao.AdminInfo.Columns().Id, id).Scan(&adminInfo)
+	if err != nil {
+		return nil, err
+	}
+	if adminInfo.Id == 0 {
+		return nil, nil
+	}
+	return &model.AdminInfo{
+		Id:      adminInfo.Id,
+		Name:    adminInfo.Name,
+		RoleIds: adminInfo.RoleIds,
+		IsAdmin: adminInfo.IsAdmin,
+	}, nil
 }

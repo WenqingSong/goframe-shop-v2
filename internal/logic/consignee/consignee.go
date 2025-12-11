@@ -2,12 +2,13 @@ package consignee
 
 import (
 	"context"
-	"github.com/gogf/gf/v2/util/gconv"
 	"goframe-shop-v2/internal/consts"
 	"goframe-shop-v2/internal/dao"
 	"goframe-shop-v2/internal/model"
 	"goframe-shop-v2/internal/model/entity"
 	"goframe-shop-v2/internal/service"
+
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 type sConsignee struct{}
@@ -24,7 +25,7 @@ func New() *sConsignee {
 func (s *sConsignee) GetList(ctx context.Context, in model.ConsigneeGetListInput) (out *model.ConsigneeGetListOutput, err error) {
 	// 获取当前用户ID
 	userId := gconv.Uint(ctx.Value(consts.CtxUserId))
-	
+
 	var (
 		m = dao.ConsigneeInfo.Ctx(ctx).Where(dao.ConsigneeInfo.Columns().UserId, userId)
 	)
@@ -116,4 +117,66 @@ func (s *sConsignee) Delete(ctx context.Context, in model.DeleteConsigneeInput) 
 	}
 
 	return &model.DeleteConsigneeOutput{Id: in.Id}, nil
+}
+
+// AdminGetList 后台管理列表（包含用户信息）
+func (s *sConsignee) AdminGetList(ctx context.Context, page, size int) (out *model.ConsigneeAdminListOutput, err error) {
+	out = &model.ConsigneeAdminListOutput{
+		Page: page,
+		Size: size,
+	}
+
+	m := dao.ConsigneeInfo.Ctx(ctx)
+
+	// 查询总数
+	out.Total, err = m.Count()
+	if err != nil || out.Total == 0 {
+		return out, err
+	}
+
+	// 联表查询用户信息
+	type ConsigneeWithUser struct {
+		entity.ConsigneeInfo
+		UserName string `json:"user_name"`
+	}
+
+	var list []ConsigneeWithUser
+	err = m.LeftJoin("user_info", "consignee_info.user_id = user_info.id").
+		Fields("consignee_info.*, user_info.name as user_name").
+		Page(page, size).
+		OrderDesc(dao.ConsigneeInfo.Columns().Id).
+		Scan(&list)
+	if err != nil {
+		return out, err
+	}
+
+	// 转换为输出格式
+	out.List = make([]model.ConsigneeAdminListItem, 0, len(list))
+	for _, item := range list {
+		// 拼接完整地址
+		address := item.Province + item.City + item.Town
+		if item.Street != "" && item.Street != "null" {
+			address += item.Street
+		}
+		address += item.Detail
+
+		out.List = append(out.List, model.ConsigneeAdminListItem{
+			Id:        uint(item.Id),
+			UserName:  item.UserName,
+			IsDefault: item.IsDefault,
+			Name:      item.Name,
+			Phone:     item.Phone,
+			Address:   address,
+		})
+	}
+
+	return out, nil
+}
+
+// AdminDelete 后台管理删除（不检查用户ID）
+func (s *sConsignee) AdminDelete(ctx context.Context, id uint) error {
+	_, err := dao.ConsigneeInfo.Ctx(ctx).
+		Where(dao.ConsigneeInfo.Columns().Id, id).
+		Delete()
+	return err
 }

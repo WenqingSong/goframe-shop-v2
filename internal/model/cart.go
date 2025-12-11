@@ -23,6 +23,15 @@ type DeleteCartOutput struct {
 	Id uint `json:"id"`
 }
 
+type UpdateCartInput struct {
+	Id    uint
+	Count int
+}
+
+type UpdateCartOutput struct {
+	Id uint `json:"id"`
+}
+
 type ListCartInput struct {
 	Page int
 	Size int

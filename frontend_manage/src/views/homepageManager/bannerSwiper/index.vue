@@ -44,7 +44,7 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page="currentPage4"
+        :current-page.sync="currentPage4"
         :page-sizes="[10, 20, 50, 100]"
         :page-size="limit"
         layout="total, sizes, prev, pager, next, jumper"
@@ -97,7 +97,7 @@ export default {
       currentPage4: 1,//当前页
       limit: 10,//每页条数
       page: 1,//页数
-      total: null,//总条数
+      total: 0,//总条数
       dialogVisible: false,
       title: ''
     };
@@ -114,7 +114,7 @@ export default {
       loopList(params).then( res => {
         console.log(res)
         if(res.code === 0){
-          this.total = res.data.count
+          this.total = res.data.total || res.data.count || 0
           this.productList = res.data.list
         }
       })
@@ -126,7 +126,7 @@ export default {
           type: 'warning'
         }).then(() => {
           let params = {
-            id: row.id
+            rotation_id: row.id
           }
           loopDelete(params).then(res => {
             console.log(res)
@@ -184,7 +184,7 @@ export default {
       let params = {
         pic_url: this.form.pic_url,
         link: this.form.link,
-        id: this.form.id,
+        rotation_id: this.form.id,
         sort: this.form.sort
       }
       loopEdit(params).then(res => {
@@ -209,8 +209,7 @@ export default {
     },
     handleCurrentChange(val) {
       this.currentPage4 = val;
-      this.getList(); // 获取新数据
-      console.log(`当前页: ${val}`);
+      this.getList();
     },
     // 重置搜索栏
     doReset() {

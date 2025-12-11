@@ -15,6 +15,7 @@ type (
 		Add(ctx context.Context, in model.AddCartInput) (out model.AddCartOutput, err error)
 		Delete(ctx context.Context, in model.DeleteCartInput) (out model.DeleteCartOutput, err error)
 		List(ctx context.Context, in model.ListCartInput) (out *model.ListCartOutput, err error)
+		Update(ctx context.Context, in model.UpdateCartInput) (out model.UpdateCartOutput, err error)
 	}
 )
 

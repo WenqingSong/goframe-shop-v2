@@ -50,11 +50,14 @@ service.interceptors.response.use(
     // if the custom code is not 20000, it is judged as an error.
     //设置接口请求状态 根据规则自定义 这里是code=0 代表请求成功，请求失败则弹出错误信息
     if (res.code !== 0) {
-      Message({
-        message: res.msg || 'Error',
-        type: 'error',
-        duration: 5 * 1000
-      })
+      // 如果没有 token（已退出登录），不显示错误提示
+      if (store.getters.token) {
+        Message({
+          message: res.msg || 'Error',
+          type: 'error',
+          duration: 5 * 1000
+        })
+      }
 
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
       if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
@@ -80,6 +83,10 @@ service.interceptors.response.use(
     }
   },
   error => {
+    // 如果没有 token（已退出登录），不显示错误提示
+    if (!store.getters.token) {
+      return Promise.reject(error)
+    }
     console.log('err' + error) // for debug
     Message({
       message: error.message,

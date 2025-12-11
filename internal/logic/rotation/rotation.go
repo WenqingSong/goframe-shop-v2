@@ -23,7 +23,7 @@ func New() *sRotation {
 
 func (s *sRotation) Create(ctx context.Context, in model.RotationCreateInput) (out model.RotationCreateOutput, err error) {
 	// 不允许HTML代码
-	if err = ghtml.SpecialCharsMapOrStruct(in); err != nil {
+	if err = ghtml.SpecialCharsMapOrStruct(&in); err != nil {
 		return out, err
 	}
 	lastInsertID, err := dao.RotationInfo.Ctx(ctx).Data(in).InsertAndGetId()
@@ -48,7 +48,7 @@ func (s *sRotation) Delete(ctx context.Context, id uint) error {
 func (s *sRotation) Update(ctx context.Context, in model.RotationUpdateInput) error {
 	return dao.RotationInfo.Transaction(ctx, func(ctx context.Context, tx gdb.TX) error {
 		// 不允许HTML代码
-		if err := ghtml.SpecialCharsMapOrStruct(in); err != nil {
+		if err := ghtml.SpecialCharsMapOrStruct(&in); err != nil {
 			return err
 		}
 		_, err := dao.RotationInfo.

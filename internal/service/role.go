@@ -15,10 +15,13 @@ type (
 	IRole interface {
 		Create(ctx context.Context, in model.RoleCreateInput) (out model.RoleCreateOutput, err error)
 		AddPermission(ctx context.Context, in model.RoleAddPermissionInput) (out model.RoleAddPermissionOutput, err error)
+		AddPermissions(ctx context.Context, roleId uint, permissionIds []uint) error
 		Delete(ctx context.Context, id uint) error
 		DeletePermission(ctx context.Context, in model.RoleDeletePermissionInput) error
+		DeletePermissions(ctx context.Context, roleId uint, permissionIds []uint) error
 		Update(ctx context.Context, in model.RoleUpdateInput) error
 		GetList(ctx context.Context, in model.RoleGetListInput) (out *model.RoleGetListOutput, err error)
+		GetPermissionsByRoleId(ctx context.Context, roleId uint) ([]model.RolePermissionItem, error)
 	}
 )
 

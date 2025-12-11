@@ -1,9 +1,8 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import {
-    getProductList,
-    getCarouselChartData,
-    getClassification,
+	getProductList,
+	getCarouselChartData,
 } from '@/api/home.js';
 import Goods from '@/components/Goods.vue';
 
@@ -18,9 +17,8 @@ const carouselChartData = ref([]);
 const commodityData = ref([]);
 
 onMounted(async () => {
-    fetchCarouselChartData();
-    fetchProductList();
-    getClassification(1);
+	fetchCarouselChartData();
+	fetchProductList();
 });
 
 // 获取商品数据
@@ -57,6 +55,9 @@ const fetchCarouselChartData = async () => {
                 </router-link>
             </van-swipe-item>
         </van-swipe>
+        
+
+        
         <!-- 商品展示 -->
         <Goods :data-item="commodityData">
             <template #title>

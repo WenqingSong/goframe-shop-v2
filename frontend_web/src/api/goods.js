@@ -15,9 +15,14 @@ export const getGoodsDetail = id => {
 export const getCategory = parent_id => {
     return request({
         method: 'GET',
-        url: '/backend/category/list'.concat('?', query({ parent_id })),
-        // url: '/frontend/category/list',
-        // data: { parent_id: id },
+        url: '/frontend/category/list'.concat('?', query({ parent_id })),
+    });
+};
+
+export const getAllCategories = () => {
+    return request({
+        method: 'GET',
+        url: '/frontend/category/list/all',
     });
 };
 

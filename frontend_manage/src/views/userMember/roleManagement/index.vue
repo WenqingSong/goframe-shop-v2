@@ -75,6 +75,19 @@
         <el-table-column align="center" label="id" prop="id" width="100" />
         <el-table-column align="center" label="名称" prop="name" />
         <el-table-column align="center" label="描述" prop="desc" />
+        <el-table-column align="center" label="已有权限" width="300">
+          <template slot-scope="scope">
+            <el-tag
+              v-for="perm in scope.row.permissions"
+              :key="perm.id"
+              size="small"
+              style="margin: 2px"
+            >
+              {{ perm.name }}
+            </el-tag>
+            <span v-if="!scope.row.permissions || scope.row.permissions.length === 0" style="color: #999">暂无权限</span>
+          </template>
+        </el-table-column>
         <el-table-column
           align="center"
           label="创建时间"
@@ -121,7 +134,7 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page="currentPage"
+        :current-page.sync="currentPage"
         :page-sizes="[10, 20, 50, 100]"
         :page-size="limit"
         layout="total, sizes, prev, pager, next, jumper"
@@ -151,7 +164,7 @@ export default {
       currentPage: 1, //当前页
       limit: 10, //每页条数
       page: 1, //页数
-      total: null, //总条数
+      total: 0, //总条数
       dialogFormVisible: false, // 控制新增角色弹出框
       isEdit: false, // 是否是编辑
       editId: "", // 当前编辑角色id
@@ -180,6 +193,7 @@ export default {
         options: [],
         id: null,
         timer: null,
+        currentPermissionIds: [], // 当前角色已有的权限ID
       },
       resKeys: [],
     };
@@ -219,7 +233,7 @@ export default {
       if (res.code === 0) {
         if (res.data.list.length > 0) {
           this.roleList = res.data.list;
-          this.total = res.data.count;
+          this.total = res.data.total || res.data.count || 0;
         }
       }
     },
@@ -230,7 +244,6 @@ export default {
       this.getList();
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
       this.currentPage = val;
       this.getList();
     },
@@ -380,49 +393,27 @@ export default {
         page: 1,
         keyword: "",
       });
-      if (res.code === 0) {
-        this.assign.options = res.data.list
-          ?.map?.((item, i, arr) => {
-            if (item.path.split("/").length === 2) {
-              console.log(item.path);
-              return {
-                id: item.id,
-                label: item.name,
-                path: item.path,
-                children: arr
-                  .map((it) =>
-                    it.path.split("/").length > 2 && it.path.includes(item.path)
-                      ? {
-                          id: it.id,
-                          label: it.name,
-                          path: it.path,
-                        }
-                      : false
-                  )
-                  .filter((it) => it)
-                  .reverse(),
-              };
-            }
-          })
-          .filter((it) => it)
-          .reverse();
-        console.log("---------------");
-        console.table(this.assign.options);
+      if (res.code === 0 && res.data.list) {
+        // 直接将权限列表转换为树形结构（平铺显示）
+        this.assign.options = res.data.list.map((item) => ({
+          id: item.id,
+          label: item.name + ' (' + item.path + ')',
+          path: item.path,
+        }));
+        console.log("权限列表:", this.assign.options);
+        
+        // 保存所有权限ID，用于删除时使用
+        this.resKeys = res.data.list.map((item) => item.id);
+        
+        // 保存当前角色已有的权限ID
+        this.assign.currentPermissionIds = row.permissions?.map((p) => p.id) || [];
+        
+        // 设置已有权限为选中状态
+        this.$nextTick(() => {
+          console.log("已有权限IDs:", this.assign.currentPermissionIds);
+          this.$refs.tree.setCheckedKeys(this.assign.currentPermissionIds, false);
+        });
       }
-      console.log(res);
-      this.resKeys = res.data.list.map((item) => item.id);
-      console.log(row.permissions);
-      const keys = row.permissions
-        ?.map?.((item) =>
-          item.path.split("/").length === 2 &&
-          row.permissions.some(it=>it.path.includes(item.path.concat("/")))
-            ? false
-            : item.id
-        )
-        .filter((it) => it);
-      console.log(keys);
-      console.log()
-      this.$refs.tree.setCheckedKeys(keys || [], true);
     },
     /**
      * 关闭分配权限对话框
@@ -434,23 +425,40 @@ export default {
      * 分配权限对话框确认
      */
     async assignPermissionsConfirm() {
-      const select = this.$refs.tree
-        .getCheckedNodes(false, true)
+      // 获取当前选中的权限ID
+      const selectedIds = this.$refs.tree
+        .getCheckedNodes(false, false)
         .map((it) => it.id);
-      const deleteRes = await deleteRolePermission({
-        role_id: this.assign.id,
-        permission_ids: this.resKeys,
-      });
-      console.log(deleteRes);
-      const addRes = await editRolePermission({
-        role_id: this.assign.id,
-        permission_ids: select,
-      });
-      console.log({
-        role_id: this.assign.id,
-        permission_ids: select,
-      });
-      console.log(addRes);
+      
+      // 计算需要删除的权限（原来有但现在没选中的）
+      const toDelete = this.assign.currentPermissionIds.filter(
+        (id) => !selectedIds.includes(id)
+      );
+      
+      // 计算需要添加的权限（现在选中但原来没有的）
+      const toAdd = selectedIds.filter(
+        (id) => !this.assign.currentPermissionIds.includes(id)
+      );
+      
+      console.log("需要删除的权限:", toDelete);
+      console.log("需要添加的权限:", toAdd);
+      
+      // 删除取消勾选的权限
+      if (toDelete.length > 0) {
+        await deleteRolePermission({
+          role_id: this.assign.id,
+          permission_ids: toDelete,
+        });
+      }
+      
+      // 添加新勾选的权限
+      if (toAdd.length > 0) {
+        await editRolePermission({
+          role_id: this.assign.id,
+          permission_ids: toAdd,
+        });
+      }
+      
       this.dialogRolePermission = false;
       this.$message({
         message: "分配成功",
