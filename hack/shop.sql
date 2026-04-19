@@ -101,7 +101,6 @@ CREATE TABLE `article_info`  (
 -- ----------------------------
 -- Records of article_info
 -- ----------------------------
-<<<<<<< HEAD
 -- 华凌空调种草文章 - 真实用户体验
 INSERT INTO `article_info` VALUES (1, 101, '华凌N8HE1空调使用3个月真实感受：卧室制冷神器', '租房党福音！静音省电，制冷快，这个夏天终于能睡好觉了', 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fgfs17.gomein.net.cn%2FT108VWB4W_1RCvBVdK_800.jpg%3Fv%3D1&refer=http%3A%2F%2Fgfs17.gomein.net.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1660794257&t=795ee536d5af33788a249b08d0b28b6f', 2, 236, '坐标上海，卧室15平左右，6月份入手的华凌N8HE1。安装师傅很专业，半小时搞定。
 
